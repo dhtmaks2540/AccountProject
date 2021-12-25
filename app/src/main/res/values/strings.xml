@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">AccoutProject</string>
+
+    <!-- bottom_menu -->
+    <string name="month_menu">월간</string>
+    <string name="week_menu">주간</string>
+    <string name="day_menu">일간</string>
+    <string name="setting_menu">설정</string>
+</resources>
