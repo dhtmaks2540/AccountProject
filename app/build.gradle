@@ -59,4 +59,13 @@ dependencies {
     def arch_version = "2.1.0"
 
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+
+    /**
+     * joda time android
+     * https://github.com/dlew/joda-time-android
+     */
+    implementation 'joda-time:joda-time:2.10.12'
+
+    // Fragment KTX
+    implementation "androidx.fragment:fragment-ktx:1.4.0"
 }
