@@ -13,10 +13,12 @@ import kr.co.lee.accoutproject.databinding.MonthFragmentBinding
 import org.joda.time.DateTime
 
 class MonthFragment : Fragment() {
+    // DataBinding 코드
     private var _binding: MonthFragmentBinding? = null
     private val binding: MonthFragmentBinding
         get() = _binding!!
 
+    // FragmentStateAdapter
     private lateinit var calendarAdapter: CalendarAdapter
     private var millis: Long = 0L
 
@@ -33,6 +35,7 @@ class MonthFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // DataBinding 레이아웃 초기화
         _binding = DataBindingUtil.inflate(inflater, R.layout.month_fragment, container, false)
 
         binding.calendarView.initCalendar(DateTime(millis), getMonthList(DateTime(millis)))
@@ -49,7 +52,9 @@ class MonthFragment : Fragment() {
     companion object {
         private const val MILLIS = "MILLIS"
 
+        // MonthFragment 객체를 생성하며 Bundle 객체를 사용하여 Long 타입의 데이터 삽입
         fun newInstance(millis: Long) = MonthFragment().apply {
+            // arguments에 Bundle 객체 지정
             arguments = Bundle().apply {
                 putLong(MILLIS, millis)
             }

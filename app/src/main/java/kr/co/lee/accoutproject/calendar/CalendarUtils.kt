@@ -6,9 +6,10 @@ import androidx.annotation.IntRange
 import org.joda.time.DateTime
 import org.joda.time.DateTimeConstants
 
+// 유틸 클래스
 class CalendarUtils {
     companion object {
-
+        // 6주 셋팅
         const val WEEKS_PER_MONTH = 6
 
         /**

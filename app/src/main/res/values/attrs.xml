@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- 커스텀 뷰를 위한 속성 -->
     <declare-styleable name="CalendarView">
         <attr name="calendarViewStyle" format="reference" />
         <attr name="itemViewStyle" format="reference" />

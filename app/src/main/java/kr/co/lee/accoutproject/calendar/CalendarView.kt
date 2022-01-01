@@ -14,16 +14,21 @@ import org.joda.time.DateTime
 import org.joda.time.DateTimeConstants
 import kotlin.math.max
 
+// ViewGroup은 다른 뷰들을 포함할 수 있는 뷰(LinearLayout이나 GridLayout이 이 클래스를 상속받고있음)
+// ViewGroup를 상속받아 작성하여 여러 뷰를 합쳐서 하나의 뷰로 표현하기 위한 커스텀뷰
 class CalendarView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     @AttrRes defStyleAttr: Int = R.attr.calendarViewStyle,
     @StyleRes defStyleRes: Int = R.style.Calendar_CalendarViewStyle
+// ContextThemeWrapper : Context의 테마를 수정하거나 바꿀 수 있는 Context Wrapper
 ) : ViewGroup(ContextThemeWrapper(context, defStyleRes), attrs, defStyleAttr) {
 
     private var _height: Float = 0f
 
+    // 초기화
     init {
+        // 배열에다가 코드블록을 실행
         context.withStyledAttributes(attrs, R.styleable.CalendarView, defStyleAttr, defStyleRes) {
             _height = getDimension(R.styleable.CalendarView_dayHeight, 0f)
         }
