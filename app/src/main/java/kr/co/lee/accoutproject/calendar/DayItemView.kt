@@ -16,6 +16,7 @@ import kr.co.lee.accoutproject.calendar.CalendarUtils.Companion.getDateColor
 import kr.co.lee.accoutproject.calendar.CalendarUtils.Companion.isSameMonth
 import org.joda.time.DateTime
 
+// View를 상속받는 커스텀 뷰
 class DayItemView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,

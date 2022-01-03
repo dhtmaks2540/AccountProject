@@ -8,6 +8,7 @@ import androidx.fragment.app.commit
 import kr.co.lee.accoutproject.databinding.ActivityMainBinding
 import kr.co.lee.accoutproject.ui.MonthFragment
 import kr.co.lee.accoutproject.ui.WeekFragment
+import org.joda.time.DateTime
 
 class MainActivity : AppCompatActivity(){
 
@@ -21,26 +22,7 @@ class MainActivity : AppCompatActivity(){
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setContentView(binding.root)
 
-        binding.mainActivity = this
-
-        monthFragment = MonthFragment()
-        weekFragment = WeekFragment()
-    }
-
-    fun menuItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            R.id.action_month -> {
-                supportFragmentManager.commit {
-                    replace(R.id.fragment_container, monthFragment)
-                }
-            }
-            R.id.action_week -> {
-                supportFragmentManager.commit {
-                    replace(R.id.fragment_container, weekFragment)
-                }
-            }
-        }
-        return true
+        menuItemSelected()
     }
 
     private fun menuItemSelected() {
@@ -49,12 +31,12 @@ class MainActivity : AppCompatActivity(){
                 when(it.itemId) {
                     R.id.action_month -> {
                         supportFragmentManager.commit {
-                            replace(R.id.fragment_container, monthFragment)
+                            replace(R.id.fragment_container, MonthFragment())
                         }
                     }
                     R.id.action_week -> {
                         supportFragmentManager.commit {
-                            replace(R.id.fragment_container, weekFragment)
+                            replace(R.id.fragment_container, WeekFragment())
                         }
                     }
                 }

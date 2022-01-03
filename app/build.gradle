@@ -63,6 +63,9 @@ dependencies {
     /**
      * joda time android
      * https://github.com/dlew/joda-time-android
+     *
+     * 날짜 및 시간 계산을 수행하는 다양한 메소드를 제공하는 표준 DateTime 라이브러리
+     * http://jmlim.github.io/java/2018/12/13/java8-datetime-example/
      */
     implementation 'joda-time:joda-time:2.10.12'
 

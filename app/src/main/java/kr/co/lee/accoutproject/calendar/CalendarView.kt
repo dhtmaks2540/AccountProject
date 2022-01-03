@@ -15,7 +15,7 @@ import org.joda.time.DateTimeConstants
 import kotlin.math.max
 
 // ViewGroup은 다른 뷰들을 포함할 수 있는 뷰(LinearLayout이나 GridLayout이 이 클래스를 상속받고있음)
-// ViewGroup를 상속받아 작성하여 여러 뷰를 합쳐서 하나의 뷰로 표현하기 위한 커스텀뷰
+// ViewGroup를 상속받아 작성하여 여러 뷰를 합쳐서 하나의 뷰로 표현하기 위한 커스텀뷰(레이아웃 역할)
 class CalendarView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -37,6 +37,7 @@ class CalendarView @JvmOverloads constructor(
     /**
      * Measure
      */
+    // 크기를 결정하는 메소드
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val h = paddingTop + paddingBottom + max(suggestedMinimumHeight, (_height * WEEKS_PER_MONTH).toInt())
         setMeasuredDimension(getDefaultSize(suggestedMinimumWidth, widthMeasureSpec), h)
@@ -45,8 +46,11 @@ class CalendarView @JvmOverloads constructor(
     /**
      * Layout
      */
+    // 레이아웃 안에 포지션 정하기
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
+        // 넓이
         val iWidth = (width / DateTimeConstants.DAYS_PER_WEEK).toFloat()
+        // 높이
         val iHeight = (height / WEEKS_PER_MONTH).toFloat()
 
         var index = 0
@@ -54,6 +58,7 @@ class CalendarView @JvmOverloads constructor(
             val left = (index % DateTimeConstants.DAYS_PER_WEEK) * iWidth
             val top = (index / DateTimeConstants.DAYS_PER_WEEK) * iHeight
 
+            // 왼쪽, 위, 오른쪽, 아래
             view.layout(left.toInt(), top.toInt(), (left + iWidth).toInt(), (top + iHeight).toInt())
 
             index++
@@ -67,6 +72,7 @@ class CalendarView @JvmOverloads constructor(
      */
     fun initCalendar(firstDayOfMonth: DateTime, list: List<DateTime>) {
         list.forEach {
+            // ChildView를 추가
             addView(DayItemView(
                 context = context,
                 date = it,
