@@ -1,14 +1,13 @@
-package kr.co.lee.accoutproject
+package kr.co.lee.accoutproject.view.main.view
 
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.commit
+import kr.co.lee.accoutproject.R
 import kr.co.lee.accoutproject.databinding.ActivityMainBinding
-import kr.co.lee.accoutproject.ui.MonthFragment
+import kr.co.lee.accoutproject.view.monthfragment.view.MonthFragment
 import kr.co.lee.accoutproject.ui.WeekFragment
-import org.joda.time.DateTime
 
 class MainActivity : AppCompatActivity(){
 

@@ -3,6 +3,7 @@ package kr.co.lee.accoutproject.calendar
 import android.content.Context
 import android.util.AttributeSet
 import android.view.ContextThemeWrapper
+import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.annotation.AttrRes
 import androidx.annotation.StyleRes
@@ -23,12 +24,12 @@ class CalendarView @JvmOverloads constructor(
     @StyleRes defStyleRes: Int = R.style.Calendar_CalendarViewStyle
 // ContextThemeWrapper : Context의 테마를 수정하거나 바꿀 수 있는 Context Wrapper
 ) : ViewGroup(ContextThemeWrapper(context, defStyleRes), attrs, defStyleAttr) {
-
+    private var onCalendarListener: OnCalendarListener? = null
     private var _height: Float = 0f
 
     // 초기화
     init {
-        // 배열에다가 코드블록을 실행
+        // TypedArray 획득(Attributes)
         context.withStyledAttributes(attrs, R.styleable.CalendarView, defStyleAttr, defStyleRes) {
             _height = getDimension(R.styleable.CalendarView_dayHeight, 0f)
         }
@@ -39,6 +40,7 @@ class CalendarView @JvmOverloads constructor(
      */
     // 크기를 결정하는 메소드
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        // getSuggestedMinimumHeight : 뷰가 사용할 수 있수 있는 크기의 최솟값
         val h = paddingTop + paddingBottom + max(suggestedMinimumHeight, (_height * WEEKS_PER_MONTH).toInt())
         setMeasuredDimension(getDefaultSize(suggestedMinimumWidth, widthMeasureSpec), h)
     }
@@ -63,6 +65,10 @@ class CalendarView @JvmOverloads constructor(
 
             index++
         }
+    }
+
+    interface OnCalendarListener {
+        fun onDayClicked(day: DateTime?)
     }
 
     /**

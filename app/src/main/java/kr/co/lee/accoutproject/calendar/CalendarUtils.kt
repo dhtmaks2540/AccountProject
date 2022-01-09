@@ -18,11 +18,15 @@ class CalendarUtils {
         fun getMonthList(dateTime: DateTime): List<DateTime> {
             val list = mutableListOf<DateTime>()
 
+            // 달의 1일
             val date = dateTime.withDayOfMonth(1)
+            // 이전 달의 일 개수
             val prev = getPrevOffSet(date)
 
+            // 달의 시작 값
             val startValue = date.minusDays(prev)
 
+            // 7 * 6(42를 한 달로)
             val totalDay = DateTimeConstants.DAYS_PER_WEEK * WEEKS_PER_MONTH
 
             for (i in 0 until totalDay) {
@@ -36,8 +40,10 @@ class CalendarUtils {
          * 해당 calendar 의 이전 달의 일 갯수를 반환한다.
          */
         private fun getPrevOffSet(dateTime: DateTime): Int {
+            // 달의 첫 번째 날의 주
             var prevMonthTailOffset = dateTime.dayOfWeek
-
+            
+            // 7(한 주)로 나눈 나머지
             if (prevMonthTailOffset >= 7) prevMonthTailOffset %= 7
 
             return prevMonthTailOffset

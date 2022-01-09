@@ -6,4 +6,8 @@
     <string name="week_menu">주간</string>
     <string name="day_menu">일간</string>
     <string name="setting_menu">설정</string>
+
+    <!-- fragment_month -->
+    <string name="income_text">수입</string>
+    <string name="expense_text">지출</string>
 </resources>

@@ -17,6 +17,7 @@ import kr.co.lee.accoutproject.calendar.CalendarUtils.Companion.isSameMonth
 import org.joda.time.DateTime
 
 // View를 상속받는 커스텀 뷰
+// 날자 하나를 그리는 역할을 수행
 class DayItemView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -24,6 +25,7 @@ class DayItemView @JvmOverloads constructor(
     @StyleRes private val defStyleRes: Int = R.style.Calendar_ItemViewStyle,
     private val date: DateTime = DateTime(),
     private val firstDayOfMonth: DateTime = DateTime()
+// // ContextThemeWrapper : Context의 테마를 수정하거나 바꿀 수 있는 Context Wrapper
 ) : View(ContextThemeWrapper(context, defStyleRes), attrs, defStyleAttr) {
 
     private val bounds = Rect()
@@ -32,6 +34,7 @@ class DayItemView @JvmOverloads constructor(
 
     init {
         /* Attributes */
+        // TypedArray receiver에서 블록을 실행(TypedArray는 커스텀 특성에 나열된 특성 값을 집합에 저장)
         context.withStyledAttributes(attrs, R.styleable.CalendarView, defStyleAttr, defStyleRes) {
             val dayTextSize = getDimensionPixelSize(R.styleable.CalendarView_dayTextSize, 0).toFloat()
 
@@ -47,11 +50,15 @@ class DayItemView @JvmOverloads constructor(
         }
     }
 
+    // Draw는 무멋을 그릴지를 정하는 클래스
+    // Paint는 어떻게 그릴지를 정하는 클래스
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         if (canvas == null) return
 
+        // 날짜 획득
         val date = date.dayOfMonth.toString()
+        // 텍스트를 둘러싸고 있는 가장 작은 사각형을 반환
         paint.getTextBounds(date, 0, date.length, bounds)
         canvas.drawText(
             date,
