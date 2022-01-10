@@ -1,4 +1,4 @@
-package kr.co.lee.accoutproject.ui
+package kr.co.lee.accoutproject.view.settingfragment.view
 
 import androidx.fragment.app.Fragment
 

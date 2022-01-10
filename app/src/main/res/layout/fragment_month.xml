@@ -6,67 +6,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/month_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            app:layout_constraintBottom_toTopOf="@id/calendar"
-            app:layout_constraintTop_toTopOf="parent">
-
-<!--            <TextView-->
-<!--                android:id="@+id/income_label"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/income_text"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/income_text"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginLeft="5dp"-->
-<!--                app:layout_constraintStart_toEndOf="@id/income_label"-->
-<!--                app:layout_constraintTop_toTopOf="@id/income_label" />-->
-<!--            -->
-<!--            <TextView-->
-<!--                android:layout_width=""-->
-<!--                android:layout_height=""-->
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <!--        <LinearLayout-->
-        <!--            android:id="@+id/month_linear"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="0dp"-->
-        <!--            android:orientation="vertical"-->
-        <!--            app:layout_constraintTop_toTopOf="parent"-->
-        <!--            app:layout_constraintBottom_toTopOf="@id/month_recycler">-->
-
-        <!--            <androidx.viewpager2.widget.ViewPager2-->
-        <!--                android:id="@+id/calendar"-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="match_parent"-->
-        <!--                app:layout_constraintTop_toTopOf="parent">-->
-
-        <!--            </androidx.viewpager2.widget.ViewPager2>-->
-
-        <!--        </LinearLayout>-->
-
         <CalendarView
+            android:layout_marginBottom="20dp"
             android:id="@+id/calendar"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@id/month_recycler"
-            app:layout_constraintTop_toBottomOf="@id/month_label" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/division"
+            app:layout_constraintTop_toBottomOf="@id/calendar"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000000" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/month_recycler"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/calendar" />
+            app:layout_constraintTop_toBottomOf="@id/division" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

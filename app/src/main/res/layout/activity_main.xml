@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="mainActivity"
             type="kr.co.lee.accoutproject.view.main.view.MainActivity" />
@@ -28,14 +29,25 @@
             app:layout_constraintBottom_toTopOf="@id/main_bottom_menu"
             app:layout_constraintTop_toBottomOf="@id/main_toolbar" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/baseline_add_white_20"
+            app:fabSize="mini"
+            app:layout_constraintBottom_toTopOf="@id/main_bottom_menu"
+            app:layout_constraintEnd_toEndOf="parent" />
+
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/main_bottom_menu"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/main_bottom_navigation"
-            app:labelVisibilityMode="labeled"/>
+            app:menu="@menu/main_bottom_navigation" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

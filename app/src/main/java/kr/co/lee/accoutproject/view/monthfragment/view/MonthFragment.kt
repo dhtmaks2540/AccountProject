@@ -1,6 +1,7 @@
 package kr.co.lee.accoutproject.view.monthfragment.view
 
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,11 @@ class MonthFragment : Fragment() {
     private var _binding: FragmentMonthBinding? = null
     private val binding: FragmentMonthBinding
         get() = _binding!!
+
+    private var timeCheck: Long = 0L
+    private var prev_year = 0
+    private var prev_month = 0
+    private var prev_day = 0
 
     // FragmentStateAdapter
     private lateinit var calendarAdapter: CalendarAdapter
@@ -46,12 +52,22 @@ class MonthFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // 날짜 얻어오는 방법
         val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일")
         val date = Date(binding.calendar.date)
         Toast.makeText(activity, dateFormat.format(date), Toast.LENGTH_SHORT).show()
 
+        // 선택 리스너
         binding.calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
-            Toast.makeText(activity, "year : $year, month : ${month + 1}, dayOfMonth : $dayOfMonth ", Toast.LENGTH_SHORT).show()
+            if (System.currentTimeMillis() > timeCheck + 1500) {
+                // 프래그먼트 옮기기
+                timeCheck = System.currentTimeMillis()
+                prev_year = year
+                prev_month = month
+                prev_day = dayOfMonth
+            } else if(prev_year == year && prev_month == month && prev_day == dayOfMonth && System.currentTimeMillis() <= timeCheck + 1500) {
+                Toast.makeText(activity, "1.5초 이내 클릭", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

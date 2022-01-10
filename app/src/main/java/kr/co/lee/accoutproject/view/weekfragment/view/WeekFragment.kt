@@ -1,4 +1,4 @@
-package kr.co.lee.accoutproject.ui
+package kr.co.lee.accoutproject.view.weekfragment.view
 
 import android.os.Bundle
 import android.view.LayoutInflater

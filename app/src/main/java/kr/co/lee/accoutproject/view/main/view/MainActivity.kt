@@ -7,7 +7,7 @@ import androidx.fragment.app.commit
 import kr.co.lee.accoutproject.R
 import kr.co.lee.accoutproject.databinding.ActivityMainBinding
 import kr.co.lee.accoutproject.view.monthfragment.view.MonthFragment
-import kr.co.lee.accoutproject.ui.WeekFragment
+import kr.co.lee.accoutproject.view.weekfragment.view.WeekFragment
 
 class MainActivity : AppCompatActivity(){
 
@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity(){
         menuItemSelected()
     }
 
+    // BottomNavigationView 선택 리스너
     private fun menuItemSelected() {
         binding.mainBottomMenu.run {
             setOnItemSelectedListener {
