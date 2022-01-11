@@ -59,13 +59,13 @@ class MonthFragment : Fragment() {
 
         // 선택 리스너
         binding.calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
-            if (System.currentTimeMillis() > timeCheck + 1500) {
-                // 프래그먼트 옮기기
+            if (prev_year != year || prev_month != month || prev_day != dayOfMonth || System.currentTimeMillis() > timeCheck + 1500) {
                 timeCheck = System.currentTimeMillis()
                 prev_year = year
                 prev_month = month
                 prev_day = dayOfMonth
             } else if(prev_year == year && prev_month == month && prev_day == dayOfMonth && System.currentTimeMillis() <= timeCheck + 1500) {
+                // 프래그먼트 바꾸기
                 Toast.makeText(activity, "1.5초 이내 클릭", Toast.LENGTH_SHORT).show()
             }
         }

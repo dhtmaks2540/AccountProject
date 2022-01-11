@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AccoutProject">
         <activity
+            android:name=".view.addactivity.view.AddActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.main.view.MainActivity"
             android:exported="true">
             <intent-filter>

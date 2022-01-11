@@ -6,10 +6,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <kr.co.lee.accoutproject.calendar.CalendarView
-            android:id="@+id/calendar_view"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/day_recycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="addActivity"
+            type="kr.co.lee.accoutproject.view.addactivity.view.AddActivity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/add_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:text="날짜"
+                android:id="@+id/toolbar_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <TextView
+            android:id="@+id/krw_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="45sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_toolbar" />
+
+        <EditText
+            android:id="@+id/krw_edit_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="end"
+            android:inputType="number"
+            android:textSize="35sp"
+            app:layout_constraintBottom_toBottomOf="@id/krw_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/krw_label"
+            app:layout_constraintTop_toTopOf="@id/krw_label" />
+
+        <Button
+            android:id="@+id/deposit_button"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="45dp"
+            android:background="@color/light_green"
+            android:text="@string/deposit_text"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/expense_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/krw_label" />
+
+        <Button
+            android:id="@+id/expense_button"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:background="@color/light_orange"
+            android:text="@string/expense_text"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/deposit_button"
+            app:layout_constraintTop_toTopOf="@id/deposit_button" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -1,9 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.AccoutProject" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.AccoutProject" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <!-- action bar color -->
+        <item name="colorPrimary">@color/light_sky</item>
+        <!-- status bar color -->
+        <item name="colorPrimaryVariant">@color/light_sky</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -12,8 +14,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-        <item name="android:windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
     </style>
 
     <style name="Calendar"/>
@@ -29,5 +31,10 @@
 
     <style name="Calendar.ItemViewStyle">
         <item name="dayTextSize">14dp</item>
+    </style>
+
+    <style name="buttonSize">
+        <item name="paddingStart">20dp</item>
+        <item name="paddingEnd">20dp</item>
     </style>
 </resources>

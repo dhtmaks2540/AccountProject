@@ -10,4 +10,8 @@
     <!-- fragment_month -->
     <string name="income_text">수입</string>
     <string name="expense_text">지출</string>
+
+    <!-- add activity -->
+    <string name="krw_label"></string>
+    <string name="deposit_text">입금</string>
 </resources>
