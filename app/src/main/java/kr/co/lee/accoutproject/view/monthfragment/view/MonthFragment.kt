@@ -9,10 +9,13 @@ import android.widget.CalendarView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import kr.co.lee.accoutproject.R
 import kr.co.lee.accoutproject.calendar.CalendarAdapter
 import kr.co.lee.accoutproject.databinding.FragmentMonthBinding
+import kr.co.lee.accoutproject.view.main.viewmodel.MainViewModel
+import org.joda.time.DateTime
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -29,6 +32,7 @@ class MonthFragment : Fragment() {
 
     // FragmentStateAdapter
     private lateinit var calendarAdapter: CalendarAdapter
+    private val viewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,6 +63,7 @@ class MonthFragment : Fragment() {
 
         // 선택 리스너
         binding.calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
+            viewModel.selectItem(DateTime().withYear(year).withMonthOfYear(month + 1).withDayOfMonth(dayOfMonth))
             if (prev_year != year || prev_month != month || prev_day != dayOfMonth || System.currentTimeMillis() > timeCheck + 1500) {
                 timeCheck = System.currentTimeMillis()
                 prev_year = year

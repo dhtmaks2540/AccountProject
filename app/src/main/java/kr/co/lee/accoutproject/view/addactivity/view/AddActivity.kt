@@ -50,10 +50,10 @@ class AddActivity : AppCompatActivity() {
         editTextSetting()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.add_toolbar_menu, menu)
-        return true
-    }
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        menuInflater.inflate(R.menu.add_toolbar_menu, menu)
+//        return true
+//    }
 
     private fun editTextSetting() {
         val krwText = Currency.getInstance(Locale.KOREA).symbol;
