@@ -7,6 +7,10 @@
         <variable
             name="mainActivity"
             type="kr.co.lee.accoutproject.view.main.view.MainActivity" />
+
+        <variable
+            name="mainViewModel"
+            type="kr.co.lee.accoutproject.view.main.viewmodel.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,13 +47,14 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
-            android:onClick="@{mainActivity::actionButtonClicked}"
+            android:onClick="@{() -> mainActivity.actionButtonClicked(mainViewModel.selectedItem)}"
             android:src="@drawable/baseline_add_white_20"
             app:fabSize="mini"
             app:layout_constraintBottom_toTopOf="@id/main_bottom_menu"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:background="?android:attr/windowBackground"
             android:id="@+id/main_bottom_menu"
             android:layout_width="match_parent"
             android:layout_height="0dp"

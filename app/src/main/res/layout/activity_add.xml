@@ -5,6 +5,10 @@
     <data>
 
         <variable
+            name="addViewModel"
+            type="kr.co.lee.accoutproject.view.addactivity.viewmodel.AddViewModel" />
+
+        <variable
             name="addActivity"
             type="kr.co.lee.accoutproject.view.addactivity.view.AddActivity" />
     </data>
@@ -17,13 +21,14 @@
             android:id="@+id/add_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:menu="@menu/add_toolbar_menu">
 
             <TextView
-                android:text="날짜"
                 android:id="@+id/toolbar_date"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="@{addViewModel.date}" />
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -54,6 +59,7 @@
             android:layout_height="60dp"
             android:layout_marginTop="45dp"
             android:background="@color/light_green"
+            android:onClick="@{() -> addActivity.buttonClick(addViewModel.money)}"
             android:text="@string/deposit_text"
             android:textColor="@color/white"
             android:textStyle="bold"

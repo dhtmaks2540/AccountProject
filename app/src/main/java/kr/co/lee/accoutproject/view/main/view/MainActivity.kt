@@ -17,6 +17,7 @@ import kr.co.lee.accoutproject.view.dayfragment.view.DayFragment
 import kr.co.lee.accoutproject.view.main.viewmodel.MainViewModel
 import kr.co.lee.accoutproject.view.monthfragment.view.MonthFragment
 import kr.co.lee.accoutproject.view.weekfragment.view.WeekFragment
+import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
@@ -33,15 +34,14 @@ class MainActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        setContentView(binding.root)
+        binding.lifecycleOwner = this
         binding.mainActivity = this
+        binding.mainViewModel = viewModel
+
+        setContentView(binding.root)
 
         toolbarSetting()
         menuItemSelected()
-
-        viewModel.selectedItem.observe(this, Observer { dateItem ->
-            Toast.makeText(this, dateItem.toString("yyyy/MM/dd"), Toast.LENGTH_SHORT).show()
-        })
     }
 
 //    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -83,9 +83,10 @@ class MainActivity : AppCompatActivity(){
         }
     }
 
-    // FloatingActionButton 리스너
-    fun actionButtonClicked(view: View) {
+    // FloatingActionButton 이벤트 리스너
+    fun actionButtonClicked(dateTime: DateTime) {
         val addIntent = Intent(this, AddActivity::class.java)
+        addIntent.putExtra("date", dateTime.toString("yyyy/MM/dd"))
         startActivity(addIntent)
     }
 }

@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
+import androidx.fragment.app.setFragmentResultListener
 import kr.co.lee.accoutproject.R
 import kr.co.lee.accoutproject.calendar.CalendarAdapter
 import kr.co.lee.accoutproject.databinding.FragmentMonthBinding
@@ -57,9 +58,10 @@ class MonthFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // 날짜 얻어오는 방법
-        val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일")
-        val date = Date(binding.calendar.date)
-        Toast.makeText(activity, dateFormat.format(date), Toast.LENGTH_SHORT).show()
+//        val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일")
+//        val date = Date(binding.calendar.date)
+
+        viewModel.selectItem(DateTime(binding.calendar.date))
 
         // 선택 리스너
         binding.calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
@@ -70,8 +72,7 @@ class MonthFragment : Fragment() {
                 prev_month = month
                 prev_day = dayOfMonth
             } else if(prev_year == year && prev_month == month && prev_day == dayOfMonth && System.currentTimeMillis() <= timeCheck + 1500) {
-                // 프래그먼트 바꾸기
-                Toast.makeText(activity, "1.5초 이내 클릭", Toast.LENGTH_SHORT).show()
+                // 프래그먼트 바꾸기(일간 프래그먼트로)
             }
         }
     }

@@ -14,4 +14,7 @@
     <!-- add activity -->
     <string name="krw_label"></string>
     <string name="deposit_text">입금</string>
+
+    <!-- detail activity -->
+    <string name="history_label">내역</string>
 </resources>
