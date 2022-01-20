@@ -6,19 +6,19 @@ import androidx.lifecycle.ViewModel
 
 class AddViewModel: ViewModel() {
     private val _date = MutableLiveData<String>()
-    private val _money = MutableLiveData<Double>()
+    private val _money = MutableLiveData<String>("0")
 
     val date: LiveData<String>
         get() = _date
 
-    val money: LiveData<Double>
+    val money: LiveData<String>
         get() = _money
 
     fun setDateItem(dateItem: String) {
         _date.value = dateItem
     }
 
-    fun setMoneyItem(moneyItem: Double) {
+    fun setMoneyItem(moneyItem: String) {
         _money.value = moneyItem
     }
 }

@@ -6,12 +6,12 @@ import androidx.lifecycle.ViewModel
 import java.text.DecimalFormat
 
 class DetailViewModel: ViewModel() {
-    private val _money = MutableLiveData<Double>()
+    private val _money = MutableLiveData<String>()
 
-    val money: LiveData<Double>
+    val money: LiveData<String>
         get() = _money
 
-    fun selectMoney(moneyItem: Double) {
-        _money.value = moneyItem
+    fun selectMoney(moneyItem: String) {
+        _money.value = moneyItem + "원"
     }
 }

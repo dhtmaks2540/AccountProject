@@ -1,24 +1,17 @@
 package kr.co.lee.accoutproject.view.monthfragment.view
 
 import android.os.Bundle
-import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CalendarView
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.commit
-import androidx.fragment.app.setFragmentResultListener
 import kr.co.lee.accoutproject.R
 import kr.co.lee.accoutproject.calendar.CalendarAdapter
 import kr.co.lee.accoutproject.databinding.FragmentMonthBinding
 import kr.co.lee.accoutproject.view.main.viewmodel.MainViewModel
 import org.joda.time.DateTime
-import java.text.SimpleDateFormat
-import java.util.*
 
 class MonthFragment : Fragment() {
     // DataBinding 코드

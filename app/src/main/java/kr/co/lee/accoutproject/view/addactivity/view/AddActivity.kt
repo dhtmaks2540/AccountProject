@@ -25,6 +25,7 @@ class AddActivity : AppCompatActivity() {
     private var result: String = ""
     private val viewModel: AddViewModel by viewModels()
 
+
     // TextWatcher - 금액 EditText 설정
     private val watcher = object : TextWatcher {
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -34,9 +35,9 @@ class AddActivity : AppCompatActivity() {
             if(!TextUtils.isEmpty(charSequence.toString()) && charSequence.toString() != result){
                 val money = charSequence.toString().replace(",","").toDouble()
                 result = decimalFormat.format(money)
-                viewModel.setMoneyItem(money)
-                binding.krwEditView.setText(result);
-                binding.krwEditView.setSelection(result.length);
+                binding.krwEditView.setText(result)
+                binding.krwEditView.setSelection(result.length)
+                viewModel.setMoneyItem(result)
             }
         }
 
@@ -60,6 +61,11 @@ class AddActivity : AppCompatActivity() {
         editTextSetting()
 
         intent.getStringExtra("date")?.let { viewModel.setDateItem(it) }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.add_toolbar_menu, menu)
+        return true
     }
 
     // Toolbar 메뉴 선택
@@ -87,14 +93,14 @@ class AddActivity : AppCompatActivity() {
         binding.krwEditView.requestFocus()
 
         //키보드 보이게 하는 부분
-	    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.showSoftInput(binding.krwEditView, InputMethodManager.SHOW_IMPLICIT)
+//	    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//        imm.showSoftInput(binding.krwEditView, InputMethodManager.SHOW_IMPLICIT)
     }
 
-    fun buttonClick(moneyItem: Double) {
+    fun buttonClick(moneyItem: String) {
         val detailIntent = Intent(this, DetailActivity::class.java)
         detailIntent.putExtra("money", moneyItem)
         startActivity(detailIntent)
-        finish()
+//        finish()
     }
 }
