@@ -10,25 +10,16 @@ import kr.co.lee.accoutproject.utility.ioThread
 import org.joda.time.DateTime
 import java.util.*
 
+// 인자로 DAO 객체를 받는 ViewModel
 class MainViewModel(private val accountDao: AccountDAO): ViewModel() {
     // DateTime 타입의 MutableLiveData
     private val mutableSelectedItem = MutableLiveData<DateTime>()
-    private val _typeEntity = MutableLiveData<List<TypeEntity>>()
 
     val selectedItem: LiveData<DateTime>
         get() = mutableSelectedItem
 
-    val typeEntity: LiveData<List<TypeEntity>>
-        get() = _typeEntity
-
     fun selectItem(dateItem: DateTime) {
         // setValue를 통해 값 설정
         mutableSelectedItem.value = dateItem
-    }
-
-    fun test() {
-        ioThread {
-            _typeEntity.postValue(accountDao.getTypes(0))
-        }
     }
 }

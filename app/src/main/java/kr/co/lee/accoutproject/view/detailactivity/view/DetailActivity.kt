@@ -6,12 +6,16 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.GridLayoutManager
 import kr.co.lee.accoutproject.R
 import kr.co.lee.accoutproject.databinding.ActivityDetailBinding
+import kr.co.lee.accoutproject.room.TypeEntity
+import kr.co.lee.accoutproject.view.detailactivity.adapter.DetailRecyclerViewAdapter
 import kr.co.lee.accoutproject.view.detailactivity.viewmodel.DetailViewModel
+import kr.co.lee.accoutproject.view.detailactivity.viewmodel.DetailViewModelFactory
 
 class DetailActivity : AppCompatActivity() {
-    private val viewModel: DetailViewModel by viewModels()
+    private val viewModel: DetailViewModel by viewModels { DetailViewModelFactory(application) }
     private lateinit var binding: ActivityDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +28,12 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         intent.getStringExtra("money")?.let { viewModel.selectMoney(it) }
+        intent.getIntExtra("type", 0).let { viewModel.selectTypes(it) }
         setSupportActionBar()
+
+        viewModel.types.observe(this, {
+            setRecyclerAdapter(it)
+        })
     }
     
     // 메뉴 초기화
@@ -55,7 +64,10 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
-    private fun setRecyclerAdapter() {
-        
+    private fun setRecyclerAdapter(typeList: List<TypeEntity>) {
+        val detailRecyclerViewAdapter = DetailRecyclerViewAdapter(typeList, this)
+        val gridLayoutManager = GridLayoutManager(this, 5)
+        binding.detailRecycler.layoutManager = gridLayoutManager
+        binding.detailRecycler.adapter = detailRecyclerViewAdapter
     }
 }

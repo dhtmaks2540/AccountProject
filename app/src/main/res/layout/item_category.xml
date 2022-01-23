@@ -3,16 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+<!--        <de.hdodenhof.circleimageview.CircleImageView-->
+<!--            android:id="@+id/item_category_image"-->
+<!--            android:layout_width="45dp"-->
+<!--            android:layout_height="45dp"-->
+<!--            app:civ_border_width="5dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+        <ImageView
             android:id="@+id/item_category_image"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/shape"
             android:padding="10dp"
-            android:src="@drawable/baseline_restaurant_menu_white_20"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -22,6 +32,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:lines="1"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@id/item_category_image"
             app:layout_constraintStart_toStartOf="@id/item_category_image"
             app:layout_constraintTop_toBottomOf="@id/item_category_image" />

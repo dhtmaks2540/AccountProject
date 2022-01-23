@@ -23,11 +23,13 @@ import org.joda.time.DateTime
 class MainActivity : AppCompatActivity(){
 
     private lateinit var binding: ActivityMainBinding
+    // ViewModel 생성
     private val viewModel: MainViewModel by viewModels { MainViewModelFactory(application) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // DataBinding 레이아웃 초기화 및 데이터 셋팅
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
         binding.mainActivity = this
@@ -37,12 +39,9 @@ class MainActivity : AppCompatActivity(){
 
         toolbarSetting()
         menuItemSelected()
-        viewModel.test()
-        viewModel.typeEntity.observe(this, Observer {
-            println(it)
-        })
     }
 
+    // Toolbar 메뉴 생성
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_toolbar_menu, menu)
         return true

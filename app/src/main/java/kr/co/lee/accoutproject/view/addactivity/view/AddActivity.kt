@@ -97,9 +97,10 @@ class AddActivity : AppCompatActivity() {
 //        imm.showSoftInput(binding.krwEditView, InputMethodManager.SHOW_IMPLICIT)
     }
 
-    fun buttonClick(moneyItem: String) {
+    fun buttonClick(moneyItem: String, typeItem: Int) {
         val detailIntent = Intent(this, DetailActivity::class.java)
         detailIntent.putExtra("money", moneyItem)
+        detailIntent.putExtra("type", typeItem)
         startActivity(detailIntent)
 //        finish()
     }
