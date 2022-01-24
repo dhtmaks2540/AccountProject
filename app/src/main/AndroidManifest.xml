@@ -10,13 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AccoutProject">
         <activity
-            android:name=".view.detailactivity.view.DetailActivity"
+            android:name=".DetailActivity"
             android:exported="false" />
         <activity
-            android:name=".view.addactivity.view.AddActivity"
+            android:name=".AddActivity"
             android:exported="false" />
         <activity
-            android:name=".view.main.view.MainActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

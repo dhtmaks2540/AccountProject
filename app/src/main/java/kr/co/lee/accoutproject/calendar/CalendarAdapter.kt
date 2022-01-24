@@ -3,7 +3,7 @@ package kr.co.lee.accoutproject.calendar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import kr.co.lee.accoutproject.ui.CalendarFragment
+import kr.co.lee.accoutproject.CalendarFragment
 import org.joda.time.DateTime
 
 // ViewPager2를 위한 어댑터

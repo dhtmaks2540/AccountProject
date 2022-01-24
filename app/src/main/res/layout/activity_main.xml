@@ -6,17 +6,17 @@
     <data>
         <variable
             name="mainActivity"
-            type="kr.co.lee.accoutproject.view.main.view.MainActivity" />
+            type="kr.co.lee.accoutproject.MainActivity" />
 
         <variable
             name="mainViewModel"
-            type="kr.co.lee.accoutproject.view.main.viewmodel.MainViewModel" />
+            type="kr.co.lee.accoutproject.viewmodels.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.main.view.MainActivity">
+        tools:context=".MainActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/main_toolbar"

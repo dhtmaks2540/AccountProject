@@ -6,11 +6,11 @@
 
         <variable
             name="addViewModel"
-            type="kr.co.lee.accoutproject.view.addactivity.viewmodel.AddViewModel" />
+            type="kr.co.lee.accoutproject.viewmodels.AddViewModel" />
 
         <variable
             name="addActivity"
-            type="kr.co.lee.accoutproject.view.addactivity.view.AddActivity" />
+            type="kr.co.lee.accoutproject.AddActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

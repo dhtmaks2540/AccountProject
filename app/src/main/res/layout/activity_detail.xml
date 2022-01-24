@@ -6,7 +6,7 @@
 
         <variable
             name="detailViewModel"
-            type="kr.co.lee.accoutproject.view.detailactivity.viewmodel.DetailViewModel" />
+            type="kr.co.lee.accoutproject.viewmodels.DetailViewModel" />
 
         <import type="java.text.DecimalFormat" />
 
@@ -18,7 +18,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.detailactivity.view.DetailActivity">
+        tools:context=".DetailActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/detail_toolbar"
