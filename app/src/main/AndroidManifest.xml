@@ -11,9 +11,11 @@
         android:theme="@style/Theme.AccoutProject">
         <activity
             android:name=".DetailActivity"
+            android:windowSoftInputMode="stateAlwaysVisible"
             android:exported="false" />
         <activity
             android:name=".AddActivity"
+            android:windowSoftInputMode="stateAlwaysVisible"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

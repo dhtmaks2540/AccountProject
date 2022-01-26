@@ -9,7 +9,7 @@
             type="kr.co.lee.accoutproject.MainActivity" />
 
         <variable
-            name="mainViewModel"
+            name="viewModel"
             type="kr.co.lee.accoutproject.viewmodels.MainViewModel" />
     </data>
 
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
-            android:onClick="@{() -> mainActivity.actionButtonClicked(mainViewModel.selectedItem)}"
+            android:onClick="@{() -> mainActivity.actionButtonClicked(viewModel.selectedItem)}"
             android:src="@drawable/baseline_add_white_20"
             app:fabSize="mini"
             app:layout_constraintBottom_toTopOf="@id/main_bottom_menu"

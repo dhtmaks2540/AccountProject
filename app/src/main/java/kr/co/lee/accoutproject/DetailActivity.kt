@@ -24,10 +24,14 @@ class DetailActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
         binding.lifecycleOwner = this
         binding.detailViewModel = viewModel
+        binding.detailActivity = this
         setContentView(binding.root)
 
         intent.getStringExtra("money")?.let { viewModel.selectMoney(it) }
         intent.getIntExtra("type", 0).let { viewModel.selectTypes(it) }
+        intent.getStringExtra("date")?.let {
+            viewModel.selectDate(it)
+        }
         setSupportActionBar()
 
         viewModel.types.observe(this, {
@@ -48,8 +52,8 @@ class DetailActivity : AppCompatActivity() {
                 finish()
             }
 
-            R.id.home -> {
-
+            android.R.id.home -> {
+                finish()
             }
         }
 
@@ -60,13 +64,15 @@ class DetailActivity : AppCompatActivity() {
     private fun setSupportActionBar() {
         setSupportActionBar(binding.detailToolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
     private fun setRecyclerAdapter(typeList: List<TypeEntity>) {
         val detailRecyclerViewAdapter = DetailRecyclerViewAdapter(typeList, this)
-        val gridLayoutManager = GridLayoutManager(this, 5)
-        binding.detailRecycler.layoutManager = gridLayoutManager
         binding.detailRecycler.adapter = detailRecyclerViewAdapter
+    }
+
+    // 뒤로가기 버튼
+    fun backButtonClick() {
+        finish()
     }
 }

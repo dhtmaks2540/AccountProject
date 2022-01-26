@@ -1,5 +1,6 @@
 package kr.co.lee.accoutproject
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import kr.co.lee.accoutproject.databinding.ActivityAddBinding
@@ -48,7 +50,7 @@ class AddActivity : AppCompatActivity() {
         // DataBinding 설정
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add)
         binding.lifecycleOwner = this
-        binding.addViewModel = viewModel
+        binding.viewModel = viewModel
         binding.addActivity = this
 
         setContentView(binding.root)
@@ -85,18 +87,14 @@ class AddActivity : AppCompatActivity() {
         val krwText = Currency.getInstance(Locale.KOREA).symbol;
         binding.krwLabel.text = krwText
 
-        binding.krwEditView.addTextChangedListener(watcher)
-        binding.krwEditView.requestFocus()
-
-        //키보드 보이게 하는 부분
-//	    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//        imm.showSoftInput(binding.krwEditView, InputMethodManager.SHOW_IMPLICIT)
+//        binding.krwEditView.addTextChangedListener(watcher)
     }
 
-    fun buttonClick(moneyItem: String, typeItem: Int) {
+    fun buttonClick(moneyItem: String, typeItem: Int, date: String) {
         val detailIntent = Intent(this, DetailActivity::class.java)
         detailIntent.putExtra("money", moneyItem)
         detailIntent.putExtra("type", typeItem)
+        detailIntent.putExtra("date", date)
         startActivity(detailIntent)
 //        finish()
     }

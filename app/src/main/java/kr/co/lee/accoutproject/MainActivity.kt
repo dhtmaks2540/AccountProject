@@ -3,10 +3,13 @@ package kr.co.lee.accoutproject
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.commit
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 import kr.co.lee.accoutproject.databinding.ActivityMainBinding
 import kr.co.lee.accoutproject.viewmodels.MainViewModel
 import kr.co.lee.accoutproject.viewmodels.MainViewModelFactory
@@ -25,7 +28,7 @@ class MainActivity : AppCompatActivity(){
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
         binding.mainActivity = this
-        binding.mainViewModel = viewModel
+        binding.viewModel = viewModel
 
         setContentView(binding.root)
 

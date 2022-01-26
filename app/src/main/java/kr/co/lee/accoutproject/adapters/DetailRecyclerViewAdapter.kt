@@ -10,25 +10,33 @@ import kr.co.lee.accoutproject.data.TypeEntity
 
 class DetailRecyclerViewAdapter(val typeList: List<TypeEntity>, val context: Context): RecyclerView.Adapter<DetailRecyclerViewAdapter.DetailItemViewHolder>() {
 
-    inner class DetailItemViewHolder(val view: ItemCategoryBinding): RecyclerView.ViewHolder(view.root) {
+    inner class DetailItemViewHolder(val binding: ItemCategoryBinding): RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.setClickListener {
+                binding.itemCategoryImage?.let { categoty ->
+                    println()
+                }
+            }
+        }
+
         fun bindTo(typeEntity: TypeEntity) {
-            view.itemCategoryName.text = typeEntity.typeName
+            binding.itemCategoryName.text = typeEntity.typeName
 
             // 이미지 획득
             val resId = context.resources.getIdentifier(typeEntity.typeImageName,
                 "drawable", context.packageName)
 
             // 라이브러리 사용 X
-//            view.itemCategoryImage.apply {
+//            binding.itemCategoryImage.apply {
 //                // 이미지 적용
 //                setImageResource(resId)
 //            }
 //
-//            val bgShape = view.itemCategoryImage.background as GradientDrawable
+//            val bgShape = binding.itemCategoryImage.background as GradientDrawable
 //            bgShape.setColor(Color.parseColor(typeEntity.typeColor))
 
             // CircleImageView 라이브러리 사용
-            view.itemCategoryImage.apply {
+            binding.itemCategoryImage.apply {
                 // 이미지 적용
                 setImageResource(resId)
                 // 테두리 지정
