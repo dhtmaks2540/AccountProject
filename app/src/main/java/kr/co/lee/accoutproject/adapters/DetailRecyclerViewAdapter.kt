@@ -8,14 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import kr.co.lee.accoutproject.databinding.ItemCategoryBinding
 import kr.co.lee.accoutproject.data.TypeEntity
 
-class DetailRecyclerViewAdapter(val typeList: List<TypeEntity>, val context: Context): RecyclerView.Adapter<DetailRecyclerViewAdapter.DetailItemViewHolder>() {
+class DetailRecyclerViewAdapter(val typeList: List<TypeEntity>, val context: Context)
+    : RecyclerView.Adapter<DetailRecyclerViewAdapter.DetailItemViewHolder>() {
 
     inner class DetailItemViewHolder(val binding: ItemCategoryBinding): RecyclerView.ViewHolder(binding.root) {
         init {
             binding.setClickListener {
-                binding.itemCategoryImage?.let { categoty ->
-                    println()
-                }
             }
         }
 

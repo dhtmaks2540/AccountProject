@@ -42,7 +42,7 @@ class CalendarUtils {
         private fun getPrevOffSet(dateTime: DateTime): Int {
             // 달의 첫 번째 날의 주
             var prevMonthTailOffset = dateTime.dayOfWeek
-            
+
             // 7(한 주)로 나눈 나머지
             if (prevMonthTailOffset >= 7) prevMonthTailOffset %= 7
 

@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 
 class WeekFragment: Fragment() {
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

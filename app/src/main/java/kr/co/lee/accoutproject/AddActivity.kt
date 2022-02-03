@@ -12,6 +12,7 @@ import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import dagger.hilt.android.AndroidEntryPoint
 import kr.co.lee.accoutproject.databinding.ActivityAddBinding
 import kr.co.lee.accoutproject.viewmodels.AddViewModel
 import java.text.DecimalFormat
@@ -21,8 +22,7 @@ class AddActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddBinding
     private val decimalFormat = DecimalFormat("#,###")
     private var result: String = ""
-    private val viewModel: AddViewModel by viewModels()
-
+    private val addViewModel: AddViewModel by viewModels()
 
     // TextWatcher - 금액 EditText 설정
     private val watcher = object : TextWatcher {
@@ -35,7 +35,7 @@ class AddActivity : AppCompatActivity() {
                 result = decimalFormat.format(money)
                 binding.krwEditView.setText(result)
                 binding.krwEditView.setSelection(result.length)
-                viewModel.setMoneyItem(result)
+                addViewModel.setMoneyItem(result)
             }
         }
 
@@ -49,16 +49,22 @@ class AddActivity : AppCompatActivity() {
 
         // DataBinding 설정
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add)
-        binding.lifecycleOwner = this
-        binding.viewModel = viewModel
-        binding.addActivity = this
+        binding.apply {
+            lifecycleOwner = this@AddActivity
+            viewModel = addViewModel
+            activity = this@AddActivity
 
-        setContentView(binding.root)
+            // 입금버튼
+            depositButton.setOnClickListener { buttonClick(addViewModel.money.value, 1, addViewModel.date.value) }
+            expenseButton.setOnClickListener { buttonClick(addViewModel.money.value, 0, addViewModel.date.value) }
+        }
 
         setSupportActionBar()
         editTextSetting()
 
-        intent.getStringExtra("date")?.let { viewModel.setDateItem(it) }
+        intent.getStringExtra("date")?.let { addViewModel.setDateItem(it) }
+
+        setContentView(binding.root)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -85,17 +91,25 @@ class AddActivity : AppCompatActivity() {
     // EditText 설정
     private fun editTextSetting() {
         val krwText = Currency.getInstance(Locale.KOREA).symbol;
-        binding.krwLabel.text = krwText
 
-//        binding.krwEditView.addTextChangedListener(watcher)
+        binding.krwLabel.text = krwText
+        binding.krwEditView.addTextChangedListener(watcher)
     }
 
-    fun buttonClick(moneyItem: String, typeItem: Int, date: String) {
+    private fun buttonClick(moneyItem: String?, typeItem: Int, date: String?) {
         val detailIntent = Intent(this, DetailActivity::class.java)
         detailIntent.putExtra("money", moneyItem)
         detailIntent.putExtra("type", typeItem)
         detailIntent.putExtra("date", date)
         startActivity(detailIntent)
-//        finish()
     }
+
+//    fun buttonClick(moneyItem: String, typeItem: Int, date: String) {
+//        val detailIntent = Intent(this, DetailActivity::class.java)
+//        detailIntent.putExtra("money", moneyItem)
+//        detailIntent.putExtra("type", typeItem)
+//        detailIntent.putExtra("date", date)
+//        startActivity(detailIntent)
+////        finish()
+//    }
 }

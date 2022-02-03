@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.commit
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
+import dagger.hilt.android.AndroidEntryPoint
 import kr.co.lee.accoutproject.databinding.ActivityMainBinding
 import kr.co.lee.accoutproject.viewmodels.MainViewModel
 import kr.co.lee.accoutproject.viewmodels.MainViewModelFactory
@@ -19,21 +20,30 @@ class MainActivity : AppCompatActivity(){
 
     private lateinit var binding: ActivityMainBinding
     // ViewModel 생성
-    private val viewModel: MainViewModel by viewModels { MainViewModelFactory(application) }
+    private val mainViewModel: MainViewModel by viewModels { MainViewModelFactory(application) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // DataBinding 레이아웃 초기화 및 데이터 셋팅
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.lifecycleOwner = this
-        binding.mainActivity = this
-        binding.viewModel = viewModel
+        binding.apply {
+            lifecycleOwner = this@MainActivity
+            activity = this@MainActivity
+            viewModel = mainViewModel
+
+            // Floating Button
+            addButton.setOnClickListener { actionButtonClicked() }
+
+            // Bottom NavigationView
+            mainBottomMenu.run {
+                menuItemSelected()
+                selectedItemId = R.id.action_month
+            }
+        }
+        toolbarSetting()
 
         setContentView(binding.root)
-
-        toolbarSetting()
-        menuItemSelected()
     }
 
     // Toolbar 메뉴 생성
@@ -51,35 +61,38 @@ class MainActivity : AppCompatActivity(){
 
     // BottomNavigationView 선택 리스너
     private fun menuItemSelected() {
-        binding.mainBottomMenu.run {
-            setOnItemSelectedListener {
-                when(it.itemId) {
-                    R.id.action_month -> {
-                        supportFragmentManager.commit {
-                            replace(R.id.fragment_container, MonthFragment())
-                        }
-                    }
-                    R.id.action_week -> {
-                        supportFragmentManager.commit {
-                            replace(R.id.fragment_container, WeekFragment())
-                        }
-                    }
-                    R.id.action_day -> {
-                        supportFragmentManager.commit {
-                            replace(R.id.fragment_container, DayFragment())
-                        }
+        binding.mainBottomMenu.setOnItemSelectedListener {
+            when(it.itemId) {
+                R.id.action_month -> {
+                    supportFragmentManager.commit {
+                        replace(R.id.fragment_container, MonthFragment())
                     }
                 }
-                true
+                R.id.action_week -> {
+                    supportFragmentManager.commit {
+                        replace(R.id.fragment_container, WeekFragment())
+                    }
+                }
+                R.id.action_day -> {
+                    supportFragmentManager.commit {
+                        replace(R.id.fragment_container, DayFragment())
+                    }
+                }
             }
-            selectedItemId = R.id.action_month
+            true
         }
     }
 
     // FloatingActionButton 이벤트 리스너
-    fun actionButtonClicked(dateTime: DateTime) {
+    private fun actionButtonClicked() {
         val addIntent = Intent(this, AddActivity::class.java)
-        addIntent.putExtra("date", dateTime.toString("yyyy/MM/dd"))
+        addIntent.putExtra("date", mainViewModel.selectedDate.value?.toString("yyyy/MM/dd"))
         startActivity(addIntent)
     }
+
+//    fun actionButtonClicked(dateTime: DateTime) {
+//        val addIntent = Intent(this, AddActivity::class.java)
+//        addIntent.putExtra("date", dateTime.toString("yyyy/MM/dd"))
+//        startActivity(addIntent)
+//    }
 }

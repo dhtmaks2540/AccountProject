@@ -7,6 +7,7 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import kr.co.lee.accoutproject.databinding.ActivityDetailBinding
 import kr.co.lee.accoutproject.data.TypeEntity
 import kr.co.lee.accoutproject.adapters.DetailRecyclerViewAdapter
@@ -23,8 +24,8 @@ class DetailActivity : AppCompatActivity() {
         // DataBinding
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
         binding.lifecycleOwner = this
-        binding.detailViewModel = viewModel
-        binding.detailActivity = this
+        binding.viewModel = viewModel
+        binding.activity = this
         setContentView(binding.root)
 
         intent.getStringExtra("money")?.let { viewModel.selectMoney(it) }

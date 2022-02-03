@@ -43,7 +43,7 @@ class CalendarFragment : Fragment() {
 
     companion object {
         private const val MILLIS = "MILLIS"
-        
+
         // CalendarFragment 만드는 메소드
         // 넘어온 millis값 넣은 인자 생성 인자 셋팅
         fun newInstance(millis: Long) = CalendarFragment().apply {

@@ -3,11 +3,16 @@ package kr.co.lee.accoutproject.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kr.co.lee.accoutproject.data.AccountDAO
+import kr.co.lee.accoutproject.data.TypeDAO
 import kr.co.lee.accoutproject.data.TypeEntity
 import kr.co.lee.accoutproject.utilities.ioThread
+import javax.inject.Inject
 
-class DetailViewModel(val accountDao: AccountDAO): ViewModel() {
+class DetailViewModel (
+    private val typeDAO: TypeDAO): ViewModel()
+{
     private val _money = MutableLiveData<String>()
     private val _types = MutableLiveData<List<TypeEntity>>()
     private val _date = MutableLiveData<String>()
@@ -31,7 +36,7 @@ class DetailViewModel(val accountDao: AccountDAO): ViewModel() {
 
     fun selectTypes(type: Int) {
         ioThread {
-            _types.postValue(accountDao.getTypes(typeForm = type))
+            _types.postValue(typeDAO.getTypes(typeForm = type))
         }
     }
 }

@@ -22,7 +22,7 @@ class CalendarAdapter(fm: FragmentActivity): FragmentStateAdapter(fm) {
         // 프래그먼트 생성하면서 인자로 millis값 넘기기
         return CalendarFragment.newInstance(millis)
     }
-    
+
     // 해당 page의 id를 제공
     override fun getItemId(position: Int): Long =
         DateTime(start).plusMonths(position - START_POSITION).millis
