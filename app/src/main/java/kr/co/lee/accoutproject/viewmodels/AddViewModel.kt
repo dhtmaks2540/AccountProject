@@ -9,19 +9,24 @@ import java.text.DecimalFormat
 
 class AddViewModel: ViewModel() {
     private val _date = MutableLiveData<String>()
-    private val _money = MutableLiveData<String>("0")
+    private val _doubleMoneyItem = MutableLiveData<Long>()
+
+    val _moneyItem = MutableLiveData<String>("0")
+
+    val doubleMoneyItem: LiveData<Long>
+        get() = _doubleMoneyItem
+
+    val moneyItem: LiveData<String>
+        get() = _moneyItem
 
     val date: LiveData<String>
         get() = _date
 
-    val money: LiveData<String>
-        get() = _money
-
-    fun setDateItem(dateItem: String) {
-        _date.value = dateItem
+    fun setDateItem(date: String) {
+        _date.value = date
     }
 
-    fun setMoneyItem(moneyItem: String) {
-        _money.value = moneyItem
+    fun setDoubleItem(money: Long) {
+        _doubleMoneyItem.value = money
     }
 }

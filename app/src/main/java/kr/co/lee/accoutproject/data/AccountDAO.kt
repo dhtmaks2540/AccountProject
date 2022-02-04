@@ -18,4 +18,10 @@ interface AccountDAO {
     // 하루 정보
     @Query("SELECT * FROM accounts WHERE year = (:year) and month = (:month) and day = (:day)")
     fun getMonthAccount(year: Int, month: Int, day: Int): List<AccountEntity>
+
+    @Query("SELECT * FROM accounts WHERE year = (:year) and Month = (:month)")
+    fun getMonthAccount(year: Int, month: Int): List<AccountEntity>
+
+    @Query("SELECT * FROM accounts")
+    fun getMonthAccount(): List<AccountEntity>
 }

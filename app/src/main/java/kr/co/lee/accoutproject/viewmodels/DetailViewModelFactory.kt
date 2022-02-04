@@ -11,10 +11,11 @@ class DetailViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if(modelClass.isAssignableFrom(DetailViewModel::class.java)) {
             val typeDao = AppDatabase.get(app).typeDAO()
+            val accountDao = AppDatabase.get(app).accountDAO()
 
             @Suppress("UNCHECKED_CAST")
             // ViewModel을 생성하여 반환
-            return DetailViewModel(typeDao) as T
+            return DetailViewModel(typeDao, accountDao) as T
         }
 
         throw IllegalArgumentException("Unknown ViewModel class")

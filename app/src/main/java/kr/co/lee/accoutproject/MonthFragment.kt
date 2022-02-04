@@ -34,11 +34,11 @@ class MonthFragment : Fragment() {
             .apply {
                 viewModel = mainViewModel
 
-                mainViewModel.selectDate(DateTime(calendar.date))
+                mainViewModel.setDate(DateTime(calendar.date))
 
                 // CalendarView
                 calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
-                    mainViewModel.selectDate(DateTime().withYear(year).withMonthOfYear(month + 1).withDayOfMonth(dayOfMonth))
+                    mainViewModel.setDate(DateTime().withYear(year).withMonthOfYear(month + 1).withDayOfMonth(dayOfMonth))
                     if (prev_year != year || prev_month != month || prev_day != dayOfMonth || System.currentTimeMillis() > timeCheck + 1500) {
                         timeCheck = System.currentTimeMillis()
                         prev_year = year

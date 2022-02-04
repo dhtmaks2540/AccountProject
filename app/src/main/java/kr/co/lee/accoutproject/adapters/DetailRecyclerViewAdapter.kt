@@ -10,37 +10,37 @@ import kr.co.lee.accoutproject.data.TypeEntity
 
 class DetailRecyclerViewAdapter(val typeList: List<TypeEntity>, val context: Context)
     : RecyclerView.Adapter<DetailRecyclerViewAdapter.DetailItemViewHolder>() {
+    private val entityClickListener = context as OnEntityClickListener
 
     inner class DetailItemViewHolder(val binding: ItemCategoryBinding): RecyclerView.ViewHolder(binding.root) {
         init {
+            // 아이템 클릭 리스너
             binding.setClickListener {
+                binding.typeEntity?.let {
+                    // 클릭 시 데이터 넘기기
+                    entityClickListener.onEntityClick(it)
+                }
             }
         }
 
-        fun bindTo(typeEntity: TypeEntity) {
-            binding.itemCategoryName.text = typeEntity.typeName
+        fun bindTo(item: TypeEntity) {
+            binding.apply {
+                itemCategoryName.text = item.typeName
+                typeEntity = item
+            }
 
             // 이미지 획득
-            val resId = context.resources.getIdentifier(typeEntity.typeImageName,
+            val resId = context.resources.getIdentifier(item.typeImageName,
                 "drawable", context.packageName)
-
-            // 라이브러리 사용 X
-//            binding.itemCategoryImage.apply {
-//                // 이미지 적용
-//                setImageResource(resId)
-//            }
-//
-//            val bgShape = binding.itemCategoryImage.background as GradientDrawable
-//            bgShape.setColor(Color.parseColor(typeEntity.typeColor))
 
             // CircleImageView 라이브러리 사용
             binding.itemCategoryImage.apply {
                 // 이미지 적용
                 setImageResource(resId)
                 // 테두리 지정
-                borderColor = Color.parseColor(typeEntity.typeColor)
+                borderColor = Color.parseColor(item.typeColor)
                 // 배경색 지정
-                circleBackgroundColor = Color.parseColor(typeEntity.typeColor)
+                circleBackgroundColor = Color.parseColor(item.typeColor)
             }
         }
     }
@@ -56,4 +56,9 @@ class DetailRecyclerViewAdapter(val typeList: List<TypeEntity>, val context: Con
 
     // 아이템의 개수
     override fun getItemCount(): Int = typeList.size
+}
+
+// Callback Interface
+interface OnEntityClickListener {
+    fun onEntityClick(entity: TypeEntity)
 }

@@ -19,6 +19,6 @@ data class AccountEntity(
     val month: Int,
     val day: Int,
     val content: String,
-    val money: Int,
+    val money: Long,
     @ColumnInfo(name = "type_id") val typeId: Int,
 )

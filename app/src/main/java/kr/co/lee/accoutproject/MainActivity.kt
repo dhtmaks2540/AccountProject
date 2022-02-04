@@ -52,6 +52,16 @@ class MainActivity : AppCompatActivity(){
         return true
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.menu_search -> {
+                println("Account !!! : ${mainViewModel.accounts.value}")
+            }
+        }
+
+        return true
+    }
+
     // Toolbar 처리
     private fun toolbarSetting() {
         setSupportActionBar(binding.mainToolbar)

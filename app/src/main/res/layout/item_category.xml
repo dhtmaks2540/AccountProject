@@ -3,7 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     
     <data>
+        <variable
+            name="viewModel"
+            type="kr.co.lee.accoutproject.viewmodels.DetailViewModel" />
 
+        <variable
+            name="typeEntity"
+            type="kr.co.lee.accoutproject.data.TypeEntity" />
 
         <variable
             name="clickListener"

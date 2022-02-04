@@ -11,11 +11,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import kr.co.lee.accoutproject.databinding.ActivityDetailBinding
 import kr.co.lee.accoutproject.data.TypeEntity
 import kr.co.lee.accoutproject.adapters.DetailRecyclerViewAdapter
+import kr.co.lee.accoutproject.adapters.OnEntityClickListener
 import kr.co.lee.accoutproject.viewmodels.DetailViewModel
 import kr.co.lee.accoutproject.viewmodels.DetailViewModelFactory
 
-class DetailActivity : AppCompatActivity() {
-    private val viewModel: DetailViewModel by viewModels { DetailViewModelFactory(application) }
+class DetailActivity : AppCompatActivity(), OnEntityClickListener {
+    private val detailViewModel: DetailViewModel by viewModels { DetailViewModelFactory(application) }
     private lateinit var binding: ActivityDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,19 +24,17 @@ class DetailActivity : AppCompatActivity() {
 
         // DataBinding
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
-        binding.lifecycleOwner = this
-        binding.viewModel = viewModel
-        binding.activity = this
-        setContentView(binding.root)
-
-        intent.getStringExtra("money")?.let { viewModel.selectMoney(it) }
-        intent.getIntExtra("type", 0).let { viewModel.selectTypes(it) }
-        intent.getStringExtra("date")?.let {
-            viewModel.selectDate(it)
+        binding.apply {
+            lifecycleOwner = this@DetailActivity
+            viewModel = detailViewModel
+            activity = this@DetailActivity
         }
-        setSupportActionBar()
 
-        viewModel.types.observe(this, {
+        setContentView(binding.root)
+        setSupportActionBar()
+        getIntentData()
+
+        detailViewModel.types.observe(this, {
             setRecyclerAdapter(it)
         })
     }
@@ -61,6 +60,13 @@ class DetailActivity : AppCompatActivity() {
         return true
     }
 
+    private fun getIntentData() {
+        intent.getStringExtra("money")?.let { detailViewModel.setMoney(it) }
+        intent.getIntExtra("type", 0).let { detailViewModel.setTypes(it) }
+        intent.getStringExtra("date")?.let { detailViewModel.setDate(it) }
+        intent.getLongExtra("doubleMoney", 0)?.let { detailViewModel.setDoubleMoney(it) }
+    }
+
     // toolbar 설정
     private fun setSupportActionBar() {
         setSupportActionBar(binding.detailToolbar)
@@ -74,6 +80,11 @@ class DetailActivity : AppCompatActivity() {
 
     // 뒤로가기 버튼
     fun backButtonClick() {
+        finish()
+    }
+
+    override fun onEntityClick(entity: TypeEntity) {
+        detailViewModel.setAccount(detailViewModel.doubleMoney.value!!, detailViewModel.content.value!!, detailViewModel.date.value!!, entity.typeId)
         finish()
     }
 }

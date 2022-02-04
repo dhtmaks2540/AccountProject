@@ -41,6 +41,7 @@
             app:layout_constraintTop_toBottomOf="@id/add_toolbar" />
 
         <EditText
+            android:text="@={viewModel._moneyItem}"
             android:id="@+id/krw_edit_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -58,7 +59,6 @@
             android:layout_height="60dp"
             android:layout_marginTop="45dp"
             android:background="@color/light_green"
-            android:onClick="@{() -> activity.buttonClick(viewModel.money, 1, viewModel.date)}"
             android:text="@string/deposit_text"
             android:textColor="@color/white"
             android:textStyle="bold"
@@ -71,7 +71,6 @@
             android:layout_width="120dp"
             android:layout_height="60dp"
             android:background="@color/light_orange"
-            android:onClick="@{() -> activity.buttonClick(viewModel.money, 0, viewModel.date)}"
             android:text="@string/expense_text"
             android:textColor="@color/white"
             android:textStyle="bold"

@@ -31,11 +31,11 @@ class AddActivity : AppCompatActivity() {
 
         override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
             if(!TextUtils.isEmpty(charSequence.toString()) && charSequence.toString() != result){
-                val money = charSequence.toString().replace(",","").toDouble()
+                val money = charSequence.toString().replace(",","").toLong()
+                addViewModel.setDoubleItem(money)
                 result = decimalFormat.format(money)
                 binding.krwEditView.setText(result)
                 binding.krwEditView.setSelection(result.length)
-                addViewModel.setMoneyItem(result)
             }
         }
 
@@ -43,6 +43,8 @@ class AddActivity : AppCompatActivity() {
         }
 
     }
+
+    val krwText = Currency.getInstance(Locale.KOREA).symbol;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,12 +57,14 @@ class AddActivity : AppCompatActivity() {
             activity = this@AddActivity
 
             // 입금버튼
-            depositButton.setOnClickListener { buttonClick(addViewModel.money.value, 1, addViewModel.date.value) }
-            expenseButton.setOnClickListener { buttonClick(addViewModel.money.value, 0, addViewModel.date.value) }
-        }
+            depositButton.setOnClickListener { buttonClick(addViewModel.moneyItem.value, 1, addViewModel.date.value, addViewModel.doubleMoneyItem.value) }
+            expenseButton.setOnClickListener { buttonClick(addViewModel.moneyItem.value, 0, addViewModel.date.value, addViewModel.doubleMoneyItem.value) }
 
+            // EditText
+            krwEditView.addTextChangedListener(watcher)
+            krwLabel.text = krwText
+        }
         setSupportActionBar()
-        editTextSetting()
 
         intent.getStringExtra("date")?.let { addViewModel.setDateItem(it) }
 
@@ -88,28 +92,14 @@ class AddActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
-    // EditText 설정
-    private fun editTextSetting() {
-        val krwText = Currency.getInstance(Locale.KOREA).symbol;
-
-        binding.krwLabel.text = krwText
-        binding.krwEditView.addTextChangedListener(watcher)
-    }
-
-    private fun buttonClick(moneyItem: String?, typeItem: Int, date: String?) {
+    // button
+    private fun buttonClick(moneyItem: String?, typeItem: Int, date: String?, doubleMoney: Long?) {
         val detailIntent = Intent(this, DetailActivity::class.java)
         detailIntent.putExtra("money", moneyItem)
+        detailIntent.putExtra("doubleMoney", doubleMoney)
         detailIntent.putExtra("type", typeItem)
         detailIntent.putExtra("date", date)
         startActivity(detailIntent)
+        finish()
     }
-
-//    fun buttonClick(moneyItem: String, typeItem: Int, date: String) {
-//        val detailIntent = Intent(this, DetailActivity::class.java)
-//        detailIntent.putExtra("money", moneyItem)
-//        detailIntent.putExtra("type", typeItem)
-//        detailIntent.putExtra("date", date)
-//        startActivity(detailIntent)
-////        finish()
-//    }
 }
