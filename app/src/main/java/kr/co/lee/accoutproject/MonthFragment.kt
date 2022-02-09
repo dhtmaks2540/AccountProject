@@ -1,5 +1,6 @@
 package kr.co.lee.accoutproject
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,11 +9,19 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.qualifiers.ActivityContext
+import kr.co.lee.accoutproject.adapters.MonthRecyclerViewAdapter
 import kr.co.lee.accoutproject.databinding.FragmentMonthBinding
 import kr.co.lee.accoutproject.viewmodels.MainViewModel
 import org.joda.time.DateTime
+import javax.inject.Inject
 
-class MonthFragment : Fragment() {
+@AndroidEntryPoint
+class MonthFragment: Fragment() {
+    private var _binding: FragmentMonthBinding? = null
+    private val binding: FragmentMonthBinding
+        get() = _binding!!
+
     private var timeCheck: Long = 0L
     private var prev_year = 0
     private var prev_month = 0
@@ -29,31 +38,41 @@ class MonthFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // DataBinding
-        val binding = DataBindingUtil.inflate<FragmentMonthBinding>(
+        _binding = DataBindingUtil.inflate<FragmentMonthBinding>(
             inflater, R.layout.fragment_month, container, false)
-            .apply {
-                viewModel = mainViewModel
+        binding.apply {
+            viewModel = mainViewModel
 
-                mainViewModel.setDate(DateTime(calendar.date))
+            mainViewModel.setDate(DateTime(calendar.date))
 
-                // CalendarView
-                calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
-                    mainViewModel.setDate(DateTime().withYear(year).withMonthOfYear(month + 1).withDayOfMonth(dayOfMonth))
-                    if (prev_year != year || prev_month != month || prev_day != dayOfMonth || System.currentTimeMillis() > timeCheck + 1500) {
-                        timeCheck = System.currentTimeMillis()
-                        prev_year = year
-                        prev_month = month
-                        prev_day = dayOfMonth
-                    } else if(prev_year == year && prev_month == month && prev_day == dayOfMonth && System.currentTimeMillis() <= timeCheck + 1500) {
-                        // 프래그먼트 바꾸기(일간 프래그먼트로)
-                    }
+            // CalendarView
+            calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
+                mainViewModel.setDate(DateTime().withYear(year).withMonthOfYear(month + 1).withDayOfMonth(dayOfMonth))
+                if (prev_year != year || prev_month != month || prev_day != dayOfMonth || System.currentTimeMillis() > timeCheck + 1500) {
+                    timeCheck = System.currentTimeMillis()
+                    prev_year = year
+                    prev_month = month
+                    prev_day = dayOfMonth
+                } else if(prev_year == year && prev_month == month && prev_day == dayOfMonth && System.currentTimeMillis() <= timeCheck + 1500) {
+                    // 프래그먼트 바꾸기(일간 프래그먼트로)
                 }
             }
+        }
+        subscribeUi()
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    private fun subscribeUi() {
+        mainViewModel.setAccounts()
+        mainViewModel.accounts.observe(viewLifecycleOwner, {
+            mainViewModel.setMoney()
+            val recyclerAdapter = MonthRecyclerViewAdapter(it, context!!)
+            binding.monthRecycler.adapter = recyclerAdapter
+        })
     }
 }

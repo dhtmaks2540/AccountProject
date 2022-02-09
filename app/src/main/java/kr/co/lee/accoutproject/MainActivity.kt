@@ -8,19 +8,18 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.commit
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationBarView
+import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.lee.accoutproject.databinding.ActivityMainBinding
 import kr.co.lee.accoutproject.viewmodels.MainViewModel
-import kr.co.lee.accoutproject.viewmodels.MainViewModelFactory
-import org.joda.time.DateTime
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(){
+@AndroidEntryPoint
+class MainActivity: AppCompatActivity(){
 
     private lateinit var binding: ActivityMainBinding
     // ViewModel 생성
-    private val mainViewModel: MainViewModel by viewModels { MainViewModelFactory(application) }
+    private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +40,12 @@ class MainActivity : AppCompatActivity(){
                 selectedItemId = R.id.action_month
             }
         }
-        toolbarSetting()
 
+        mainViewModel.date.observe(this, Observer {
+            println("year : ${it.year}, month : ${it.monthOfYear}, day : ${it.dayOfWeek}")
+        })
+
+        toolbarSetting()
         setContentView(binding.root)
     }
 
@@ -96,7 +99,7 @@ class MainActivity : AppCompatActivity(){
     // FloatingActionButton 이벤트 리스너
     private fun actionButtonClicked() {
         val addIntent = Intent(this, AddActivity::class.java)
-        addIntent.putExtra("date", mainViewModel.selectedDate.value?.toString("yyyy/MM/dd"))
+        addIntent.putExtra("date", mainViewModel.date.value?.toString("yyyy/MM/dd"))
         startActivity(addIntent)
     }
 

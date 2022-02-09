@@ -4,13 +4,16 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp">
+        android:layout_height="wrap_content"
+        android:padding="5dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/type_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            app:civ_border_width="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,28 +23,30 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:text="식비"
-            android:textSize="15sp"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/type_image"
             app:layout_constraintStart_toEndOf="@id/type_image"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/type_image" />
 
         <TextView
-            android:id="@+id/type_view"
+            android:id="@+id/content_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:text="치킨"
             android:textSize="15sp"
-            app:layout_constraintStart_toEndOf="@id/type_label"
+            app:layout_constraintBottom_toBottomOf="@id/type_image"
             app:layout_constraintEnd_toStartOf="@id/money_view"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@id/type_label"
+            app:layout_constraintTop_toTopOf="@id/type_image" />
 
         <TextView
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:id="@+id/money_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="50000원" />
+            app:layout_constraintBottom_toBottomOf="@id/type_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/type_image" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

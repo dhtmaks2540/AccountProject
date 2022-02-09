@@ -88,5 +88,5 @@ dependencies {
     def activity_version = "1.4.0"
     implementation "androidx.activity:activity-ktx:$activity_version"
 
-    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
+//    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 }

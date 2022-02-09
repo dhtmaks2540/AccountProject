@@ -13,10 +13,10 @@ import kr.co.lee.accoutproject.data.TypeEntity
 import kr.co.lee.accoutproject.adapters.DetailRecyclerViewAdapter
 import kr.co.lee.accoutproject.adapters.OnEntityClickListener
 import kr.co.lee.accoutproject.viewmodels.DetailViewModel
-import kr.co.lee.accoutproject.viewmodels.DetailViewModelFactory
 
+@AndroidEntryPoint
 class DetailActivity : AppCompatActivity(), OnEntityClickListener {
-    private val detailViewModel: DetailViewModel by viewModels { DetailViewModelFactory(application) }
+    private val detailViewModel: DetailViewModel by viewModels()
     private lateinit var binding: ActivityDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

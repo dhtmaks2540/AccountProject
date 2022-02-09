@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ActivityReceipt">
+
+        <include
+            android:id="@+id/receipt_toolbar"
+            layout="@layout/toolbar_receipt"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/type_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/receipt_toolbar" />
+
+        <TextView
+            android:id="@+id/date_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="날짜"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/type_view" />
+
+        <TextView
+            android:id="@+id/type_name_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="타입이름"
+            app:layout_constraintEnd_toEndOf="@id/type_view"
+            app:layout_constraintStart_toStartOf="@id/type_view"
+            app:layout_constraintTop_toBottomOf="@id/type_view" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

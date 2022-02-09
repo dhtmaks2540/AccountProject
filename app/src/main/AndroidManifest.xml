@@ -11,13 +11,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AccoutProject">
         <activity
-            android:name=".DetailActivity"
-            android:windowSoftInputMode="stateAlwaysVisible"
+            android:name=".ActivityReceipt"
             android:exported="false" />
         <activity
+            android:name=".DetailActivity"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysVisible" />
+        <activity
             android:name=".AddActivity"
-            android:windowSoftInputMode="stateAlwaysVisible"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysVisible" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

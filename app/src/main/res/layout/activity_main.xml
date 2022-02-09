@@ -12,6 +12,7 @@
         <variable
             name="viewModel"
             type="kr.co.lee.accoutproject.viewmodels.MainViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text='@{viewModel.selectedDate.toString("M") + "월"}'
+                android:text='@{viewModel.date.toString("M") + "월"}'
                 android:textColor="@color/white" />
 
         </androidx.appcompat.widget.Toolbar>

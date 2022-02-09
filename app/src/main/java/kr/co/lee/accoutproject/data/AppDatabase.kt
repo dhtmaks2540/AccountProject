@@ -16,45 +16,45 @@ abstract class AppDatabase: RoomDatabase() {
     companion object {
         private var instance: AppDatabase? = null
 
-//        fun getInstance(context: Context): AppDatabase {
-//            return instance ?: synchronized(this) {
-//                instance ?: buildDatabase(context).also { instance = it }
-//            }
-//        }
-//
-//        private fun buildDatabase(context: Context): AppDatabase {
-//            return Room.databaseBuilder(context, AppDatabase::class.java, "account_database")
-//                .addCallback(object : RoomDatabase.Callback() {
-//                    override fun onCreate(db: SupportSQLiteDatabase) {
-//                        super.onCreate(db)
-//                        fillInDb(context.applicationContext)
-//                    }
-//                }).build()
-//        }
+        fun getInstance(context: Context): AppDatabase {
+            return instance ?: synchronized(this) {
+                instance ?: buildDatabase(context).also { instance = it }
+            }
+        }
 
-        @Synchronized
-        fun get(context: Context): AppDatabase {
-            if(instance == null) {
-                instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    AppDatabase::class.java, "account_database"
-                ).addCallback(object : RoomDatabase.Callback() { // 콜백 추가
-                    // RoomDatabase 객체가 생성되면 호추로디는 콜백 메소드
+        private fun buildDatabase(context: Context): AppDatabase {
+            return Room.databaseBuilder(context, AppDatabase::class.java, "account_database")
+                .addCallback(object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
-                        // fillInDb 메소드 호출
                         super.onCreate(db)
                         fillInDb(context.applicationContext)
                     }
                 }).build()
-            }
-
-            return instance!!
         }
-    
+
+//        @Synchronized
+//        fun get(context: Context): AppDatabase {
+//            if(instance == null) {
+//                instance = Room.databaseBuilder(
+//                    context.applicationContext,
+//                    AppDatabase::class.java, "account_database"
+//                ).addCallback(object : RoomDatabase.Callback() { // 콜백 추가
+//                    // RoomDatabase 객체가 생성되면 호추로디는 콜백 메소드
+//                    override fun onCreate(db: SupportSQLiteDatabase) {
+//                        // fillInDb 메소드 호출
+//                        super.onCreate(db)
+//                        fillInDb(context.applicationContext)
+//                    }
+//                }).build()
+//            }
+//
+//            return instance!!
+//        }
+//
         // 타입 테이블 추가하는 메소드
         private fun fillInDb(context: Context) {
             ioThread {
-                get(context).typeDAO().insertTypes(
+                getInstance(context).typeDAO().insertTypes(
                     typeList.map { TypeEntity(typeId = 0, typeForm = it[0].toInt(), typeName = it[1], typeImageName = it[2], typeColor = it[3]) }
                 )
             }

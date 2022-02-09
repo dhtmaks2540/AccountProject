@@ -6,8 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.text.DecimalFormat
+import javax.inject.Inject
 
-class AddViewModel: ViewModel() {
+@HiltViewModel
+class AddViewModel @Inject constructor(
+
+): ViewModel() {
     private val _date = MutableLiveData<String>()
     private val _doubleMoneyItem = MutableLiveData<Long>()
 

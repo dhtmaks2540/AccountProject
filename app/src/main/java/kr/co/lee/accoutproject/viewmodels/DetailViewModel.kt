@@ -4,15 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kr.co.lee.accoutproject.data.AccountDAO
-import kr.co.lee.accoutproject.data.AccountEntity
-import kr.co.lee.accoutproject.data.TypeDAO
-import kr.co.lee.accoutproject.data.TypeEntity
+import kr.co.lee.accoutproject.data.*
 import kr.co.lee.accoutproject.utilities.ioThread
 import javax.inject.Inject
 
-class DetailViewModel (
-    private val typeDAO: TypeDAO, private val accountDAO: AccountDAO): ViewModel()
+@HiltViewModel
+class DetailViewModel @Inject constructor(
+    private val typeRepository: TypeRepository,
+    private val accountRepository: AccountRepository): ViewModel()
 {
     private val _moneyItem = MutableLiveData<String>()
     private val _typesItem = MutableLiveData<List<TypeEntity>>()
@@ -46,15 +45,15 @@ class DetailViewModel (
 
     fun setTypes(type: Int) {
         ioThread {
-            _typesItem.postValue(typeDAO.getTypes(typeForm = type))
+            _typesItem.postValue(typeRepository.getTypes(typeForm = type))
         }
     }
 
     fun setAccount(money: Long, content: String, date: String, typeId: Int) {
         ioThread {
-            val date = date?.split("/").map { it.toInt() }
-            val accountEntity = AccountEntity(0, year = date[0], month = date[1], day = date[2], content = content, money = money, typeId = typeId)
-            accountDAO.insertAccount(accountEntity)
+            val dateList = date.split("/").map { it.toInt() }
+            val accountEntity = AccountEntity(0, year = dateList[0], month = dateList[1], day = dateList[2], content = content, money = money, typeId = typeId)
+            accountRepository.insertAccount(accountEntity)
         }
     }
 

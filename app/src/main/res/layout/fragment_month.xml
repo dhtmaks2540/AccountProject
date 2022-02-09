@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="viewModel"
             type="kr.co.lee.accoutproject.viewmodels.MainViewModel" />
@@ -13,13 +12,35 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <include
+            android:id="@+id/income_view"
+            layout="@layout/item_money_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/deposit_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:money="@{viewModel.incomeMoney}"
+            app:labelText='@{"수입"}'/>
+
+        <include
+            android:id="@+id/deposit_view"
+            layout="@layout/item_money_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/income_view"
+            app:layout_constraintTop_toTopOf="parent"
+            app:money="@{viewModel.depositMoney}"
+            app:labelText='@{"지출"}'/>
+
         <CalendarView
             android:id="@+id/calendar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toTopOf="@id/month_recycler"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/income_view" />
 
         <View
             android:id="@+id/division"
@@ -29,6 +50,7 @@
             app:layout_constraintTop_toBottomOf="@id/calendar" />
 
         <androidx.recyclerview.widget.RecyclerView
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:id="@+id/month_recycler"
             android:layout_width="match_parent"
             android:layout_height="0dp"

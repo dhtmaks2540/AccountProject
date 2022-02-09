@@ -18,6 +18,7 @@ import kr.co.lee.accoutproject.viewmodels.AddViewModel
 import java.text.DecimalFormat
 import java.util.*
 
+@AndroidEntryPoint
 class AddActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddBinding
     private val decimalFormat = DecimalFormat("#,###")
