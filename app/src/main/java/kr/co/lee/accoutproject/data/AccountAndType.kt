@@ -2,6 +2,7 @@ package kr.co.lee.accoutproject.data
 
 import androidx.room.Embedded
 import androidx.room.Relation
+import java.io.Serializable
 
 data class AccountAndType(
     @Embedded
@@ -9,4 +10,4 @@ data class AccountAndType(
 
     @Embedded
     val type: TypeEntity
-)
+): Serializable

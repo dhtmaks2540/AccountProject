@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 // Entity 클래스 -> 하나의 테이블에 해당
 @Entity(
@@ -21,4 +22,4 @@ data class AccountEntity(
     val content: String,
     val money: Long,
     @ColumnInfo(name = "type_id") val typeId: Int,
-)
+): Serializable

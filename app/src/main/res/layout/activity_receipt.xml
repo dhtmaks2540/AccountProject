@@ -5,6 +5,13 @@
 
     <data>
 
+        <variable
+            name="activity"
+            type="kr.co.lee.accoutproject.ActivityReceipt" />
+
+        <variable
+            name="viewModel"
+            type="kr.co.lee.accoutproject.viewmodels.ReceiptViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,13 +23,18 @@
             android:id="@+id/receipt_toolbar"
             layout="@layout/toolbar_receipt"
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize" />
+            android:layout_height="?android:attr/actionBarSize"
+            app:activity="@{activity}"
+            app:type="@{viewModel.accountAndType.type.typeForm}" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/type_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_marginTop="10dp"
+            app:civ_border_width="5dp"
+            app:image_color="@{viewModel.accountAndType.type.typeColor}"
+            app:image_res="@{viewModel.accountAndType.type.typeImageName}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/receipt_toolbar" />
@@ -31,8 +43,8 @@
             android:id="@+id/date_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:text="날짜"
+            android:layout_marginEnd="10dp"
+            android:text='@{viewModel.accountAndType.account.year+"/"+viewModel.accountAndType.account.month + "/" +viewModel.accountAndType.account.day}'
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/type_view" />
 
@@ -41,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="타입이름"
+            android:text="@{viewModel.accountAndType.type.typeName}"
             app:layout_constraintEnd_toEndOf="@id/type_view"
             app:layout_constraintStart_toStartOf="@id/type_view"
             app:layout_constraintTop_toBottomOf="@id/type_view" />
@@ -61,10 +73,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:text="금액"
             app:layout_constraintBottom_toBottomOf="@id/price_label"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/price_label" />
+            app:layout_constraintTop_toTopOf="@id/price_label"
+            app:money="@{viewModel.accountAndType.account.money}" />
 
         <TextView
             android:id="@+id/content_label"
@@ -80,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:text="내역"
+            android:text="@{viewModel.accountAndType.account.content}"
             app:layout_constraintBottom_toBottomOf="@id/content_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/content_label" />

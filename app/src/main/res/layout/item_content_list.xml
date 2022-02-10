@@ -3,13 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="accountAndType"
             type="kr.co.lee.accoutproject.data.AccountAndType" />
+        
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:onClick="@{clickListener}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp">
@@ -20,8 +24,8 @@
             android:layout_height="20dp"
             android:layout_marginStart="10dp"
             app:civ_border_width="2dp"
-            app:image_res="@{accountAndType.type.typeImageName}"
             app:image_color="@{accountAndType.type.typeColor}"
+            app:image_res="@{accountAndType.type.typeImageName}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -50,13 +54,14 @@
             app:layout_constraintTop_toTopOf="@id/type_image" />
 
         <TextView
-            app:money="@{accountAndType.account.money}"
             android:id="@+id/money_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@{accountAndType.type.typeForm == 1 ? @color/money_green : @color/money_red}"
             app:layout_constraintBottom_toBottomOf="@id/type_image"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/type_image" />
+            app:layout_constraintTop_toTopOf="@id/type_image"
+            app:money="@{accountAndType.account.money}" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

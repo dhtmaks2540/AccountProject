@@ -69,10 +69,10 @@ class MonthFragment: Fragment() {
 
     private fun subscribeUi() {
         mainViewModel.setAccounts()
-        mainViewModel.accounts.observe(viewLifecycleOwner, {
+        mainViewModel.accounts.observe(viewLifecycleOwner) {
             mainViewModel.setMoney()
-            val recyclerAdapter = MonthRecyclerViewAdapter(it, context!!)
+            val recyclerAdapter = MonthRecyclerViewAdapter(it)
             binding.monthRecycler.adapter = recyclerAdapter
-        })
+        }
     }
 }

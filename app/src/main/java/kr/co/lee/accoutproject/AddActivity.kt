@@ -94,11 +94,11 @@ class AddActivity : AppCompatActivity() {
     }
 
     // button
-    private fun buttonClick(moneyItem: String?, typeItem: Int, date: String?, doubleMoney: Long?) {
+    private fun buttonClick(moneyItem: String?, typeForm: Int, date: String?, doubleMoney: Long?) {
         val detailIntent = Intent(this, DetailActivity::class.java)
         detailIntent.putExtra("money", moneyItem)
         detailIntent.putExtra("doubleMoney", doubleMoney)
-        detailIntent.putExtra("type", typeItem)
+        detailIntent.putExtra("type", typeForm)
         detailIntent.putExtra("date", date)
         startActivity(detailIntent)
         finish()

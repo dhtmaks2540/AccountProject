@@ -17,8 +17,12 @@ class DetailViewModel @Inject constructor(
     private val _typesItem = MutableLiveData<List<TypeEntity>>()
     private val _dateItem = MutableLiveData<String>()
     private val _doubleMoney = MutableLiveData<Long>()
+    private val _type = MutableLiveData<Int>()
 
-    val _contentItem = MutableLiveData<String>("")
+    val type : LiveData<Int>
+        get() = _type
+
+    val _contentItem = MutableLiveData("")
 
     val doubleMoney: LiveData<Long>
         get() = _doubleMoney
@@ -44,6 +48,7 @@ class DetailViewModel @Inject constructor(
     }
 
     fun setTypes(type: Int) {
+        _type.value = type
         ioThread {
             _typesItem.postValue(typeRepository.getTypes(typeForm = type))
         }

@@ -11,4 +11,7 @@
     <color name="light_sky">#70D0FF</color>
     <color name="light_green">#66FF66</color>
     <color name="light_orange">#FF6666</color>
+
+    <color name="money_green">#3Cb371</color>
+    <color name="money_red">#DB4455</color>
 </resources>

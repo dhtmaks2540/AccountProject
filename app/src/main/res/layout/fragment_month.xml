@@ -21,7 +21,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:money="@{viewModel.incomeMoney}"
-            app:labelText='@{"수입"}'/>
+            app:labelText='@{"수입"}'
+            app:type="@{1}"/>
 
         <include
             android:id="@+id/deposit_view"
@@ -32,7 +33,8 @@
             app:layout_constraintStart_toEndOf="@id/income_view"
             app:layout_constraintTop_toTopOf="parent"
             app:money="@{viewModel.depositMoney}"
-            app:labelText='@{"지출"}'/>
+            app:labelText='@{"지출"}'
+            app:type="@{0}"/>
 
         <CalendarView
             android:id="@+id/calendar"

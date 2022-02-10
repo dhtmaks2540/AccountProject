@@ -45,7 +45,7 @@ class MainActivity: AppCompatActivity(){
             println("year : ${it.year}, month : ${it.monthOfYear}, day : ${it.dayOfWeek}")
         })
 
-        toolbarSetting()
+        setToolbar()
         setContentView(binding.root)
     }
 
@@ -66,7 +66,7 @@ class MainActivity: AppCompatActivity(){
     }
 
     // Toolbar 처리
-    private fun toolbarSetting() {
+    private fun setToolbar() {
         setSupportActionBar(binding.mainToolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayShowHomeEnabled(true)

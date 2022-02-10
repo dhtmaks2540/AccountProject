@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/android_workspace/AccountProject/app/src/main/res/layout/activity_add.xml" value="0.25" />
+        <entry key="..\:/android_workspace/AccountProject/app/src/main/res/layout/activity_detail.xml" value="0.25" />
+        <entry key="..\:/android_workspace/AccountProject/app/src/main/res/layout/activity_receipt.xml" value="0.25" />
+        <entry key="..\:/android_workspace/AccountProject/app/src/main/res/layout/fragment_month.xml" value="0.36096014492753625" />
+        <entry key="..\:/android_workspace/AccountProject/app/src/main/res/layout/item_category.xml" value="0.25" />
+        <entry key="..\:/android_workspace/AccountProject/app/src/main/res/layout/item_content_list.xml" value="0.25" />
+        <entry key="..\:/android_workspace/AccountProject/app/src/main/res/layout/item_money_text.xml" value="0.36096014492753625" />
+        <entry key="..\:/android_workspace/AccountProject/app/src/main/res/layout/toolbar_receipt.xml" value="0.2" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

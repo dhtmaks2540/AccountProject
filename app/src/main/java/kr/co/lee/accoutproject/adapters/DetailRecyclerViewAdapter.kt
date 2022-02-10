@@ -5,8 +5,8 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kr.co.lee.accoutproject.databinding.ItemCategoryBinding
 import kr.co.lee.accoutproject.data.TypeEntity
+import kr.co.lee.accoutproject.databinding.ItemCategoryBinding
 
 class DetailRecyclerViewAdapter(val typeList: List<TypeEntity>, val context: Context)
     : RecyclerView.Adapter<DetailRecyclerViewAdapter.DetailItemViewHolder>() {
@@ -25,23 +25,22 @@ class DetailRecyclerViewAdapter(val typeList: List<TypeEntity>, val context: Con
 
         fun bindTo(item: TypeEntity) {
             binding.apply {
-                itemCategoryName.text = item.typeName
                 typeEntity = item
             }
 
-            // 이미지 획득
-            val resId = context.resources.getIdentifier(item.typeImageName,
-                "drawable", context.packageName)
-
-            // CircleImageView 라이브러리 사용
-            binding.itemCategoryImage.apply {
-                // 이미지 적용
-                setImageResource(resId)
-                // 테두리 지정
-                borderColor = Color.parseColor(item.typeColor)
-                // 배경색 지정
-                circleBackgroundColor = Color.parseColor(item.typeColor)
-            }
+//            // 이미지 획득
+//            val resId = context.resources.getIdentifier(item.typeImageName,
+//                "drawable", context.packageName)
+//
+//            // CircleImageView 라이브러리 사용
+//            binding.itemCategoryImage.apply {
+//                // 이미지 적용
+//                setImageResource(resId)
+//                // 테두리 지정
+//                borderColor = Color.parseColor(item.typeColor)
+//                // 배경색 지정
+//                circleBackgroundColor = Color.parseColor(item.typeColor)
+//            }
         }
     }
 

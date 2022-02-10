@@ -34,9 +34,9 @@ class DetailActivity : AppCompatActivity(), OnEntityClickListener {
         setSupportActionBar()
         getIntentData()
 
-        detailViewModel.types.observe(this, {
+        detailViewModel.types.observe(this) {
             setRecyclerAdapter(it)
-        })
+        }
     }
     
     // 메뉴 초기화

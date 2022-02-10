@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    
-    <data>
-        <variable
-            name="viewModel"
-            type="kr.co.lee.accoutproject.viewmodels.DetailViewModel" />
 
+    <data>
         <variable
             name="typeEntity"
             type="kr.co.lee.accoutproject.data.TypeEntity" />
 
         <variable
             name="clickListener"
-            type="android.view.View.OnClickListener"/>
+            type="android.view.View.OnClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:onClick="@{clickListener}"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="@{clickListener}"
         android:padding="10dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -27,28 +23,30 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             app:civ_border_width="5dp"
+            app:image_color="@{typeEntity.typeColor}"
+            app:image_res="@{typeEntity.typeImageName}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-<!--        <ImageView-->
-<!--            android:id="@+id/item_category_image"-->
-<!--            android:layout_width="50dp"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:background="@drawable/shape"-->
-<!--            android:padding="10dp"-->
-<!--            android:scaleType="centerCrop"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+        <!--        <ImageView-->
+        <!--            android:id="@+id/item_category_image"-->
+        <!--            android:layout_width="50dp"-->
+        <!--            android:layout_height="50dp"-->
+        <!--            android:background="@drawable/shape"-->
+        <!--            android:padding="10dp"-->
+        <!--            android:scaleType="centerCrop"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
 
         <TextView
-            android:text="이름"
             android:id="@+id/item_category_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:lines="1"
+            android:text="@{typeEntity.typeName}"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@id/item_category_image"
             app:layout_constraintStart_toStartOf="@id/item_category_image"
