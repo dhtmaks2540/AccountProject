@@ -15,16 +15,7 @@ class MonthRecyclerViewAdapter(
     inner class ViewHolder(val binding: ItemContentListBinding): RecyclerView.ViewHolder(binding.root) {
         fun bindTo(item: AccountAndType) {
             binding.apply {
-                moneyView.text = item.account.money.toString()
-                contentView.text = item.account.content.toString()
-                typeLabel.text = item.type.typeName
-                val resId = context.resources.getIdentifier(item.type.typeImageName,
-                    "drawable", context.packageName)
-                typeImage.setImageResource(resId)
-                // 테두리 지정
-                typeImage.borderColor = Color.parseColor(item.type.typeColor)
-                // 배경색 지정
-                typeImage.circleBackgroundColor = Color.parseColor(item.type.typeColor)
+                binding.accountAndType = item
             }
         }
     }

@@ -2,6 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="accountAndType"
+            type="kr.co.lee.accoutproject.data.AccountAndType" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,6 +20,8 @@
             android:layout_height="20dp"
             android:layout_marginStart="10dp"
             app:civ_border_width="2dp"
+            app:image_res="@{accountAndType.type.typeImageName}"
+            app:image_color="@{accountAndType.type.typeColor}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -22,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="식비"
+            android:text="@{accountAndType.type.typeName}"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="@id/type_image"
             app:layout_constraintStart_toEndOf="@id/type_image"
@@ -33,7 +42,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="치킨"
+            android:text="@{accountAndType.account.content}"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="@id/type_image"
             app:layout_constraintEnd_toStartOf="@id/money_view"
@@ -41,6 +50,7 @@
             app:layout_constraintTop_toTopOf="@id/type_image" />
 
         <TextView
+            app:money="@{accountAndType.account.money}"
             android:id="@+id/money_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -17,4 +17,9 @@
 
     <!-- detail activity -->
     <string name="history_label">내역</string>
+
+    <!-- receipt activity -->
+    <string name="delete_menu">삭제</string>
+    <string name="price">금액</string>
+    <string name="content">내역</string>
 </resources>

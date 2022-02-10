@@ -3,6 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -41,6 +45,45 @@
             app:layout_constraintEnd_toEndOf="@id/type_view"
             app:layout_constraintStart_toStartOf="@id/type_view"
             app:layout_constraintTop_toBottomOf="@id/type_view" />
+
+        <TextView
+            android:id="@+id/price_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/price"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/type_name_label" />
+
+        <TextView
+            android:id="@+id/money_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:text="금액"
+            app:layout_constraintBottom_toBottomOf="@id/price_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/price_label" />
+
+        <TextView
+            android:id="@+id/content_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/content"
+            app:layout_constraintStart_toStartOf="@id/price_label"
+            app:layout_constraintTop_toBottomOf="@id/price_label" />
+
+        <TextView
+            android:id="@+id/content_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:text="내역"
+            app:layout_constraintBottom_toBottomOf="@id/content_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/content_label" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
