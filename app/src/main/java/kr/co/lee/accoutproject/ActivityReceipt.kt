@@ -2,6 +2,8 @@ package kr.co.lee.accoutproject
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,22 +24,47 @@ class ActivityReceipt : AppCompatActivity() {
             lifecycleOwner = this@ActivityReceipt
             viewModel = receiptViewModel
             activity = this@ActivityReceipt
+
+            toolbarBack.setOnClickListener {
+                onBackButton()
+            }
         }
 
+        setToolbar()
         getIntentData()
         setContentView(binding.root)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.receipt_toolbar_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_delete -> {
+                receiptViewModel.deleteAccount()
+                finish()
+            }
+        }
+        return true
+    }
+
     private fun setToolbar() {
+        setSupportActionBar(binding.receiptToolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
     private fun getIntentData() {
-        (intent.getSerializableExtra("accountAndType") as AccountAndType).let { receiptViewModel.setAccountAndType(it) }
+        (intent.getSerializableExtra("accountAndType") as AccountAndType).let {
+            receiptViewModel.setAccountAndType(
+                it
+            )
+        }
     }
 
-    fun onBackButton() {
+    private fun onBackButton() {
         finish()
     }
 }

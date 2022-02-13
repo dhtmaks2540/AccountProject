@@ -29,7 +29,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:onClick="@{() -> activity.onBackButton()}"
                 android:src="@drawable/baseline_arrow_back_black_20" />
 
             <TextView

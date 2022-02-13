@@ -7,7 +7,7 @@ import javax.inject.Singleton
 class AccountRepository @Inject constructor(
     private val accountDao: AccountDAO
 ) {
-    fun removeAccount(account: AccountEntity) {
+    fun removeAccount(account: AccountEntity?) {
         accountDao.deleteAccount(account)
     }
 

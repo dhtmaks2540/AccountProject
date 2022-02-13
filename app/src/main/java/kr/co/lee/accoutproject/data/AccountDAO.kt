@@ -14,7 +14,7 @@ interface AccountDAO {
 
     // 내역 삭제
     @Delete
-    fun deleteAccount(accountEntity: AccountEntity)
+    fun deleteAccount(accountEntity: AccountEntity?)
 
     // 하루 정보
     @Query("SELECT * FROM accounts WHERE year = (:year) and month = (:month) and day = (:day)")

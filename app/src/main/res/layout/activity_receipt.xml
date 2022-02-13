@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="activity"
             type="kr.co.lee.accoutproject.ActivityReceipt" />
@@ -19,13 +18,38 @@
         android:layout_height="match_parent"
         tools:context=".ActivityReceipt">
 
-        <include
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/receipt_toolbar"
-            layout="@layout/toolbar_receipt"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
-            app:activity="@{activity}"
-            app:type="@{viewModel.accountAndType.type.typeForm}" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:menu="@menu/receipt_toolbar_menu">
+
+            <ImageView
+                android:id="@+id/toolbar_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:src="@drawable/baseline_arrow_back_black_20" />
+
+            <TextView
+                android:id="@+id/toolbar_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="30dp"
+                android:text='@{viewModel.accountAndType.type.typeForm == 1 ? "입금 영수증" : "지출 영수증"}'
+                android:textSize="25sp" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+<!--        <include-->
+<!--            android:id="@+id/receipt_toolbar"-->
+<!--            layout="@layout/toolbar_receipt"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="?android:attr/actionBarSize"-->
+<!--            app:activity="@{activity}"-->
+<!--            app:type="@{viewModel.accountAndType.type.typeForm}" />-->
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/type_view"
