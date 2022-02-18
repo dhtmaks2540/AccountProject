@@ -11,6 +11,7 @@ import androidx.core.content.withStyledAttributes
 import androidx.core.view.children
 import kr.co.lee.accoutproject.R
 import kr.co.lee.accoutproject.calendar.CalendarUtils.Companion.WEEKS_PER_MONTH
+import kr.co.lee.accoutproject.data.AccountAndType
 import org.joda.time.DateTime
 import org.joda.time.DateTimeConstants
 import kotlin.math.max
@@ -24,7 +25,6 @@ class CalendarView @JvmOverloads constructor(
     @StyleRes defStyleRes: Int = R.style.Calendar_CalendarViewStyle
 // ContextThemeWrapper : Context의 테마를 수정하거나 바꿀 수 있는 Context Wrapper
 ) : ViewGroup(ContextThemeWrapper(context, defStyleRes), attrs, defStyleAttr) {
-    private var onCalendarListener: OnCalendarListener? = null
     private var _height: Float = 0f
 
     // 초기화
@@ -67,22 +67,25 @@ class CalendarView @JvmOverloads constructor(
         }
     }
 
-    interface OnCalendarListener {
-        fun onDayClicked(day: DateTime?)
-    }
-
     /**
      * 달력 그리기 시작한다.
      * @param firstDayOfMonth   한 달의 시작 요일
      * @param list              달력이 가지고 있는 요일과 이벤트 목록 (총 42개)
      */
     fun initCalendar(firstDayOfMonth: DateTime, list: List<DateTime>) {
+//        for(i in list.indices) {
+//            addView(DayItemView(
+//                context = context,
+//                date = list[i],
+//                firstDayOfMonth = firstDayOfMonth]
+//            )
+//        }
         list.forEach {
             // ChildView를 추가
             addView(DayItemView(
                 context = context,
                 date = it,
-                firstDayOfMonth = firstDayOfMonth
+                firstDayOfMonth = firstDayOfMonth,
             ))
         }
     }

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="kr.co.lee.accoutproject.viewmodels.MainViewModel" />
@@ -17,30 +18,47 @@
             layout="@layout/item_money_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:labelText='@{"수입"}'
             app:layout_constraintEnd_toStartOf="@id/deposit_view"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:money="@{viewModel.incomeMoney}"
-            app:labelText='@{"수입"}'
-            app:type="@{1}"/>
+            app:type="@{1}" />
 
         <include
             android:id="@+id/deposit_view"
             layout="@layout/item_money_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:labelText='@{"지출"}'
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/income_view"
             app:layout_constraintTop_toTopOf="parent"
             app:money="@{viewModel.depositMoney}"
-            app:labelText='@{"지출"}'
-            app:type="@{0}"/>
+            app:type="@{0}" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/test"
+            android:name="kr.co.lee.accoutproject.CalendarFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/deposit_view" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/test2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/test"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/test" />
 
         <CalendarView
             android:id="@+id/calendar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@id/month_recycler"
             app:layout_constraintTop_toBottomOf="@id/income_view" />
 
@@ -49,13 +67,13 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#000000"
-            app:layout_constraintTop_toBottomOf="@id/calendar" />
+            app:layout_constraintTop_toBottomOf="@id/test" />
 
         <androidx.recyclerview.widget.RecyclerView
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:id="@+id/month_recycler"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/division" />
 

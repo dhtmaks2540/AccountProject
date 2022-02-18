@@ -4,14 +4,22 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <kr.co.lee.accoutproject.calendar.CalendarView
-            android:id="@+id/calendar_view"
+        <include
+            android:id="@+id/week_view"
+            layout="@layout/item_week"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <GridView
+            android:id="@+id/calendar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:numColumns="7"
+            app:layout_constraintTop_toBottomOf="@id/week_view" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

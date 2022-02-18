@@ -2,6 +2,7 @@ package kr.co.lee.accoutproject.calendar
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
 import android.text.TextPaint
@@ -14,6 +15,7 @@ import androidx.core.content.withStyledAttributes
 import kr.co.lee.accoutproject.R
 import kr.co.lee.accoutproject.calendar.CalendarUtils.Companion.getDateColor
 import kr.co.lee.accoutproject.calendar.CalendarUtils.Companion.isSameMonth
+import kr.co.lee.accoutproject.data.AccountAndType
 import org.joda.time.DateTime
 
 // View를 상속받는 커스텀 뷰
@@ -24,13 +26,17 @@ class DayItemView @JvmOverloads constructor(
     @AttrRes private val defStyleAttr: Int = R.attr.itemViewStyle,
     @StyleRes private val defStyleRes: Int = R.style.Calendar_ItemViewStyle,
     private val date: DateTime = DateTime(),
-    private val firstDayOfMonth: DateTime = DateTime()
+    private val firstDayOfMonth: DateTime = DateTime(),
+    private val event: AccountAndType? = null
 // // ContextThemeWrapper : Context의 테마를 수정하거나 바꿀 수 있는 Context Wrapper
 ) : View(ContextThemeWrapper(context, defStyleRes), attrs, defStyleAttr) {
 
     private val bounds = Rect()
+    private val moneyBounds = Rect()
 
     private var paint: Paint = Paint()
+    private var incomePaint: Paint = Paint()
+    private var depositPaint: Paint = Paint()
 
     init {
         /* Attributes */
@@ -45,6 +51,28 @@ class DayItemView @JvmOverloads constructor(
                 color = getDateColor(date.dayOfWeek)
                 if (!isSameMonth(date, firstDayOfMonth)) {
                     alpha = 50
+                }
+            }
+
+            event?.let {
+                if(it.type.typeForm == 1) {
+                    incomePaint = TextPaint().apply {
+                        isAntiAlias = true
+                        textSize = dayTextSize
+                        color = context.resources.getColor(R.color.money_green, null)
+                        if (!isSameMonth(date, firstDayOfMonth)) {
+                            alpha = 50
+                        }
+                    }
+                } else {
+                    depositPaint = TextPaint().apply {
+                        isAntiAlias = true
+                        textSize = dayTextSize
+                        color = context.resources.getColor(R.color.money_red, null)
+                        if (!isSameMonth(date, firstDayOfMonth)) {
+                            alpha = 50
+                        }
+                    }
                 }
             }
         }
@@ -65,6 +93,22 @@ class DayItemView @JvmOverloads constructor(
             (width / 2 - bounds.width() / 2).toFloat() - 2,
             (height / 2 + bounds.height() / 2).toFloat(),
             paint
+        )
+
+        var incomeMoney: String = ""
+        var depositMoney: String = ""
+
+        event?.let {
+            moneyBounds.set(0, bounds.bottom, incomeMoney.length, bounds.bottom)
+            incomeMoney = it.account.money.toString()
+        }
+
+        incomePaint.getTextBounds(incomeMoney, 0, incomeMoney.length, moneyBounds)
+        canvas.drawText(
+            incomeMoney,
+            (width / 2 - bounds.width() / 2).toFloat() - 2,
+            (height / 2 + bounds.height() / 2).toFloat(),
+            incomePaint
         )
     }
 }

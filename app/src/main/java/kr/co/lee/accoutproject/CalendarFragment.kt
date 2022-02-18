@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import dagger.hilt.android.AndroidEntryPoint
 import kr.co.lee.accoutproject.calendar.CalendarUtils.Companion.getMonthList
 import kr.co.lee.accoutproject.databinding.FragmentCalendarBinding
 import org.joda.time.DateTime
 
+@AndroidEntryPoint
 class CalendarFragment : Fragment() {
     // DataBinding 코드
     private var _binding: FragmentCalendarBinding? = null

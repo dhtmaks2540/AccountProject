@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ActivityContext
 import kr.co.lee.accoutproject.adapters.MonthRecyclerViewAdapter
+import kr.co.lee.accoutproject.calendar.CalendarAdapter
 import kr.co.lee.accoutproject.databinding.FragmentMonthBinding
 import kr.co.lee.accoutproject.viewmodels.MainViewModel
 import org.joda.time.DateTime
@@ -28,7 +29,8 @@ class MonthFragment: Fragment() {
     private var prev_day = 0
 
     // FragmentStateAdapter
-//    private lateinit var calendarAdapter: CalendarAdapter
+    private lateinit var calendarAdapter: CalendarAdapter
+
     // Fragment KTX를 사용하여 Activity ViewModel 초기화
     private val mainViewModel: MainViewModel by activityViewModels()
 
@@ -53,18 +55,19 @@ class MonthFragment: Fragment() {
                     prev_year = year
                     prev_month = month
                     prev_day = dayOfMonth
+                    subscribeUi()
                 } else if(prev_year == year && prev_month == month && prev_day == dayOfMonth && System.currentTimeMillis() <= timeCheck + 1500) {
                     // 프래그먼트 바꾸기(일간 프래그먼트로)
                 }
             }
+
+            calendarAdapter = CalendarAdapter(activity as MainActivity)
+            // Set the currently selected page.
+            // Int.MAX_VALUE를 반으로 나눈 값을 선택된 페이지로 초기화
+            test2.setCurrentItem(CalendarAdapter.START_POSITION, false)
         }
-        subscribeUi()
 
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
     private fun subscribeUi() {
