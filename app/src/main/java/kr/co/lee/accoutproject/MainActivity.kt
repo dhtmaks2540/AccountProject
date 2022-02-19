@@ -42,7 +42,7 @@ class MainActivity: AppCompatActivity(){
         }
 
         mainViewModel.date.observe(this, Observer {
-            println("year : ${it.year}, month : ${it.monthOfYear}, day : ${it.dayOfWeek}")
+//            println("year : ${it.year}, month : ${it.monthOfYear}, day : ${it.dayOfWeek}")
         })
 
         setToolbar()
@@ -58,7 +58,7 @@ class MainActivity: AppCompatActivity(){
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.menu_search -> {
-                println("Account !!! : ${mainViewModel.accounts.value}")
+//                println("Account !!! : ${mainViewModel.accounts.value}")
             }
         }
 

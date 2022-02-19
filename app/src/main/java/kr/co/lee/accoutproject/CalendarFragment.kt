@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.lee.accoutproject.calendar.CalendarUtils.Companion.getMonthList
+import kr.co.lee.accoutproject.calendar.CalendarView
 import kr.co.lee.accoutproject.databinding.FragmentCalendarBinding
+import kr.co.lee.accoutproject.viewmodels.MainViewModel
 import org.joda.time.DateTime
 
 @AndroidEntryPoint
@@ -20,6 +23,10 @@ class CalendarFragment : Fragment() {
         get() = _binding!!
 
     private var millis: Long = 0L
+    lateinit var calendarView: CalendarView
+
+    // Fragment KTX를 사용하여 Activity ViewModel 초기화
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,11 +42,11 @@ class CalendarFragment : Fragment() {
     ): View? {
         // DataBinding 코드
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_calendar, container, false)
-        // calendarView 초기화
-        binding.calendarView.initCalendar(DateTime(millis), getMonthList(DateTime(millis)))
 
-        Toast.makeText(activity, DateTime(millis).toString("yyyy-MM"), Toast.LENGTH_SHORT).show()
-
+        binding.apply {
+            // calendarView 초기화
+            calendarView.initCalendar(DateTime(millis), getMonthList(DateTime(millis)))
+        }
         return binding.root
     }
 

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.viewpager2.widget.ViewPager2
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ActivityContext
 import kr.co.lee.accoutproject.adapters.MonthRecyclerViewAdapter
@@ -44,27 +45,35 @@ class MonthFragment: Fragment() {
             inflater, R.layout.fragment_month, container, false)
         binding.apply {
             viewModel = mainViewModel
+            
+            // 처음 초기화
+            mainViewModel.setDate(DateTime(calendarAdapter.getItemId(0)))
 
-            mainViewModel.setDate(DateTime(calendar.date))
-
-            // CalendarView
-            calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
-                mainViewModel.setDate(DateTime().withYear(year).withMonthOfYear(month + 1).withDayOfMonth(dayOfMonth))
-                if (prev_year != year || prev_month != month || prev_day != dayOfMonth || System.currentTimeMillis() > timeCheck + 1500) {
-                    timeCheck = System.currentTimeMillis()
-                    prev_year = year
-                    prev_month = month
-                    prev_day = dayOfMonth
-                    subscribeUi()
-                } else if(prev_year == year && prev_month == month && prev_day == dayOfMonth && System.currentTimeMillis() <= timeCheck + 1500) {
-                    // 프래그먼트 바꾸기(일간 프래그먼트로)
-                }
-            }
-
-            calendarAdapter = CalendarAdapter(activity as MainActivity)
+            calendarAdapter = CalendarAdapter(requireActivity(), mainViewModel)
             // Set the currently selected page.
             // Int.MAX_VALUE를 반으로 나눈 값을 선택된 페이지로 초기화
-            test2.setCurrentItem(CalendarAdapter.START_POSITION, false)
+            calendarPager.adapter = calendarAdapter
+            calendarPager.setCurrentItem(CalendarAdapter.START_POSITION, false)
+            calendarPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    mainViewModel.setDate(DateTime(calendarAdapter.getItemId(position)))
+                    super.onPageSelected(position)
+                }
+            })
+
+            // CalendarView
+//            calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
+//                mainViewModel.setDate(DateTime().withYear(year).withMonthOfYear(month + 1).withDayOfMonth(dayOfMonth))
+//                if (prev_year != year || prev_month != month || prev_day != dayOfMonth || System.currentTimeMillis() > timeCheck + 1500) {
+//                    timeCheck = System.currentTimeMillis()
+//                    prev_year = year
+//                    prev_month = month
+//                    prev_day = dayOfMonth
+//                    subscribeUi()
+//                } else if(prev_year == year && prev_month == month && prev_day == dayOfMonth && System.currentTimeMillis() <= timeCheck + 1500) {
+//                    // 프래그먼트 바꾸기(일간 프래그먼트로)
+//                }
+//            }
         }
 
         return binding.root

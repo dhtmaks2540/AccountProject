@@ -37,28 +37,20 @@
             app:money="@{viewModel.depositMoney}"
             app:type="@{0}" />
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/test"
-            android:name="kr.co.lee.accoutproject.CalendarFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/deposit_view" />
-
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/test2"
+            android:id="@+id/calendar_pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="@id/test"
+            app:layout_constraintTop_toBottomOf="@id/income_view"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/test" />
+            app:layout_constraintBottom_toTopOf="@id/month_recycler"/>
 
         <CalendarView
             android:id="@+id/calendar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:visibility="invisible"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/month_recycler"
             app:layout_constraintTop_toBottomOf="@id/income_view" />
 
@@ -67,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#000000"
-            app:layout_constraintTop_toBottomOf="@id/test" />
+            app:layout_constraintTop_toBottomOf="@id/test2" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/month_recycler"
@@ -75,7 +67,7 @@
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/division" />
+            app:layout_constraintTop_toBottomOf="@id/test2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

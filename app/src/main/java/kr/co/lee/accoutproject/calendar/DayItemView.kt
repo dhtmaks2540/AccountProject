@@ -8,6 +8,7 @@ import android.graphics.Rect
 import android.text.TextPaint
 import android.util.AttributeSet
 import android.view.ContextThemeWrapper
+import android.view.MotionEvent
 import android.view.View
 import androidx.annotation.AttrRes
 import androidx.annotation.StyleRes
@@ -76,6 +77,16 @@ class DayItemView @JvmOverloads constructor(
                 }
             }
         }
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        when(event?.action) {
+            MotionEvent.ACTION_DOWN -> {
+
+            }
+        }
+
+        return super.onTouchEvent(event)
     }
 
     // Draw는 무멋을 그릴지를 정하는 클래스

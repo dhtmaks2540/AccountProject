@@ -39,6 +39,7 @@ class MainViewModel @Inject constructor(
 
     fun setDate(dateTime: DateTime) {
         _date.value = dateTime
+        println("dateTime : $dateTime")
     }
 
     fun setAccounts() {

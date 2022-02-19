@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="activity"
             type="kr.co.lee.accoutproject.MainActivity" />
@@ -33,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text='@{viewModel.date.toString("M") + "월"}'
+                android:text='@{viewModel.date.toString("yyyy년 MM월")}'
                 android:textColor="@color/white" />
 
         </androidx.appcompat.widget.Toolbar>
