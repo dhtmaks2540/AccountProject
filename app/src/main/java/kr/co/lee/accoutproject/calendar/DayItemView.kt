@@ -17,6 +17,7 @@ import kr.co.lee.accoutproject.R
 import kr.co.lee.accoutproject.calendar.CalendarUtils.Companion.getDateColor
 import kr.co.lee.accoutproject.calendar.CalendarUtils.Companion.isSameMonth
 import kr.co.lee.accoutproject.data.AccountAndType
+import kr.co.lee.accoutproject.viewmodels.MainViewModel
 import org.joda.time.DateTime
 
 // View를 상속받는 커스텀 뷰
@@ -24,6 +25,7 @@ import org.joda.time.DateTime
 class DayItemView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
+    val mainViewModel: MainViewModel,
     @AttrRes private val defStyleAttr: Int = R.attr.itemViewStyle,
     @StyleRes private val defStyleRes: Int = R.style.Calendar_ItemViewStyle,
     private val date: DateTime = DateTime(),
@@ -82,7 +84,8 @@ class DayItemView @JvmOverloads constructor(
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         when(event?.action) {
             MotionEvent.ACTION_DOWN -> {
-
+                mainViewModel.setDate(date)
+                println(date)
             }
         }
 

@@ -45,7 +45,7 @@ class CalendarFragment : Fragment() {
 
         binding.apply {
             // calendarView 초기화
-            calendarView.initCalendar(DateTime(millis), getMonthList(DateTime(millis)))
+            calendarView.initCalendar(DateTime(millis), getMonthList(DateTime(millis)), mainViewModel)
         }
         return binding.root
     }

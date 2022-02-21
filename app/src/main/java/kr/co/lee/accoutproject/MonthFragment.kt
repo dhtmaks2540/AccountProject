@@ -47,7 +47,7 @@ class MonthFragment: Fragment() {
             viewModel = mainViewModel
             
             // 처음 초기화
-            mainViewModel.setDate(DateTime(calendarAdapter.getItemId(0)))
+//            mainViewModel.setDate(DateTime(calendarAdapter.getItemId(0)))
 
             calendarAdapter = CalendarAdapter(requireActivity(), mainViewModel)
             // Set the currently selected page.

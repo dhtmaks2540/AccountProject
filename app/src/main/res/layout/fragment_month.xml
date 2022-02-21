@@ -59,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#000000"
-            app:layout_constraintTop_toBottomOf="@id/test2" />
+            app:layout_constraintTop_toBottomOf="@id/calendar_pager" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/month_recycler"
@@ -67,7 +67,7 @@
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/test2" />
+            app:layout_constraintTop_toBottomOf="@id/calendar_pager" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

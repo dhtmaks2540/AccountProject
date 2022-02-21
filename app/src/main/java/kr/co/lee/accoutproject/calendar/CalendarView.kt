@@ -12,6 +12,7 @@ import androidx.core.view.children
 import kr.co.lee.accoutproject.R
 import kr.co.lee.accoutproject.calendar.CalendarUtils.Companion.WEEKS_PER_MONTH
 import kr.co.lee.accoutproject.data.AccountAndType
+import kr.co.lee.accoutproject.viewmodels.MainViewModel
 import org.joda.time.DateTime
 import org.joda.time.DateTimeConstants
 import kotlin.math.max
@@ -72,7 +73,7 @@ class CalendarView @JvmOverloads constructor(
      * @param firstDayOfMonth   한 달의 시작 요일
      * @param list              달력이 가지고 있는 요일과 이벤트 목록 (총 42개)
      */
-    fun initCalendar(firstDayOfMonth: DateTime, list: List<DateTime>) {
+    fun initCalendar(firstDayOfMonth: DateTime, list: List<DateTime>, mainViewModel: MainViewModel) {
 //        for(i in list.indices) {
 //            addView(DayItemView(
 //                context = context,
@@ -86,6 +87,7 @@ class CalendarView @JvmOverloads constructor(
                 context = context,
                 date = it,
                 firstDayOfMonth = firstDayOfMonth,
+                mainViewModel = mainViewModel
             ))
         }
     }
