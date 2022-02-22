@@ -43,4 +43,10 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="CustomCalendarView"/>
+    
+    <style name="CustomCalendarView.textStyle">
+        <item name="textFormat">yyyy MM</item>
+    </style>
+
 </resources>

@@ -29,9 +29,6 @@ class MonthFragment: Fragment() {
     private var prev_month = 0
     private var prev_day = 0
 
-    // FragmentStateAdapter
-    private lateinit var calendarAdapter: CalendarAdapter
-
     // Fragment KTX를 사용하여 Activity ViewModel 초기화
     private val mainViewModel: MainViewModel by activityViewModels()
 
@@ -45,35 +42,6 @@ class MonthFragment: Fragment() {
             inflater, R.layout.fragment_month, container, false)
         binding.apply {
             viewModel = mainViewModel
-            
-            // 처음 초기화
-//            mainViewModel.setDate(DateTime(calendarAdapter.getItemId(0)))
-
-            calendarAdapter = CalendarAdapter(requireActivity(), mainViewModel)
-            // Set the currently selected page.
-            // Int.MAX_VALUE를 반으로 나눈 값을 선택된 페이지로 초기화
-            calendarPager.adapter = calendarAdapter
-            calendarPager.setCurrentItem(CalendarAdapter.START_POSITION, false)
-            calendarPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    mainViewModel.setDate(DateTime(calendarAdapter.getItemId(position)))
-                    super.onPageSelected(position)
-                }
-            })
-
-            // CalendarView
-//            calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
-//                mainViewModel.setDate(DateTime().withYear(year).withMonthOfYear(month + 1).withDayOfMonth(dayOfMonth))
-//                if (prev_year != year || prev_month != month || prev_day != dayOfMonth || System.currentTimeMillis() > timeCheck + 1500) {
-//                    timeCheck = System.currentTimeMillis()
-//                    prev_year = year
-//                    prev_month = month
-//                    prev_day = dayOfMonth
-//                    subscribeUi()
-//                } else if(prev_year == year && prev_month == month && prev_day == dayOfMonth && System.currentTimeMillis() <= timeCheck + 1500) {
-//                    // 프래그먼트 바꾸기(일간 프래그먼트로)
-//                }
-//            }
         }
 
         return binding.root
@@ -83,8 +51,8 @@ class MonthFragment: Fragment() {
         mainViewModel.setAccounts()
         mainViewModel.accounts.observe(viewLifecycleOwner) {
             mainViewModel.setMoney()
-            val recyclerAdapter = MonthRecyclerViewAdapter(it)
-            binding.monthRecycler.adapter = recyclerAdapter
+//            val recyclerAdapter = MonthRecyclerViewAdapter(it)
+//            binding.monthRecycler.adapter = recyclerAdapter
         }
     }
 }

@@ -14,4 +14,7 @@
 
     <color name="money_green">#3Cb371</color>
     <color name="money_red">#DB4455</color>
+
+    <color name="greyed_out">#c7c7c7</color>
+    <color name="today">#4b82ff</color>
 </resources>
