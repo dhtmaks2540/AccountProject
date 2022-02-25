@@ -17,15 +17,13 @@ interface AccountDAO {
     fun deleteAccount(accountEntity: AccountEntity?)
 
     // 하루 정보
-    @Query("SELECT * FROM accounts WHERE year = (:year) and month = (:month) and day = (:day)")
-    fun getMonthAccount(year: Int, month: Int, day: Int): List<AccountEntity>
-
-//    @Query("SELECT * FROM accounts WHERE year = (:year) and Month = (:month)")
-//    fun getMonthAccount(year: Int, month: Int): List<AccountEntity>
-
-    @Query("SELECT * FROM accounts")
-    fun getMonthAccount(): List<AccountEntity>
+//    @Query("SELECT * FROM accounts WHERE year = (:year) and month = (:month) and day = (:day)")
+//    fun getMonthAccount(year: Int, month: Int, day: Int): List<AccountEntity>
 
     @Query("SELECT * FROM accounts INNER JOIN types ON types.type_set_id == accounts.type_id WHERE accounts.year = (:year) AND accounts.Month = (:month)")
     fun getMonthAccount(year: Int, month: Int): List<AccountAndType>
+
+    @Query("SELECT * FROM accounts INNER JOIN types ON types.type_set_id == accounts.type_id " +
+            "WHERE accounts.year = (:year) AND accounts.Month = (:month) AND accounts.day = (:day)")
+    fun getMonthAccount(year: Int, month: Int, day: Int): List<AccountAndType>
 }

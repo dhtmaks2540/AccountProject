@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="activity"
             type="kr.co.lee.accoutproject.ActivityReceipt" />
@@ -43,13 +44,13 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-<!--        <include-->
-<!--            android:id="@+id/receipt_toolbar"-->
-<!--            layout="@layout/toolbar_receipt"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="?android:attr/actionBarSize"-->
-<!--            app:activity="@{activity}"-->
-<!--            app:type="@{viewModel.accountAndType.type.typeForm}" />-->
+        <!--        <include-->
+        <!--            android:id="@+id/receipt_toolbar"-->
+        <!--            layout="@layout/toolbar_receipt"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="?android:attr/actionBarSize"-->
+        <!--            app:activity="@{activity}"-->
+        <!--            app:type="@{viewModel.accountAndType.type.typeForm}" />-->
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/type_view"
@@ -68,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:text='@{viewModel.accountAndType.account.year+"/"+viewModel.accountAndType.account.month + "/" +viewModel.accountAndType.account.day}'
+            android:text='@{viewModel.accountAndType.account.year+"."+viewModel.accountAndType.account.month + "." +viewModel.accountAndType.account.day}'
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/type_view" />
 
@@ -92,11 +93,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/type_name_label" />
 
-        <TextView
+        <EditText
             android:id="@+id/money_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
+            android:inputType="number"
+            android:textColor="@{viewModel.accountAndType.type.typeForm == 1 ? @color/money_green : @color/money_red}"
             app:layout_constraintBottom_toBottomOf="@id/price_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/price_label"
@@ -111,11 +114,12 @@
             app:layout_constraintStart_toStartOf="@id/price_label"
             app:layout_constraintTop_toBottomOf="@id/price_label" />
 
-        <TextView
+        <EditText
             android:id="@+id/content_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
+            android:inputType="text"
             android:text="@{viewModel.accountAndType.account.content}"
             app:layout_constraintBottom_toBottomOf="@id/content_label"
             app:layout_constraintEnd_toEndOf="parent"

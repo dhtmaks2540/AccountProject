@@ -24,8 +24,14 @@
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:layout_constraintTop_toTopOf="parent"
-            app:menu="@menu/main_toolbar_menu">
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_gravity="start"
+                android:id="@+id/iv_prev"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_arrow_back_black_20"/>
 
             <TextView
                 android:id="@+id/month_label"
@@ -34,6 +40,14 @@
                 android:layout_gravity="center"
                 android:text='@{viewModel.date.toString("yyyy년 MM월")}'
                 android:textColor="@color/white" />
+
+            <ImageView
+                android:layout_marginEnd="13dp"
+                android:layout_gravity="end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_arrow_forward_black_20"
+                android:id="@+id/iv_next"/>
 
         </androidx.appcompat.widget.Toolbar>
 

@@ -8,31 +8,22 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:visibility="gone"
             android:id="@+id/left_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
             android:src="@drawable/baseline_arrow_back_black_20"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/date_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@id/left_btn"
-            app:layout_constraintEnd_toStartOf="@id/right_btn"
-            app:layout_constraintStart_toEndOf="@id/left_btn"
-            app:layout_constraintTop_toTopOf="@id/left_btn" />
-
         <ImageView
+            android:visibility="gone"
             android:id="@+id/right_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/baseline_arrow_back_black_20"
+            android:src="@drawable/baseline_arrow_forward_black_20"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_goneMarginTop="10dp" />
@@ -42,7 +33,7 @@
             layout="@layout/item_week"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/date_view" />
+            app:layout_constraintTop_toBottomOf="@id/left_btn" />
 
         <GridView
             android:id="@+id/calendar_grid"

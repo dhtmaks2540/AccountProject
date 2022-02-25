@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="kr.co.lee.accoutproject.viewmodels.MainViewModel" />
@@ -18,7 +18,6 @@
             layout="@layout/item_money_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             app:labelText='@{"수입"}'
             app:layout_constraintEnd_toStartOf="@id/deposit_view"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +30,6 @@
             layout="@layout/item_money_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             app:labelText='@{"지출"}'
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/income_view"
@@ -60,6 +58,18 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/calendar" />
+
+        <TextView
+            android:id="@+id/tv_no_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_item_text"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/month_recycler"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/month_recycler" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

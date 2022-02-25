@@ -5,6 +5,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.IntRange
 import org.joda.time.DateTime
 import org.joda.time.DateTimeConstants
+import org.joda.time.LocalDate
 
 // 유틸 클래스
 class CalendarUtils {
@@ -15,8 +16,8 @@ class CalendarUtils {
         /**
          * 선택된 날짜에 해당하는 월간 달력을 반환한다.
          */
-        fun getMonthList(dateTime: DateTime): List<DateTime> {
-            val list = mutableListOf<DateTime>()
+        fun getMonthList(dateTime: LocalDate): List<LocalDate> {
+            val list = mutableListOf<LocalDate>()
 
             // 달의 1일
             val date = dateTime.withDayOfMonth(1)
@@ -30,7 +31,7 @@ class CalendarUtils {
             val totalDay = DateTimeConstants.DAYS_PER_WEEK * WEEKS_PER_MONTH
 
             for (i in 0 until totalDay) {
-                list.add(DateTime(startValue.plusDays(i)))
+                list.add(LocalDate(startValue.plusDays(i)))
             }
 
             return list
@@ -39,7 +40,7 @@ class CalendarUtils {
         /**
          * 해당 calendar 의 이전 달의 일 갯수를 반환한다.
          */
-        private fun getPrevOffSet(dateTime: DateTime): Int {
+        private fun getPrevOffSet(dateTime: LocalDate): Int {
             // 달의 첫 번째 날의 주
             var prevMonthTailOffset = dateTime.dayOfWeek
 

@@ -8,6 +8,7 @@
     <string name="setting_menu">설정</string>
 
     <!-- fragment_month -->
+    <string name="no_item_text">데이터가 없습니다.</string>
     <string name="income_text">수입</string>
     <string name="expense_text">지출</string>
 

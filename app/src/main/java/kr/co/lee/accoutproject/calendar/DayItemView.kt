@@ -81,17 +81,6 @@ class DayItemView @JvmOverloads constructor(
         }
     }
 
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        when(event?.action) {
-            MotionEvent.ACTION_DOWN -> {
-                mainViewModel.setDate(date)
-                println(date)
-            }
-        }
-
-        return super.onTouchEvent(event)
-    }
-
     // Draw는 무멋을 그릴지를 정하는 클래스
     // Paint는 어떻게 그릴지를 정하는 클래스
     override fun onDraw(canvas: Canvas?) {

@@ -11,10 +11,10 @@ import kr.co.lee.accoutproject.data.AccountAndType
 import kr.co.lee.accoutproject.databinding.ItemContentListBinding
 
 class MonthRecyclerViewAdapter(
-    private val accountEntityList: List<AccountAndType>
+    private val accountEntityList: ArrayList<AccountAndType>
 ): RecyclerView.Adapter<MonthRecyclerViewAdapter.ViewHolder>() {
 
-    inner class ViewHolder(val binding: ItemContentListBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: ItemContentListBinding, val itemCount: Int): RecyclerView.ViewHolder(binding.root) {
         init {
             binding.setClickListener {
                 binding.accountAndType?.let {
@@ -24,6 +24,7 @@ class MonthRecyclerViewAdapter(
                 }
             }
         }
+
         fun bindTo(item: AccountAndType) {
             binding.apply {
                 binding.accountAndType = item
@@ -33,7 +34,7 @@ class MonthRecyclerViewAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemContentListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+        return ViewHolder(binding, itemCount)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

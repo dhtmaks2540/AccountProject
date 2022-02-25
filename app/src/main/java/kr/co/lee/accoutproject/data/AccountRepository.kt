@@ -11,6 +11,9 @@ class AccountRepository @Inject constructor(
         accountDao.deleteAccount(account)
     }
 
+    fun getAccounts(year: Int, month: Int, day: Int) =
+        accountDao.getMonthAccount(year, month, day)
+
     fun getAccounts(year: Int, month: Int) =
         accountDao.getMonthAccount(year, month)
 

@@ -15,9 +15,10 @@ import kr.co.lee.accoutproject.viewmodels.MainViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity: AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
     // ViewModel 생성
     private val mainViewModel: MainViewModel by viewModels()
 
@@ -31,6 +32,25 @@ class MainActivity: AppCompatActivity(){
             activity = this@MainActivity
             viewModel = mainViewModel
 
+            // Prev, Next Button
+            ivPrev.setOnClickListener {
+                val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+                if (fragment?.tag == "Month") {
+                    (fragment as MonthFragment).prevButtonClick()
+                } else if (fragment?.tag == "Week") {
+                    (fragment as WeekFragment)
+                }
+            }
+
+            ivNext.setOnClickListener {
+                val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+                if (fragment?.tag == "Month") {
+                    (fragment as MonthFragment).nextButtonClick()
+                } else if (fragment?.tag == "Week") {
+                    (fragment as WeekFragment)
+                }
+            }
+
             // Floating Button
             addButton.setOnClickListener { actionButtonClicked() }
 
@@ -41,11 +61,7 @@ class MainActivity: AppCompatActivity(){
             }
         }
 
-        mainViewModel.date.observe(this, Observer {
-//            println("year : ${it.year}, month : ${it.monthOfYear}, day : ${it.dayOfWeek}")
-        })
-
-        setToolbar()
+//        setToolbar()
         setContentView(binding.root)
     }
 
@@ -56,7 +72,7 @@ class MainActivity: AppCompatActivity(){
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        when (item.itemId) {
             R.id.menu_search -> {
 //                println("Account !!! : ${mainViewModel.accounts.value}")
             }
@@ -75,20 +91,15 @@ class MainActivity: AppCompatActivity(){
     // BottomNavigationView 선택 리스너
     private fun menuItemSelected() {
         binding.mainBottomMenu.setOnItemSelectedListener {
-            when(it.itemId) {
+            when (it.itemId) {
                 R.id.action_month -> {
                     supportFragmentManager.commit {
-                        replace(R.id.fragment_container, MonthFragment())
+                        replace(R.id.fragment_container, MonthFragment(), "Month")
                     }
                 }
                 R.id.action_week -> {
                     supportFragmentManager.commit {
-                        replace(R.id.fragment_container, WeekFragment())
-                    }
-                }
-                R.id.action_day -> {
-                    supportFragmentManager.commit {
-                        replace(R.id.fragment_container, DayFragment())
+                        replace(R.id.fragment_container, WeekFragment(), "Week")
                     }
                 }
             }
