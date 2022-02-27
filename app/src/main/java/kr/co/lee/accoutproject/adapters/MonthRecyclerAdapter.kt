@@ -1,8 +1,6 @@
 package kr.co.lee.accoutproject.adapters
 
-import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,9 +8,9 @@ import kr.co.lee.accoutproject.ActivityReceipt
 import kr.co.lee.accoutproject.data.AccountAndType
 import kr.co.lee.accoutproject.databinding.ItemContentListBinding
 
-class MonthRecyclerViewAdapter(
-    private val accountEntityList: List<AccountAndType>
-): RecyclerView.Adapter<MonthRecyclerViewAdapter.ViewHolder>() {
+class MonthRecyclerAdapter(
+    private val accountEntityList: ArrayList<AccountAndType>
+): RecyclerView.Adapter<MonthRecyclerAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: ItemContentListBinding): RecyclerView.ViewHolder(binding.root) {
         init {
@@ -24,9 +22,11 @@ class MonthRecyclerViewAdapter(
                 }
             }
         }
+
         fun bindTo(item: AccountAndType) {
             binding.apply {
                 binding.accountAndType = item
+                executePendingBindings()
             }
         }
     }

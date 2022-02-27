@@ -11,6 +11,7 @@ import kr.co.lee.accoutproject.calendar.CalendarUtils
 import kr.co.lee.accoutproject.data.*
 import kr.co.lee.accoutproject.utilities.ioThread
 import org.joda.time.DateTime
+import org.joda.time.Days
 import org.joda.time.LocalDate
 import java.util.*
 import javax.inject.Inject
@@ -26,6 +27,10 @@ class MainViewModel @Inject constructor(
     private val _incomeMoney = MutableLiveData<Long>()
     private val _depositMoney = MutableLiveData<Long>()
     private val _dateAccounts = MutableLiveData<TreeMap<LocalDate, ArrayList<AccountAndType>?>>()
+    private val _accounts = MutableLiveData<List<AccountAndType>>()
+
+    val accounts: LiveData<List<AccountAndType>>
+        get() = _accounts
 
     val dateAccounts: LiveData<TreeMap<LocalDate, ArrayList<AccountAndType>?>>
         get() = _dateAccounts
@@ -43,27 +48,39 @@ class MainViewModel @Inject constructor(
         _date.value = dateTime
     }
 
-    fun setAccounts() {
+    fun setAccount() {
         ioThread {
-            val accounts = repository.getAccounts(date.value!!.year, date.value!!.monthOfYear)
-            val dateHashMap = TreeMap<LocalDate, ArrayList<AccountAndType>?>()
-
-            for(day in CalendarUtils.getMonthList(date.value!!)) {
-                dateHashMap.put(day, null)
-            }
-
-            accounts.forEach {
-                val key = LocalDate(it.account.year, it.account.month, it.account.day)
-                if(dateHashMap[key] == null) {
-                    dateHashMap.put(key, ArrayList())
-                }
-                dateHashMap[key]?.add(it)
-            }
-
-            _dateAccounts.postValue(dateHashMap)
-
-            _incomeMoney.postValue(accounts.filter { it.type.typeForm == 1 }.sumOf { it.account.money })
-            _depositMoney.postValue(accounts.filter { it.type.typeForm == 0 }.sumOf { it.account.money })
+            _accounts.postValue(repository.getAccounts(date.value!!.year, date.value!!.monthOfYear))
         }
+    }
+
+    fun setDateAccounts() {
+        val dateHashMap = TreeMap<LocalDate, ArrayList<AccountAndType>?>()
+
+        for(day in CalendarUtils.getMonthList(date.value!!)) {
+            dateHashMap.put(day, null)
+        }
+
+        accounts.value?.forEach {
+            val key = LocalDate(it.account.year, it.account.month, it.account.day)
+            if(dateHashMap[key] == null) {
+                dateHashMap.put(key, ArrayList())
+            }
+            dateHashMap[key]?.add(it)
+        }
+
+        _dateAccounts.postValue(dateHashMap)
+
+        _incomeMoney.postValue(accounts.value?.filter { it.type.typeForm == 1 }?.sumOf { it.account.money })
+        _depositMoney.postValue(accounts.value?.filter { it.type.typeForm == 0 }?.sumOf { it.account.money })
+    }
+
+    fun weeksAccounts() {
+        val firstWeeks = date.value?.dayOfMonth()?.withMinimumValue()?.weekOfWeekyear
+        val lastWeeks = date.value?.dayOfMonth()?.withMaximumValue()?.weekOfWeekyear
+
+        val weeksAccounts = Array<ArrayList<AccountAndType>?>(6) { ArrayList() }
+
+
     }
 }

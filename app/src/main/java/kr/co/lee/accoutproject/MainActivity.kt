@@ -71,6 +71,7 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    // Menu Selected
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_search -> {
@@ -113,10 +114,4 @@ class MainActivity : AppCompatActivity() {
         addIntent.putExtra("date", mainViewModel.date.value?.toString("yyyy/MM/dd"))
         startActivity(addIntent)
     }
-
-//    fun actionButtonClicked(dateTime: DateTime) {
-//        val addIntent = Intent(this, AddActivity::class.java)
-//        addIntent.putExtra("date", dateTime.toString("yyyy/MM/dd"))
-//        startActivity(addIntent)
-//    }
 }

@@ -45,7 +45,7 @@ class AddActivity : AppCompatActivity() {
 
     }
 
-    val krwText = Currency.getInstance(Locale.KOREA).symbol;
+    private val krwText: String = Currency.getInstance(Locale.KOREA).symbol;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

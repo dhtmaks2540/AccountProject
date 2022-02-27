@@ -1,6 +1,5 @@
 package kr.co.lee.accoutproject
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,18 +7,12 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
-import androidx.viewpager2.widget.ViewPager2
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.qualifiers.ActivityContext
-import kr.co.lee.accoutproject.adapters.MonthRecyclerViewAdapter
-import kr.co.lee.accoutproject.calendar.CalendarAdapter
+import kr.co.lee.accoutproject.adapters.MonthRecyclerAdapter
 import kr.co.lee.accoutproject.calendar.CustomCalendarView
 import kr.co.lee.accoutproject.databinding.FragmentMonthBinding
 import kr.co.lee.accoutproject.viewmodels.MainViewModel
-import org.joda.time.DateTime
 import org.joda.time.LocalDate
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MonthFragment: Fragment() {
@@ -34,22 +27,28 @@ class MonthFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // DataBinding
         _binding = DataBindingUtil.inflate<FragmentMonthBinding>(
             inflater, R.layout.fragment_month, container, false)
         binding.apply {
             viewModel = mainViewModel
+            lifecycleOwner = this@MonthFragment
 
             // ClickHandler
             calendar.setEventHandler(object : CustomCalendarView.EventHandler {
                 override fun onDayPress(localDate: LocalDate) {
+                    if(mainViewModel.date.value?.monthOfYear == localDate.minusMonths(1).monthOfYear) { // 이전달 클릭
+                        nextButtonClick() 
+                    } else if(mainViewModel.date.value?.monthOfYear == localDate.plusMonths(1).monthOfYear) { // 다음달 클릭
+                        prevButtonClick()
+                    }
                     mainViewModel.setDate(localDate)
                     if(mainViewModel.dateAccounts.value?.get(localDate) == null) {
                         binding.monthRecycler.visibility = View.INVISIBLE
                         binding.tvNoItem.visibility = View.VISIBLE
                     } else {
-                        val recyclerAdapter = MonthRecyclerViewAdapter(mainViewModel.dateAccounts.value?.get(localDate)!!)
+                        val recyclerAdapter = MonthRecyclerAdapter(mainViewModel.dateAccounts.value?.get(localDate)!!)
                         binding.monthRecycler.adapter = recyclerAdapter
                         binding.monthRecycler.visibility = View.VISIBLE
                         binding.tvNoItem.visibility = View.INVISIBLE
@@ -67,31 +66,24 @@ class MonthFragment: Fragment() {
     fun prevButtonClick() {
         val date = binding.calendar.prevButtonClick()
         mainViewModel.setDate(date)
-        mainViewModel.setAccounts()
-//        binding.calendar.updateCalendar(mainViewModel.dateAccounts.value)
+        mainViewModel.setAccount()
     }
 
     fun nextButtonClick() {
         val date = binding.calendar.nextButtonClick()
         mainViewModel.setDate(date)
-        mainViewModel.setAccounts()
-//        binding.calendar.updateCalendar(mainViewModel.dateAccounts.value)
+        mainViewModel.setAccount()
     }
 
-    fun firstInit() {
+    private fun firstInit() {
         // FirstInit
         mainViewModel.setDate(binding.calendar.setFirstDate())
-        mainViewModel.setAccounts()
-        binding.calendar.updateCalendar(mainViewModel.dateAccounts.value)
+        mainViewModel.setAccount()
     }
 
-    fun subscribeUi() {
-        mainViewModel.incomeMoney.observe(viewLifecycleOwner) {
-            binding.incomeView.incomeText.text = it.toString()
-        }
-
-        mainViewModel.depositMoney.observe(viewLifecycleOwner) {
-            binding.depositView.incomeText.text = it.toString()
+    private fun subscribeUi() {
+        mainViewModel.accounts.observe(viewLifecycleOwner) {
+            mainViewModel.setDateAccounts()
         }
 
         mainViewModel.dateAccounts.observe(viewLifecycleOwner) {
