@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.lee.accoutproject.ActivityReceipt
 import kr.co.lee.accoutproject.data.AccountAndType
@@ -13,7 +14,6 @@ import kr.co.lee.accoutproject.databinding.ItemContentListBinding
 class MonthRecyclerViewAdapter(
     private val accountEntityList: List<AccountAndType>
 ): RecyclerView.Adapter<MonthRecyclerViewAdapter.ViewHolder>() {
-
     inner class ViewHolder(val binding: ItemContentListBinding): RecyclerView.ViewHolder(binding.root) {
         init {
             binding.setClickListener {

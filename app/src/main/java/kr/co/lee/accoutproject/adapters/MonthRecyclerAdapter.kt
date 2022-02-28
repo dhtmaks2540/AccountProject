@@ -25,7 +25,7 @@ class MonthRecyclerAdapter(
 
         fun bindTo(item: AccountAndType) {
             binding.apply {
-                binding.accountAndType = item
+                accountAndType = item
                 executePendingBindings()
             }
         }

@@ -1,22 +1,24 @@
 package kr.co.lee.accoutproject.viewmodels
 
-import android.accounts.Account
-import android.app.usage.UsageEvents
-import android.media.metrics.Event
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
-import kr.co.lee.accoutproject.R
 import kr.co.lee.accoutproject.calendar.CalendarUtils
-import kr.co.lee.accoutproject.data.*
+import kr.co.lee.accoutproject.data.AccountAndType
+import kr.co.lee.accoutproject.data.AccountRepository
 import kr.co.lee.accoutproject.utilities.ioThread
-import org.joda.time.DateTime
-import org.joda.time.Days
+import org.joda.time.DateTimeConstants
 import org.joda.time.LocalDate
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
+import kotlin.collections.List
+import kotlin.collections.filter
+import kotlin.collections.forEach
+import kotlin.collections.set
+import kotlin.collections.sumOf
+import kotlin.collections.withIndex
 
 // 인자로 DAO 객체를 받는 ViewModel
 @HiltViewModel
@@ -28,6 +30,10 @@ class MainViewModel @Inject constructor(
     private val _depositMoney = MutableLiveData<Long>()
     private val _dateAccounts = MutableLiveData<TreeMap<LocalDate, ArrayList<AccountAndType>?>>()
     private val _accounts = MutableLiveData<List<AccountAndType>>()
+    private val _weekAccounts = MutableLiveData<Array<TreeMap<LocalDate, ArrayList<AccountAndType>?>>>()
+
+    val weekAccounts: LiveData<Array<TreeMap<LocalDate, ArrayList<AccountAndType>?>>>
+        get() = _weekAccounts
 
     val accounts: LiveData<List<AccountAndType>>
         get() = _accounts
@@ -58,13 +64,13 @@ class MainViewModel @Inject constructor(
         val dateHashMap = TreeMap<LocalDate, ArrayList<AccountAndType>?>()
 
         for(day in CalendarUtils.getMonthList(date.value!!)) {
-            dateHashMap.put(day, null)
+            dateHashMap[day] = null
         }
 
         accounts.value?.forEach {
             val key = LocalDate(it.account.year, it.account.month, it.account.day)
             if(dateHashMap[key] == null) {
-                dateHashMap.put(key, ArrayList())
+                dateHashMap[key] = ArrayList()
             }
             dateHashMap[key]?.add(it)
         }
@@ -75,12 +81,42 @@ class MainViewModel @Inject constructor(
         _depositMoney.postValue(accounts.value?.filter { it.type.typeForm == 0 }?.sumOf { it.account.money })
     }
 
-    fun weeksAccounts() {
-        val firstWeeks = date.value?.dayOfMonth()?.withMinimumValue()?.weekOfWeekyear
-        val lastWeeks = date.value?.dayOfMonth()?.withMaximumValue()?.weekOfWeekyear
+    fun setWeeksAccounts() {
+        val firstDay = date.value?.dayOfMonth()?.withMinimumValue()!!
+        val lastDay = date.value?.dayOfMonth()?.withMaximumValue()!!
 
-        val weeksAccounts = Array<ArrayList<AccountAndType>?>(6) { ArrayList() }
+        val arrayList = ArrayList<TreeMap<LocalDate, ArrayList<AccountAndType>?>>()
 
+        var size = 1
 
+        for(i in 0..(lastDay.dayOfMonth - firstDay.dayOfMonth)) {
+            val dateMap = TreeMap<LocalDate, ArrayList<AccountAndType>?>()
+            val key = firstDay.plusDays(i)!!
+            if(i != (lastDay.dayOfMonth - firstDay.dayOfMonth) && key.dayOfWeek == DateTimeConstants.SATURDAY) size += 1
+            dateMap[key] = null
+            arrayList.add(dateMap)
+        }
+
+        accounts.value?.forEach {
+            val index = it.account.day - firstDay.dayOfMonth
+            val date = LocalDate(it.account.year, it.account.month, it.account.day)
+            if(arrayList[index][date] == null) {
+                arrayList[index][date] = ArrayList()
+            }
+
+            arrayList[index][date]?.add(it)
+        }
+
+        val weekAccounts = Array<TreeMap<LocalDate, ArrayList<AccountAndType>?>>(size) { TreeMap() }
+
+        var index = 0
+
+        for((i, value) in arrayList.withIndex()) {
+            val key = firstDay.plusDays(i)
+            weekAccounts[index][key] = value[key]
+            if(key.dayOfWeek == DateTimeConstants.SATURDAY) index++
+        }
+
+        _weekAccounts.postValue(weekAccounts)
     }
 }

@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -21,6 +23,14 @@ class MainActivity : AppCompatActivity() {
 
     // ViewModel 생성
     private val mainViewModel: MainViewModel by viewModels()
+    private val launcher: ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            when(it.resultCode) {
+                RESULT_OK -> {
+                    mainViewModel.setAccount()
+                }
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                 if (fragment?.tag == "Month") {
                     (fragment as MonthFragment).prevButtonClick()
                 } else if (fragment?.tag == "Week") {
-                    (fragment as WeekFragment)
+                    (fragment as WeekFragment).prevButtonClick()
                 }
             }
 
@@ -47,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 if (fragment?.tag == "Month") {
                     (fragment as MonthFragment).nextButtonClick()
                 } else if (fragment?.tag == "Week") {
-                    (fragment as WeekFragment)
+                    (fragment as WeekFragment).nextButtonClick()
                 }
             }
 
@@ -61,32 +71,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-//        setToolbar()
         setContentView(binding.root)
-    }
-
-    // Toolbar 메뉴 생성
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main_toolbar_menu, menu)
-        return true
-    }
-
-    // Menu Selected
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_search -> {
-//                println("Account !!! : ${mainViewModel.accounts.value}")
-            }
-        }
-
-        return true
-    }
-
-    // Toolbar 처리
-    private fun setToolbar() {
-        setSupportActionBar(binding.mainToolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
     // BottomNavigationView 선택 리스너
@@ -112,6 +97,6 @@ class MainActivity : AppCompatActivity() {
     private fun actionButtonClicked() {
         val addIntent = Intent(this, AddActivity::class.java)
         addIntent.putExtra("date", mainViewModel.date.value?.toString("yyyy/MM/dd"))
-        startActivity(addIntent)
+        launcher.launch(addIntent)
     }
 }

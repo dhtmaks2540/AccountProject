@@ -6,19 +6,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.lee.accoutproject.data.AccountAndType
 import kr.co.lee.accoutproject.databinding.ItemWeekListBinding
+import org.joda.time.LocalDate
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class WeekRecyclerAdapter(
-    private val weekList: Array<ArrayList<AccountAndType>>
+    private val weekList: Array<TreeMap<LocalDate, ArrayList<AccountAndType>?>>
 ): RecyclerView.Adapter<WeekRecyclerAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: ItemWeekListBinding): RecyclerView.ViewHolder(binding.root) {
-        init {
-
-        }
-
-        fun bindTo(item: ArrayList<AccountAndType>) {
+        fun bindTo(item: TreeMap<LocalDate, ArrayList<AccountAndType>?>) {
             binding.apply {
-
+                accountAndType = item
+                weekPosition = adapterPosition
+                executePendingBindings()
             }
         }
     }

@@ -10,6 +10,8 @@ import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,6 +26,15 @@ class AddActivity : AppCompatActivity() {
     private val decimalFormat = DecimalFormat("#,###")
     private var result: String = ""
     private val addViewModel: AddViewModel by viewModels()
+    private val launcher: ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            when(it.resultCode) {
+                RESULT_OK -> {
+                    setResult(RESULT_OK)
+                    finish()
+                }
+            }
+        }
 
     // TextWatcher - 금액 EditText 설정
     private val watcher = object : TextWatcher {
@@ -100,7 +111,6 @@ class AddActivity : AppCompatActivity() {
         detailIntent.putExtra("doubleMoney", doubleMoney)
         detailIntent.putExtra("type", typeForm)
         detailIntent.putExtra("date", date)
-        startActivity(detailIntent)
-        finish()
+        launcher.launch(detailIntent)
     }
 }

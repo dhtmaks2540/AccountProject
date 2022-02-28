@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import kr.co.lee.accoutproject.adapters.WeekRecyclerAdapter
 import kr.co.lee.accoutproject.databinding.FragmentWeekBinding
 import kr.co.lee.accoutproject.viewmodels.MainViewModel
 
@@ -17,6 +20,7 @@ class WeekFragment: Fragment() {
     private val binding: FragmentWeekBinding
         get() = _binding!!
     private val mainViewModel: MainViewModel by activityViewModels()
+    private lateinit var dividerItemDecoration: DividerItemDecoration
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,9 +31,42 @@ class WeekFragment: Fragment() {
             R.layout.fragment_week, container, false)
 
         binding.apply {
-
+            lifecycleOwner = this@WeekFragment
+            viewModel = mainViewModel
         }
 
+        initUi()
+        subscribeUi()
+        dividerItemDecoration = DividerItemDecoration(activity, LinearLayoutManager.VERTICAL)
+
         return binding.root
+    }
+
+    fun prevButtonClick() {
+        mainViewModel.setDate(mainViewModel.date.value?.minusMonths(1)!!)
+    }
+
+    fun nextButtonClick() {
+        mainViewModel.setDate(mainViewModel.date.value?.plusMonths(1)!!)
+    }
+
+    private fun initUi() {
+        mainViewModel.setWeeksAccounts()
+    }
+
+    private fun subscribeUi() {
+        mainViewModel.date.observe(viewLifecycleOwner) {
+            mainViewModel.setAccount()
+        }
+
+        mainViewModel.accounts.observe(viewLifecycleOwner) {
+            mainViewModel.setWeeksAccounts()
+        }
+
+        mainViewModel.weekAccounts.observe(viewLifecycleOwner) {
+            val adapter = WeekRecyclerAdapter(it)
+            binding.rvWeek.adapter = adapter
+//            binding.rvWeek.addItemDecoration(dividerItemDecoration)
+        }
     }
 }

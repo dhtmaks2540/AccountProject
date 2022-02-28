@@ -2,6 +2,22 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <import type="java.util.TreeMap" />
+        <import type="kr.co.lee.accoutproject.data.AccountAndType" />
+        <import type="org.joda.time.LocalDate" />
+        <import type="java.util.ArrayList" />
+
+        <variable
+            name="accountAndType"
+            type="TreeMap&lt;LocalDate, ArrayList&lt;AccountAndType>>" />
+
+        <variable
+            name="weekPosition"
+            type="Integer" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -21,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="7dp"
+            app:date="@{accountAndType}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_point"
             app:layout_constraintTop_toTopOf="parent" />
@@ -29,6 +46,8 @@
             android:id="@+id/count_week_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text='@{(weekPosition + 1) + "째주"}'
+            android:textSize="10sp"
             app:layout_constraintStart_toStartOf="@id/week_view"
             app:layout_constraintTop_toBottomOf="@id/week_view" />
 
@@ -39,7 +58,8 @@
             android:layout_marginEnd="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:money_text="@{accountAndType}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -5,6 +5,6 @@
     <solid android:color="@color/light_sky" />
 
     <size
-        android:width="15dp"
-        android:height="15dp" />
+        android:width="7dp"
+        android:height="7dp" />
 </shape>

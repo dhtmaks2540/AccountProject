@@ -49,10 +49,7 @@ class DetailActivity : AppCompatActivity(), OnEntityClickListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.menu_cancel -> {
-                finish()
-            }
-
-            android.R.id.home -> {
+                setResult(RESULT_OK)
                 finish()
             }
         }
@@ -80,11 +77,13 @@ class DetailActivity : AppCompatActivity(), OnEntityClickListener {
 
     // 뒤로가기 버튼
     fun backButtonClick() {
+        setResult(RESULT_CANCELED)
         finish()
     }
 
     override fun onEntityClick(entity: TypeEntity) {
         detailViewModel.setAccount(detailViewModel.doubleMoney.value!!, detailViewModel.content.value!!, detailViewModel.date.value!!, entity.typeId)
+        setResult(RESULT_OK)
         finish()
     }
 }
