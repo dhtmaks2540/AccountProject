@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import kr.co.lee.accoutproject.R
 import kr.co.lee.accoutproject.data.AccountAndType
+import kr.co.lee.accoutproject.utilities.decimalFormat
 import org.joda.time.LocalDate
 import java.util.*
 import kotlin.collections.ArrayList
@@ -81,7 +82,7 @@ class CalendarAdapter constructor(
         tvIncome?.let {
             if(month == firstDayOfMonth.monthOfYear && year == firstDayOfMonth.year) {
                 if(incomeMoney != 0L) {
-                    tvIncome.text = incomeMoney.toString()
+                    tvIncome.text = decimalFormat.format(incomeMoney)
                     tvIncome.visibility = View.VISIBLE
                 } else {
                     tvIncome.visibility = View.INVISIBLE
@@ -92,7 +93,7 @@ class CalendarAdapter constructor(
         // DepositMoney Text
         tvDeposit?.let {
             if(month == firstDayOfMonth.monthOfYear && year == firstDayOfMonth.year && depositMoney != 0L) {
-                tvDeposit.text = depositMoney.toString()
+                tvDeposit.text = decimalFormat.format(depositMoney)
             }
         }
 

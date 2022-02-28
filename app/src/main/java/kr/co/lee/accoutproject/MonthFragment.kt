@@ -87,9 +87,9 @@ class MonthFragment: Fragment() {
         }
 
         mainViewModel.dateAccounts.observe(viewLifecycleOwner) {
-            binding.calendar.updateCalendar(mainViewModel.dateAccounts.value)
-//            val recyclerAdapter = MonthRecyclerAdapter(it[mainViewModel.date.value]!!)
-//            binding.monthRecycler.adapter = recyclerAdapter
+            binding.calendar.updateCalendar(it)
+            val recyclerAdapter = MonthRecyclerAdapter(it[mainViewModel.date.value])
+            binding.monthRecycler.adapter = recyclerAdapter
         }
     }
 }
