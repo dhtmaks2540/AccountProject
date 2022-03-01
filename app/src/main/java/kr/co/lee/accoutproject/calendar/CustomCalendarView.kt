@@ -32,7 +32,6 @@ class CustomCalendarView @JvmOverloads constructor(
     // current displayed month
     private var currentDate = LocalDate()
     private var prevSelectedPosition = 0
-    private lateinit var color: Color
 
     // event handling
     private var eventHandler: EventHandler? = null
@@ -126,5 +125,4 @@ class CustomCalendarView @JvmOverloads constructor(
     interface EventHandler {
         fun onDayPress(localDate: LocalDate)
     }
-
 }

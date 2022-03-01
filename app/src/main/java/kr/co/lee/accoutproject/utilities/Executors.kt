@@ -7,6 +7,11 @@ import java.util.concurrent.Executors
 // 싱글 쓰레드에서 동작해야 하는 작업을 처리할 때 사용합니다.
 private val IO_EXECUTOR = Executors.newSingleThreadExecutor()
 
+enum class PageType(val title: String, val tag: String) {
+    PAGE1("month_fragment", "month"),
+    PAGE2("week_fragment", "week")
+}
+
 val decimalFormat = DecimalFormat("#,###")
 
 // background thread의 블록 코드를 작동시키는 Utility 메소드로 io/database를 위해 사용됨

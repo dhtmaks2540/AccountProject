@@ -56,12 +56,13 @@ class AddActivity : AppCompatActivity() {
 
     }
 
+    // 원화 설정
     private val krwText: String = Currency.getInstance(Locale.KOREA).symbol;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // DataBinding 설정
+        // DataBinding
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add)
         binding.apply {
             lifecycleOwner = this@AddActivity
@@ -76,13 +77,14 @@ class AddActivity : AppCompatActivity() {
             krwEditView.addTextChangedListener(watcher)
             krwLabel.text = krwText
         }
-        setSupportActionBar()
 
-        intent.getStringExtra("date")?.let { addViewModel.setDateItem(it) }
+        setSupportActionBar()
+        getIntentData()
 
         setContentView(binding.root)
     }
 
+    // Menu 생성
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.add_toolbar_menu, menu)
         return true
@@ -98,13 +100,18 @@ class AddActivity : AppCompatActivity() {
         return true
     }
 
+    // Intent Data
+    private fun getIntentData() {
+        intent.getStringExtra("date")?.let { addViewModel.setDateItem(it) }
+    }
+
     // toolbar 설정
     private fun setSupportActionBar() {
         setSupportActionBar(binding.addToolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
-    // button
+    // Start intent button
     private fun buttonClick(moneyItem: String?, typeForm: Int, date: String?, doubleMoney: Long?) {
         val detailIntent = Intent(this, DetailActivity::class.java)
         detailIntent.putExtra("money", moneyItem)

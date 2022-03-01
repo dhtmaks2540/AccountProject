@@ -29,4 +29,15 @@ class ReceiptViewModel @Inject constructor(
             accountRepository.removeAccount(accountAndType.value?.account)
         }
     }
+
+    fun updateAccount(moneyString: String, content: String) {
+        val money = moneyString.filter { it.isDigit() }.toLong()
+        val accountEntity = accountAndType.value?.account?.let {
+            it.copy(money = money, content = content)
+        }
+
+        ioThread {
+            accountRepository.updateAccount(accountEntity!!)
+        }
+    }
 }

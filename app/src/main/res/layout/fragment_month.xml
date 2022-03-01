@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="kr.co.lee.accoutproject.viewmodels.MainViewModel" />
@@ -65,10 +68,10 @@
             android:layout_height="wrap_content"
             android:text="@string/no_item_text"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@id/month_recycler"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/month_recycler" />
+            app:layout_constraintTop_toBottomOf="@id/calendar" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

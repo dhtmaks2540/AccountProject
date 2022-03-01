@@ -1,10 +1,7 @@
 package kr.co.lee.accoutproject.data
 
 import android.accounts.Account
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface AccountDAO {
@@ -19,6 +16,10 @@ interface AccountDAO {
     // 하루 정보
 //    @Query("SELECT * FROM accounts WHERE year = (:year) and month = (:month) and day = (:day)")
 //    fun getMonthAccount(year: Int, month: Int, day: Int): List<AccountEntity>
+
+    // 내역 업데이트
+    @Update
+    fun updateAccount(accountEntity: AccountEntity)
 
     @Query("SELECT * FROM accounts INNER JOIN types ON types.type_set_id == accounts.type_id WHERE accounts.year = (:year) AND accounts.Month = (:month)")
     fun getMonthAccount(year: Int, month: Int): List<AccountAndType>

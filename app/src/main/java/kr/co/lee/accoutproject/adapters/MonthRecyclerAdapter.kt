@@ -6,21 +6,25 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.lee.accoutproject.ActivityReceipt
+import kr.co.lee.accoutproject.MainActivity
 import kr.co.lee.accoutproject.data.AccountAndType
 import kr.co.lee.accoutproject.databinding.ItemContentListBinding
 
 class MonthRecyclerAdapter(
-    private val accountEntityList: ArrayList<AccountAndType>?
+    private val launcher: ActivityResultLauncher<Intent>
 ): RecyclerView.Adapter<MonthRecyclerAdapter.ViewHolder>() {
+
+    var accountList: ArrayList<AccountAndType>? = ArrayList()
 
     inner class ViewHolder(val binding: ItemContentListBinding): RecyclerView.ViewHolder(binding.root) {
         init {
             binding.setClickListener {
                 // Activity For Result 어떻게 할지
                 binding.accountAndType?.let {
-                    val intent = Intent(binding.moneyView.context, ActivityReceipt::class.java)
-                    intent.putExtra("accountAndType", it)
-                    binding.moneyView.context.startActivity(intent)
+                    Intent(binding.moneyView.context, ActivityReceipt::class.java).apply {
+                        putExtra("accountAndType", it)
+                        launcher.launch(this)
+                    }
                 }
             }
         }
@@ -33,14 +37,22 @@ class MonthRecyclerAdapter(
         }
     }
 
+    fun add(list: ArrayList<AccountAndType>?) {
+        accountList = list
+        notifyDataSetChanged()
+    }
+
+    // Layout 초기화
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemContentListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
+    // 아이템 하나의 뷰 초기화
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindTo(accountEntityList?.get(position))
+        holder.bindTo(accountList?.get(position))
     }
 
-    override fun getItemCount(): Int = accountEntityList?.size ?: 0
+    // 아이템 개수
+    override fun getItemCount(): Int = accountList?.size ?: 0
 }

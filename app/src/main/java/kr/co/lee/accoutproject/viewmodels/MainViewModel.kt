@@ -1,24 +1,21 @@
 package kr.co.lee.accoutproject.viewmodels
 
+import android.view.MenuItem
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kr.co.lee.accoutproject.R
 import kr.co.lee.accoutproject.calendar.CalendarUtils
 import kr.co.lee.accoutproject.data.AccountAndType
 import kr.co.lee.accoutproject.data.AccountRepository
+import kr.co.lee.accoutproject.utilities.PageType
 import kr.co.lee.accoutproject.utilities.ioThread
 import org.joda.time.DateTimeConstants
 import org.joda.time.LocalDate
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
-import kotlin.collections.List
-import kotlin.collections.filter
-import kotlin.collections.forEach
 import kotlin.collections.set
-import kotlin.collections.sumOf
-import kotlin.collections.withIndex
 
 // 인자로 DAO 객체를 받는 ViewModel
 @HiltViewModel
@@ -31,6 +28,10 @@ class MainViewModel @Inject constructor(
     private val _dateAccounts = MutableLiveData<TreeMap<LocalDate, ArrayList<AccountAndType>?>>()
     private val _accounts = MutableLiveData<List<AccountAndType>>()
     private val _weekAccounts = MutableLiveData<Array<TreeMap<LocalDate, ArrayList<AccountAndType>?>>>()
+    private val _currentPageType = MutableLiveData(PageType.PAGE1)
+
+    val currentPageType: LiveData<PageType>
+        get() = _currentPageType
 
     val weekAccounts: LiveData<Array<TreeMap<LocalDate, ArrayList<AccountAndType>?>>>
         get() = _weekAccounts
@@ -118,5 +119,28 @@ class MainViewModel @Inject constructor(
         }
 
         _weekAccounts.postValue(weekAccounts)
+    }
+
+    fun setCurrentPage(menuItemId: Int): Boolean {
+        val pageType = getPageType(menuItemId)
+        changeCurrentPage(pageType)
+
+        return true
+    }
+
+    // PageType 획득
+    private fun getPageType(menuItemId: Int): PageType {
+        return when(menuItemId) {
+            R.id.action_month -> PageType.PAGE1
+            R.id.action_week -> PageType.PAGE2
+            else -> throw IllegalArgumentException("Not found menu item id")
+        }
+    }
+
+    // 값 변경
+    private fun changeCurrentPage(pageType: PageType) {
+        if(currentPageType.value == pageType) return
+
+        _currentPageType.value = pageType
     }
 }

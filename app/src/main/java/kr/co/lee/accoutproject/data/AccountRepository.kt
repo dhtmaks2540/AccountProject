@@ -20,4 +20,8 @@ class AccountRepository @Inject constructor(
     fun insertAccount(account: AccountEntity) {
         accountDao.insertAccount(account)
     }
+
+    fun updateAccount(account: AccountEntity) {
+        accountDao.updateAccount(account)
+    }
 }

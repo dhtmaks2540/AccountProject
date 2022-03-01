@@ -19,6 +19,7 @@ class ActivityReceipt : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // DataBinding
         binding = DataBindingUtil.setContentView(this, R.layout.activity_receipt)
         binding.apply {
             lifecycleOwner = this@ActivityReceipt
@@ -28,6 +29,12 @@ class ActivityReceipt : AppCompatActivity() {
             toolbarBack.setOnClickListener {
                 onBackButton()
             }
+
+            ivUpdate.setOnClickListener {
+                updateButton(moneyView.text.toString(), contentView.text.toString())
+                setResult(RESULT_OK)
+                finish()
+            }
         }
 
         setToolbar()
@@ -35,27 +42,32 @@ class ActivityReceipt : AppCompatActivity() {
         setContentView(binding.root)
     }
 
+    // Option Menu
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.receipt_toolbar_menu, menu)
         return true
     }
 
+    // Menu 클릭 리스너
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_delete -> {
                 receiptViewModel.deleteAccount()
+                setResult(RESULT_OK)
                 finish()
             }
         }
         return true
     }
 
+    // Toolbar init
     private fun setToolbar() {
         setSupportActionBar(binding.receiptToolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
+    // Intent를 통해 넘어온 데이터
     private fun getIntentData() {
         (intent.getSerializableExtra("accountAndType") as AccountAndType).let {
             receiptViewModel.setAccountAndType(
@@ -64,7 +76,13 @@ class ActivityReceipt : AppCompatActivity() {
         }
     }
 
+    // BackButton
     private fun onBackButton() {
+        setResult(RESULT_CANCELED)
         finish()
+    }
+
+    private fun updateButton(money: String, content: String) {
+        receiptViewModel.updateAccount(money, content)
     }
 }

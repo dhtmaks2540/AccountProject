@@ -20,7 +20,7 @@ class WeekFragment: Fragment() {
     private val binding: FragmentWeekBinding
         get() = _binding!!
     private val mainViewModel: MainViewModel by activityViewModels()
-    private lateinit var dividerItemDecoration: DividerItemDecoration
+    private lateinit var weekRecyclerAdapter: WeekRecyclerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,7 +37,6 @@ class WeekFragment: Fragment() {
 
         initUi()
         subscribeUi()
-        dividerItemDecoration = DividerItemDecoration(activity, LinearLayoutManager.VERTICAL)
 
         return binding.root
     }
@@ -52,6 +51,8 @@ class WeekFragment: Fragment() {
 
     private fun initUi() {
         mainViewModel.setWeeksAccounts()
+        weekRecyclerAdapter = WeekRecyclerAdapter()
+        binding.rvWeek.adapter = weekRecyclerAdapter
     }
 
     private fun subscribeUi() {
@@ -64,9 +65,15 @@ class WeekFragment: Fragment() {
         }
 
         mainViewModel.weekAccounts.observe(viewLifecycleOwner) {
-            val adapter = WeekRecyclerAdapter(it)
-            binding.rvWeek.adapter = adapter
-//            binding.rvWeek.addItemDecoration(dividerItemDecoration)
+            weekRecyclerAdapter.add(it)
+        }
+    }
+
+    companion object {
+        fun newInstance(title: String) = MonthFragment().apply{
+            arguments = Bundle().apply {
+                putString("title", title)
+            }
         }
     }
 }
