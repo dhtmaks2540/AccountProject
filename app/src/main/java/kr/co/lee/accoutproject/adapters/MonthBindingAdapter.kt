@@ -22,3 +22,9 @@ fun setMoney(view: TextView, money: Double) {
     val money = decimalFormat.format(money)
     view.text = money + "원"
 }
+
+@BindingAdapter("only_money")
+fun setOnlyMoney(view: TextView, money: Double) {
+    val money = decimalFormat.format(money)
+    view.text = money
+}

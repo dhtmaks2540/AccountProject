@@ -7,10 +7,6 @@
         <variable
             name="type"
             type="Integer" />
-
-        <variable
-            name="activity"
-            type="kr.co.lee.accoutproject.ActivityReceipt" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

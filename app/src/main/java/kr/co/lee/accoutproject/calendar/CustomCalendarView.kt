@@ -39,16 +39,6 @@ class CustomCalendarView @JvmOverloads constructor(
         CustomCalendarBinding.inflate(LayoutInflater.from(context), this, true)
 
     init {
-        // TypedArray 획득(Attributes)
-//        context.withStyledAttributes(
-//            attrs,
-//            R.styleable.CustomCalendarView,
-//            defStyleAttr,
-//            defStyleRes
-//        ) {
-//            dateFormat = getString(R.styleable.CustomCalendarView_textFormat)
-//        }
-
         binding.apply {
             // GridView Click Listener
             val defaultColor = ResourcesCompat.getColor(resources, R.color.default_color, null)
@@ -83,7 +73,7 @@ class CustomCalendarView @JvmOverloads constructor(
         return currentDate
     }
 
-    // 
+    // 첫 달
     fun setFirstDate(): LocalDate {
         return currentDate
     }

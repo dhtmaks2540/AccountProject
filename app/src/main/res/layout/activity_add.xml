@@ -3,13 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="kr.co.lee.accoutproject.viewmodels.AddViewModel" />
-
-        <variable
-            name="activity"
-            type="kr.co.lee.accoutproject.AddActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,14 +14,14 @@
         android:layout_height="match_parent">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/add_toolbar"
+            android:id="@+id/tb_add"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             app:layout_constraintTop_toTopOf="parent"
             app:menu="@menu/add_toolbar_menu">
 
             <TextView
-                android:id="@+id/toolbar_date"
+                android:id="@+id/tv_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.date}" />
@@ -32,29 +29,29 @@
         </androidx.appcompat.widget.Toolbar>
 
         <TextView
-            android:id="@+id/krw_label"
+            android:id="@+id/label_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:textSize="45sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_toolbar" />
+            app:layout_constraintTop_toBottomOf="@id/tb_add" />
 
         <EditText
-            android:text="@={viewModel._moneyItem}"
-            android:id="@+id/krw_edit_view"
+            android:id="@+id/et_money"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:gravity="end"
             android:inputType="number"
+            android:text="@={viewModel._moneyItem}"
             android:textSize="35sp"
-            app:layout_constraintBottom_toBottomOf="@id/krw_label"
+            app:layout_constraintBottom_toBottomOf="@id/label_money"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/krw_label"
-            app:layout_constraintTop_toTopOf="@id/krw_label" />
+            app:layout_constraintStart_toEndOf="@id/label_money"
+            app:layout_constraintTop_toTopOf="@id/label_money" />
 
         <Button
-            android:id="@+id/deposit_button"
+            android:id="@+id/btn_income"
             android:layout_width="120dp"
             android:layout_height="60dp"
             android:layout_marginTop="45dp"
@@ -62,12 +59,12 @@
             android:text="@string/deposit_text"
             android:textColor="@color/white"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@id/expense_button"
+            app:layout_constraintEnd_toStartOf="@id/btn_deposit"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/krw_label" />
+            app:layout_constraintTop_toBottomOf="@id/label_money" />
 
         <Button
-            android:id="@+id/expense_button"
+            android:id="@+id/btn_deposit"
             android:layout_width="120dp"
             android:layout_height="60dp"
             android:background="@color/money_red"
@@ -75,8 +72,8 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/deposit_button"
-            app:layout_constraintTop_toTopOf="@id/deposit_button" />
+            app:layout_constraintStart_toEndOf="@id/btn_income"
+            app:layout_constraintTop_toTopOf="@id/btn_income" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

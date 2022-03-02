@@ -6,20 +6,20 @@
         <variable
             name="accountAndType"
             type="kr.co.lee.accoutproject.data.AccountAndType" />
-        
+
         <variable
             name="clickListener"
             type="android.view.View.OnClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:onClick="@{clickListener}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="@{clickListener}"
         android:padding="5dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/type_image"
+            android:id="@+id/iv_type"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginStart="10dp"
@@ -31,36 +31,36 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/type_label"
+            android:id="@+id/label_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:text="@{accountAndType.type.typeName}"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@id/type_image"
-            app:layout_constraintStart_toEndOf="@id/type_image"
-            app:layout_constraintTop_toTopOf="@id/type_image" />
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_type"
+            app:layout_constraintStart_toEndOf="@id/iv_type"
+            app:layout_constraintTop_toTopOf="@id/iv_type" />
 
         <TextView
-            android:id="@+id/content_view"
+            android:id="@+id/label_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:text="@{accountAndType.account.content}"
             android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="@id/type_image"
-            app:layout_constraintEnd_toStartOf="@id/money_view"
-            app:layout_constraintStart_toEndOf="@id/type_label"
-            app:layout_constraintTop_toTopOf="@id/type_image" />
+            app:layout_constraintBottom_toBottomOf="@id/iv_type"
+            app:layout_constraintEnd_toStartOf="@id/label_money"
+            app:layout_constraintStart_toEndOf="@id/label_type"
+            app:layout_constraintTop_toTopOf="@id/iv_type" />
 
         <TextView
-            android:id="@+id/money_view"
+            android:id="@+id/label_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@{accountAndType.type.typeForm == 1 ? @color/money_green : @color/money_red}"
-            app:layout_constraintBottom_toBottomOf="@id/type_image"
+            app:layout_constraintBottom_toBottomOf="@id/iv_type"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/type_image"
+            app:layout_constraintTop_toTopOf="@id/iv_type"
             app:money="@{accountAndType.account.money}" />
 
 

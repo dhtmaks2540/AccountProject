@@ -90,6 +90,8 @@ class MonthFragment: Fragment() {
     private fun firstInit() {
         mainViewModel.setDate(binding.calendar.setFirstDate())
         mainViewModel.setAccount()
+        
+        // RecyclerView 설정
         val emptyObserver = EmptyDataObserver(binding.monthRecycler, binding.tvNoItem)
         adapter = MonthRecyclerAdapter(launcher)
         binding.monthRecycler.adapter = adapter
@@ -111,7 +113,7 @@ class MonthFragment: Fragment() {
     // Adapter 설정
     private fun setAdapter(map: TreeMap<LocalDate, ArrayList<AccountAndType>?>, localDate: LocalDate?, launcher: ActivityResultLauncher<Intent>) {
         adapter.add(map[localDate])
-        adapter.notifyDataSetChanged()
+//        adapter.notifyDataSetChanged()
     }
     
     companion object {

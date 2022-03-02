@@ -1,31 +1,29 @@
 package kr.co.lee.accoutproject
 
-import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
-import android.view.inputmethod.InputMethodManager
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.lee.accoutproject.databinding.ActivityAddBinding
+import kr.co.lee.accoutproject.utilities.decimalFormat
 import kr.co.lee.accoutproject.viewmodels.AddViewModel
-import java.text.DecimalFormat
 import java.util.*
 
 @AndroidEntryPoint
 class AddActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddBinding
-    private val decimalFormat = DecimalFormat("#,###")
-    private var result: String = ""
     private val addViewModel: AddViewModel by viewModels()
+
+    private var result: String = ""
     private val launcher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             when(it.resultCode) {
@@ -46,8 +44,8 @@ class AddActivity : AppCompatActivity() {
                 val money = charSequence.toString().replace(",","").toLong()
                 addViewModel.setDoubleItem(money)
                 result = decimalFormat.format(money)
-                binding.krwEditView.setText(result)
-                binding.krwEditView.setSelection(result.length)
+                binding.etMoney.setText(result)
+                binding.etMoney.setSelection(result.length)
             }
         }
 
@@ -62,20 +60,19 @@ class AddActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // DataBinding
+        // DataBinding 초기화
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add)
         binding.apply {
             lifecycleOwner = this@AddActivity
             viewModel = addViewModel
-            activity = this@AddActivity
 
-            // 입금버튼
-            depositButton.setOnClickListener { buttonClick(addViewModel.moneyItem.value, 1, addViewModel.date.value, addViewModel.doubleMoneyItem.value) }
-            expenseButton.setOnClickListener { buttonClick(addViewModel.moneyItem.value, 0, addViewModel.date.value, addViewModel.doubleMoneyItem.value) }
+            // 입금, 출금 버튼
+            btnIncome.setOnClickListener { buttonClick(addViewModel.moneyItem.value, 1, addViewModel.date.value, addViewModel.doubleMoneyItem.value) }
+            btnDeposit.setOnClickListener { buttonClick(addViewModel.moneyItem.value, 0, addViewModel.date.value, addViewModel.doubleMoneyItem.value) }
 
-            // EditText
-            krwEditView.addTextChangedListener(watcher)
-            krwLabel.text = krwText
+            // EditText Text Watcher 등록
+            etMoney.addTextChangedListener(watcher)
+            labelMoney.text = krwText
         }
 
         setSupportActionBar()
@@ -100,14 +97,14 @@ class AddActivity : AppCompatActivity() {
         return true
     }
 
-    // Intent Data
+    // Intent Data 설정
     private fun getIntentData() {
         intent.getStringExtra("date")?.let { addViewModel.setDateItem(it) }
     }
 
     // toolbar 설정
     private fun setSupportActionBar() {
-        setSupportActionBar(binding.addToolbar)
+        setSupportActionBar(binding.tbAdd)
         supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 

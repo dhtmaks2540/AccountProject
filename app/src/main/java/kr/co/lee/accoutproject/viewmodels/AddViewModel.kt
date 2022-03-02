@@ -15,7 +15,7 @@ class AddViewModel @Inject constructor(
     private val _date = MutableLiveData<String>()
     private val _doubleMoneyItem = MutableLiveData<Long>()
 
-    val _moneyItem = MutableLiveData<String>("0")
+    val _moneyItem = MutableLiveData("0")
 
     val doubleMoneyItem: LiveData<Long>
         get() = _doubleMoneyItem

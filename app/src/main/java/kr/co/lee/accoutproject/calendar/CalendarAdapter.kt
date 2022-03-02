@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import kr.co.lee.accoutproject.R
 import kr.co.lee.accoutproject.data.AccountAndType
 import kr.co.lee.accoutproject.utilities.decimalFormat
@@ -23,7 +24,8 @@ class CalendarAdapter constructor(
     private val firstDayOfMonth: LocalDate
 ): ArrayAdapter<LocalDate>(context, 0, days) {
     // for view inflation
-    private var inflater: LayoutInflater = LayoutInflater.from(context)
+    private val inflater: LayoutInflater = LayoutInflater.from(context)
+    private var redColor = ResourcesCompat.getColor(context.resources, R.color.money_red, null)
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
         var convertView = view
@@ -37,12 +39,12 @@ class CalendarAdapter constructor(
         // Today
         val today = LocalDate()
 
-        // Layout Inflate
+        // Layout init(inflate)
         if(convertView == null) {
-            convertView = inflater.inflate(R.layout.item_calendar, parent, false)
+            convertView = inflater.inflate(R.layout.item_date, parent, false)
         }
 
-        // View 초기화
+        // View init
         val tvDate = convertView?.findViewById<TextView>(R.id.tv_date)
         val tvIncome = convertView?.findViewById<TextView>(R.id.tv_income)
         val tvDeposit = convertView?.findViewById<TextView>(R.id.tv_deposit)
@@ -50,7 +52,7 @@ class CalendarAdapter constructor(
         var incomeMoney: Long = 0L
         var depositMoney: Long = 0L
 
-        // if this day has an event, specify event image
+        // 입금, 출금 금액 계산
         if(events != null) {
             events[date]?.forEach {
                 if(it.type.typeForm == 1) incomeMoney += it.account.money
@@ -58,6 +60,7 @@ class CalendarAdapter constructor(
             }
         }
 
+        // Color 획득
         val color = CalendarUtils.getDateColor(date?.dayOfWeek!!)
 
         // Date Text
@@ -66,34 +69,27 @@ class CalendarAdapter constructor(
             it.setTextColor(Color.BLACK)
 
             it.setTextColor(color)
-
-            if(month != firstDayOfMonth.monthOfYear || year != firstDayOfMonth.year) {
-                // if this day is outside current month, grey it out
+            
+            if(month != firstDayOfMonth.monthOfYear || year != firstDayOfMonth.year) { // 이번달 날짜가 아니라면
                 it.alpha = 0.2f
-            } else if(day == today.dayOfMonth && month == today.monthOfYear && year == today.year) {
-                // if it is today, set it to blue/bold
+            } else if(day == today.dayOfMonth && month == today.monthOfYear && year == today.year) { // 오늘에 해당하는 날짜라면
                 it.setTypeface(null, Typeface.BOLD)
             }
 
             it.text = date.dayOfMonth.toString()
         }
 
-        // IncomeMoney Text
-        tvIncome?.let {
-            if(month == firstDayOfMonth.monthOfYear && year == firstDayOfMonth.year) {
-                if(incomeMoney != 0L) {
-                    tvIncome.text = decimalFormat.format(incomeMoney)
-                    tvIncome.visibility = View.VISIBLE
-                } else {
-                    tvIncome.visibility = View.INVISIBLE
-                }
-            }
-        }
-
-        // DepositMoney Text
-        tvDeposit?.let {
-            if(month == firstDayOfMonth.monthOfYear && year == firstDayOfMonth.year && depositMoney != 0L) {
-                tvDeposit.text = decimalFormat.format(depositMoney)
+        // Money Text
+        // 이번달 날짜라면
+        if(month == firstDayOfMonth.monthOfYear && year == firstDayOfMonth.year) {
+            if(incomeMoney != 0L && depositMoney != 0L) {
+                tvIncome?.text = decimalFormat.format(incomeMoney)
+                tvDeposit?.text = decimalFormat.format(depositMoney)
+            } else if(incomeMoney == 0L && depositMoney != 0L) {
+                tvIncome?.text = decimalFormat.format(depositMoney)
+                tvIncome?.setTextColor(redColor)
+            } else if(incomeMoney != 0L && depositMoney == 0L) {
+                tvIncome?.text = decimalFormat.format(incomeMoney)
             }
         }
 

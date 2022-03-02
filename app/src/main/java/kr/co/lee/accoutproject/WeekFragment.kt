@@ -70,7 +70,7 @@ class WeekFragment: Fragment() {
     }
 
     companion object {
-        fun newInstance(title: String) = MonthFragment().apply{
+        fun newInstance(title: String) = WeekFragment().apply{
             arguments = Bundle().apply {
                 putString("title", title)
             }

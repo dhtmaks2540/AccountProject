@@ -23,4 +23,15 @@
     <string name="delete_menu">삭제</string>
     <string name="price">금액</string>
     <string name="content">내역</string>
+    <string name="won">원</string>
+
+    <!-- layout week -->
+    <string name="monday">월</string>
+    <string name="tuesday">화</string>
+    <string name="wednesday">수</string>
+    <string name="thursday">목</string>
+    <string name="friday">금</string>
+    <string name="saturday">토</string>
+    <string name="sunday">일</string>
+
 </resources>

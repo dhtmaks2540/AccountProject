@@ -20,9 +20,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityMainBinding
-
     // ViewModel 생성
     private val mainViewModel: MainViewModel by viewModels()
     private val launcher: ActivityResultLauncher<Intent> =
@@ -41,30 +39,28 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.apply {
             lifecycleOwner = this@MainActivity
-            activity = this@MainActivity
             viewModel = mainViewModel
 
             // Prev, Next Button
             ivPrev.setOnClickListener {
-                val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
-                if (fragment?.tag == "Month") {
-                    (fragment as MonthFragment).prevButtonClick()
-                } else if (fragment?.tag == "Week") {
-                    (fragment as WeekFragment).prevButtonClick()
+                val fragment = supportFragmentManager.fragments[0]
+                if(fragment is MonthFragment) {
+                    fragment.prevButtonClick()
+                } else if(fragment is WeekFragment) {
+                    fragment.prevButtonClick()
                 }
             }
-
             ivNext.setOnClickListener {
-                val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
-                if (fragment?.tag == "Month") {
-                    (fragment as MonthFragment).nextButtonClick()
-                } else if (fragment?.tag == "Week") {
-                    (fragment as WeekFragment).nextButtonClick()
+                val fragment = supportFragmentManager.fragments[0]
+                if(fragment is MonthFragment) {
+                    fragment.nextButtonClick()
+                } else if(fragment is WeekFragment) {
+                    fragment.nextButtonClick()
                 }
             }
 
             // Floating Button
-            addButton.setOnClickListener { actionButtonClicked() }
+            btnAdd.setOnClickListener { actionButtonClicked() }
 
             // Bottom NavigationView
 //            mainBottomMenu.run {
@@ -104,62 +100,69 @@ class MainActivity : AppCompatActivity() {
         launcher.launch(addIntent)
     }
 
+    // Observer 등록
     private fun subscribeUi() {
         mainViewModel.currentPageType.observe(this) {
             changeFragment(it)
         }
     }
 
+    // Fragment 변경
     private fun changeFragment(pageType: PageType) {
-        val transaction = supportFragmentManager.beginTransaction()
+//        val transaction = supportFragmentManager.beginTransaction()
         var targetFragment = supportFragmentManager.findFragmentByTag(pageType.tag)
 
-        println("$pageType, ${targetFragment.toString()}")
-
-        if(targetFragment == null) {
-            targetFragment = getFragment(pageType)
-            transaction.add(R.id.fragment_container, targetFragment!!, pageType.tag)
-        }
-
-        transaction.show(targetFragment)
-
-        PageType.values()
-            .filterNot { it == pageType }
-            .forEach { type ->
-                supportFragmentManager.findFragmentByTag(type.tag)?.let {
-                    transaction.hide(it)
-                }
-            }
-
-        transaction.commitAllowingStateLoss()
-
-//        supportFragmentManager.commit {
-//            if(targetFragment == null) {
-//                targetFragment = getFragment(pageType)
-//                add(R.id.fragment_container, targetFragment!!, pageType.tag)
+//        // null이라면 획득
+//        if(targetFragment == null) {
+//            targetFragment = getFragment(pageType)
+//            transaction.add(R.id.fcv_main, targetFragment!!, pageType.tag)
+//        }
+//
+//        // 현재 Fragment Show
+//        transaction.show(targetFragment)
+//
+//        // 나머지 Fragment hide
+//        PageType.values()
+//            .filterNot { it == pageType }
+//            .forEach { type ->
+//                supportFragmentManager.findFragmentByTag(type.tag)?.let {
+//                    transaction.hide(it)
+//                }
 //            }
 //
-//            show(targetFragment!!)
-//
-//            PageType.values()
-//                .filterNot { it == pageType }
-//                .forEach { type ->
-//                    supportFragmentManager.findFragmentByTag(type.tag)?.let {
-//                        hide(it)
-//                    }
-//                }
-//        }
+//        // Commit
+//        transaction.commitAllowingStateLoss()
+
+        supportFragmentManager.commit {
+            if(targetFragment == null) {
+                targetFragment = getFragment(pageType)
+                add(R.id.fcv_main, targetFragment!!, pageType.tag)
+            }
+
+            show(targetFragment!!)
+
+            PageType.values()
+                .filterNot { it == pageType }
+                .forEach { type ->
+                    supportFragmentManager.findFragmentByTag(type.tag)?.let {
+                        hide(it)
+                    }
+                }
+        }
     }
 
+    // PageType에 맞는 Fragment 반환
     private fun getFragment(pageType: PageType): Fragment? {
-        return when(pageType.tag) {
+        return when (pageType.tag) {
             "month" -> {
-                MonthFragment.newInstance(pageType.title)
+                return MonthFragment.newInstance(pageType.title)
             }
             "week" -> {
-                WeekFragment.newInstance(pageType.title)
+                return WeekFragment.newInstance(pageType.title)
             }
-            else -> null
+            else -> {
+                null
+            }
         }
     }
 }
