@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="kr.co.lee.accoutproject.viewmodels.MainViewModel" />
+            type="kr.co.lee.accoutproject.ui.main.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

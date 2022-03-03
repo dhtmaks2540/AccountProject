@@ -6,7 +6,7 @@
 
         <import type="java.util.TreeMap" />
 
-        <import type="kr.co.lee.accoutproject.data.AccountAndType" />
+        <import type="kr.co.lee.accoutproject.model.AccountAndType"/>
 
         <import type="org.joda.time.LocalDate" />
 

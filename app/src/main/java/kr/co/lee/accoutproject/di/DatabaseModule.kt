@@ -6,9 +6,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import kr.co.lee.accoutproject.data.AccountDAO
-import kr.co.lee.accoutproject.data.AppDatabase
-import kr.co.lee.accoutproject.data.TypeDAO
+import kr.co.lee.accoutproject.persistence.AccountDAO
+import kr.co.lee.accoutproject.persistence.AppDatabase
+import kr.co.lee.accoutproject.persistence.TypeDAO
 import javax.inject.Singleton
 
 @Module

@@ -4,16 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
-            type="kr.co.lee.accoutproject.viewmodels.ReceiptViewModel" />
+            type="kr.co.lee.accoutproject.ui.receipt.ReceiptViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ActivityReceipt">
+        tools:context=".ui.receipt.ReceiptActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/tb_receipt"

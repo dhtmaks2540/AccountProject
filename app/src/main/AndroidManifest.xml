@@ -11,18 +11,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AccoutProject">
         <activity
-            android:name=".ActivityReceipt"
+            android:name=".ui.receipt.ReceiptActivity"
             android:exported="false" />
         <activity
-            android:name=".DetailActivity"
+            android:name=".ui.detail.DetailActivity"
             android:exported="false"
             android:windowSoftInputMode="stateAlwaysVisible" />
         <activity
-            android:name=".AddActivity"
+            android:name=".ui.add.AddActivity"
             android:exported="false"
             android:windowSoftInputMode="stateAlwaysVisible" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -7,13 +7,13 @@
 
         <variable
             name="viewModel"
-            type="kr.co.lee.accoutproject.viewmodels.DetailViewModel" />
+            type="kr.co.lee.accoutproject.ui.detail.DetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".DetailActivity">
+        tools:context=".ui.detail.DetailActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/tb_detail"

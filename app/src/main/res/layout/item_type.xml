@@ -5,7 +5,7 @@
     <data>
         <variable
             name="typeEntity"
-            type="kr.co.lee.accoutproject.data.TypeEntity" />
+            type="kr.co.lee.accoutproject.model.TypeEntity" />
 
         <variable
             name="clickListener"
