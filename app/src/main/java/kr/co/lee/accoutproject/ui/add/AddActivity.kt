@@ -14,14 +14,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.lee.accoutproject.R
+import kr.co.lee.accoutproject.base.BaseActivity
 import kr.co.lee.accoutproject.databinding.ActivityAddBinding
 import kr.co.lee.accoutproject.ui.detail.DetailActivity
 import kr.co.lee.accoutproject.utilities.decimalFormat
 import java.util.*
 
 @AndroidEntryPoint
-class AddActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityAddBinding
+class AddActivity : BaseActivity<ActivityAddBinding>(R.layout.activity_add) {
     private val addViewModel: AddViewModel by viewModels()
 
     private var result: String = ""
@@ -34,6 +34,9 @@ class AddActivity : AppCompatActivity() {
                 }
             }
         }
+
+    // 원화 설정
+    private val krwText: String = Currency.getInstance(Locale.KOREA).symbol
 
     // TextWatcher - 금액 EditText 설정
     private val watcher = object : TextWatcher {
@@ -55,21 +58,16 @@ class AddActivity : AppCompatActivity() {
 
     }
 
-    // 원화 설정
-    private val krwText: String = Currency.getInstance(Locale.KOREA).symbol;
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // DataBinding 초기화
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_add)
         binding.apply {
-            lifecycleOwner = this@AddActivity
             viewModel = addViewModel
 
             // 입금, 출금 버튼
             btnIncome.setOnClickListener { buttonClick(addViewModel.moneyItem.value, 1, addViewModel.date.value, addViewModel.doubleMoneyItem.value) }
             btnDeposit.setOnClickListener { buttonClick(addViewModel.moneyItem.value, 0, addViewModel.date.value, addViewModel.doubleMoneyItem.value) }
+            ivCancel.setOnClickListener { cancelClick() }
 
             // EditText Text Watcher 등록
             etMoney.addTextChangedListener(watcher)
@@ -78,24 +76,10 @@ class AddActivity : AppCompatActivity() {
 
         setSupportActionBar()
         getIntentData()
-
-        setContentView(binding.root)
     }
 
-    // Menu 생성
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.add_toolbar_menu, menu)
-        return true
-    }
-
-    // Toolbar 메뉴 선택
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            R.id.menu_cancel -> {
-                finish()
-            }
-        }
-        return true
+    private fun cancelClick() {
+        finish()
     }
 
     // Intent Data 설정

@@ -11,13 +11,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.lee.accoutproject.R
+import kr.co.lee.accoutproject.base.BaseActivity
 import kr.co.lee.accoutproject.databinding.ActivityReceiptBinding
 import kr.co.lee.accoutproject.model.AccountAndType
 import kr.co.lee.accoutproject.utilities.decimalFormat
 
 @AndroidEntryPoint
-class ReceiptActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityReceiptBinding
+class ReceiptActivity : BaseActivity<ActivityReceiptBinding>(R.layout.activity_receipt) {
     private val receiptViewModel: ReceiptViewModel by viewModels()
 
     private var result: String = ""
@@ -43,10 +43,7 @@ class ReceiptActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // DataBinding 초기화
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_receipt)
         binding.apply {
-            lifecycleOwner = this@ReceiptActivity
             viewModel = receiptViewModel
 
             // ImageView Click
@@ -61,6 +58,10 @@ class ReceiptActivity : AppCompatActivity() {
                 finish()
             }
 
+            ivDelete.setOnClickListener {
+                deleteClick()
+            }
+
             etMoney.addTextChangedListener(watcher)
         }
 
@@ -69,22 +70,10 @@ class ReceiptActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
-    // Toolbar 메뉴 초기화
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.receipt_toolbar_menu, menu)
-        return true
-    }
-
-    // 메뉴 클릭 리스너
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_delete -> {
-                receiptViewModel.deleteAccount()
-                setResult(RESULT_OK)
-                finish()
-            }
-        }
-        return true
+    private fun deleteClick() {
+        receiptViewModel.deleteAccount()
+        setResult(RESULT_OK)
+        finish()
     }
 
     // Toolbar 초기화

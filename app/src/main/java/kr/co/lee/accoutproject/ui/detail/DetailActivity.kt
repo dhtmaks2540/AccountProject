@@ -6,31 +6,26 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.lee.accoutproject.R
+import kr.co.lee.accoutproject.base.BaseActivity
 import kr.co.lee.accoutproject.databinding.ActivityDetailBinding
 import kr.co.lee.accoutproject.model.TypeEntity
 import kr.co.lee.accoutproject.ui.adapter.DetailRecyclerViewAdapter
 import kr.co.lee.accoutproject.ui.adapter.OnEntityClickListener
 
 @AndroidEntryPoint
-class DetailActivity : AppCompatActivity(), OnEntityClickListener {
+class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_detail), OnEntityClickListener {
     private val detailViewModel: DetailViewModel by viewModels()
-    private lateinit var binding: ActivityDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // DataBinding 초기화
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
         binding.apply {
-            lifecycleOwner = this@DetailActivity
             viewModel = detailViewModel
 
             ivBack.setOnClickListener { backButtonClick() }
             ivCancel.setOnClickListener { cancelButtonClick() }
         }
 
-        setContentView(binding.root)
-//        setSupportActionBar()
         getIntentData()
         subscribeUi()
     }
@@ -49,12 +44,6 @@ class DetailActivity : AppCompatActivity(), OnEntityClickListener {
         intent.getStringExtra("date")?.let { detailViewModel.setDate(it) }
         intent.getLongExtra("doubleMoney", 0)?.let { detailViewModel.setDoubleMoney(it) }
     }
-
-    // toolbar 설정
-//    private fun setSupportActionBar() {
-//        setSupportActionBar(binding.tbDetail)
-//        supportActionBar?.setDisplayShowTitleEnabled(false)
-//    }
 
     // RecyclerView Adapter 설정
     private fun setRecyclerAdapter(typeList: List<TypeEntity>) {

@@ -9,35 +9,23 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.lee.accoutproject.R
+import kr.co.lee.accoutproject.base.BaseFragment
 import kr.co.lee.accoutproject.ui.adapter.WeekRecyclerAdapter
 import kr.co.lee.accoutproject.databinding.FragmentWeekBinding
 import kr.co.lee.accoutproject.ui.main.MainViewModel
 
 @AndroidEntryPoint
-class WeekFragment: Fragment() {
-    private var _binding: FragmentWeekBinding? = null
-    private val binding: FragmentWeekBinding
-        get() = _binding!!
+class WeekFragment: BaseFragment<FragmentWeekBinding>(R.layout.fragment_week) {
     private val mainViewModel: MainViewModel by activityViewModels()
     private lateinit var weekRecyclerAdapter: WeekRecyclerAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_week, container, false)
-
+    override fun initView() {
         binding.apply {
-            lifecycleOwner = this@WeekFragment
             viewModel = mainViewModel
         }
 
         initUi()
         subscribeUi()
-
-        return binding.root
     }
 
     fun prevButtonClick() {

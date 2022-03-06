@@ -45,7 +45,7 @@ class CustomCalendarView @JvmOverloads constructor(
                 // 해당 position item 넘기기
                 eventHandler?.onDayPress(date)
 
-                setSelectedColor(adapterView, view, prevSelectedPosition, defaultColor, clickColor)
+//                setSelectedColor(adapterView, view, prevSelectedPosition, defaultColor, clickColor)
 
                 prevSelectedPosition = position
             }
