@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.lee.accoutproject.R
+import kr.co.lee.accoutproject.base.BaseFragment
 import kr.co.lee.accoutproject.ui.adapter.EmptyDataObserver
 import kr.co.lee.accoutproject.ui.adapter.MonthRecyclerAdapter
 import kr.co.lee.accoutproject.model.AccountAndType
@@ -23,10 +24,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
-class MonthFragment: Fragment() {
-    private var _binding: FragmentMonthBinding? = null
-    private val binding: FragmentMonthBinding
-        get() = _binding!!
+class MonthFragment: BaseFragment<FragmentMonthBinding>(R.layout.fragment_month) {
     private lateinit var adapter: MonthRecyclerAdapter
 
     // Fragment KTX를 사용하여 Activity ViewModel 초기화
@@ -40,17 +38,9 @@ class MonthFragment: Fragment() {
             }
         }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // DataBinding
-        _binding = DataBindingUtil.inflate<FragmentMonthBinding>(
-            inflater, R.layout.fragment_month, container, false)
+    override fun initView() {
         binding.apply {
             viewModel = mainViewModel
-            lifecycleOwner = this@MonthFragment
 
             // ClickHandler
             calendar.setEventHandler(object : CustomCalendarView.EventHandler {
@@ -68,8 +58,6 @@ class MonthFragment: Fragment() {
 
         firstInit()
         subscribeUi()
-
-        return binding.root
     }
 
     // Prev month button

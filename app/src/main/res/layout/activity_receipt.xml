@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="kr.co.lee.accoutproject.ui.receipt.ReceiptViewModel" />
@@ -18,8 +19,7 @@
             android:id="@+id/tb_receipt"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
-            app:layout_constraintTop_toTopOf="parent"
-            app:menu="@menu/receipt_toolbar_menu">
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/iv_back"
@@ -36,6 +36,14 @@
                 android:layout_marginStart="30dp"
                 android:text='@{viewModel.accountAndType.type.typeForm == 1 ? "입금 영수증" : "지출 영수증"}'
                 android:textSize="25sp" />
+
+            <ImageView
+                android:id="@+id/iv_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/baseline_delete_black_20" />
 
         </androidx.appcompat.widget.Toolbar>
 
