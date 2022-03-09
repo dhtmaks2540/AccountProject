@@ -38,14 +38,12 @@ class CustomCalendarView @JvmOverloads constructor(
     init {
         binding.apply {
             // GridView Click Listener
-            val defaultColor = ResourcesCompat.getColor(resources, R.color.default_color, null)
-            val clickColor = ResourcesCompat.getColor(resources, R.color.click_color, null)
+//            val defaultColor = ResourcesCompat.getColor(resources, R.color.default_color, null)
+//            val clickColor = ResourcesCompat.getColor(resources, R.color.click_color, null)
             calendarGrid.setOnItemClickListener { adapterView, view, position, id ->
                 val date = adapterView.getItemAtPosition(position) as LocalDate
                 // 해당 position item 넘기기
                 eventHandler?.onDayPress(date)
-
-//                setSelectedColor(adapterView, view, prevSelectedPosition, defaultColor, clickColor)
 
                 prevSelectedPosition = position
             }

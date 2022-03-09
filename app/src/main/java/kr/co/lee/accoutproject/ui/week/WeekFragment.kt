@@ -28,20 +28,24 @@ class WeekFragment: BaseFragment<FragmentWeekBinding>(R.layout.fragment_week) {
         subscribeUi()
     }
 
+    // 이전달 클릭
     fun prevButtonClick() {
         mainViewModel.setDate(mainViewModel.date.value?.minusMonths(1)!!)
     }
 
+    // 다음달 클릭
     fun nextButtonClick() {
         mainViewModel.setDate(mainViewModel.date.value?.plusMonths(1)!!)
     }
 
+    // 초기화
     private fun initUi() {
         mainViewModel.setWeeksAccounts()
         weekRecyclerAdapter = WeekRecyclerAdapter()
         binding.rvWeek.adapter = weekRecyclerAdapter
     }
 
+    // LiveData observe
     private fun subscribeUi() {
         mainViewModel.date.observe(viewLifecycleOwner) {
             mainViewModel.setAccount()
@@ -57,10 +61,6 @@ class WeekFragment: BaseFragment<FragmentWeekBinding>(R.layout.fragment_week) {
     }
 
     companion object {
-        fun newInstance(title: String) = WeekFragment().apply{
-            arguments = Bundle().apply {
-                putString("title", title)
-            }
-        }
+        fun newInstance() = WeekFragment()
     }
 }

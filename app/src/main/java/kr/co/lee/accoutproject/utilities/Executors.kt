@@ -14,6 +14,7 @@ fun ioThread(f: () -> Unit) {
     IO_EXECUTOR.execute(f)
 }
 
+// Fragment Page Type
 enum class PageType(val title: String, val tag: String) {
     PAGE1("month_fragment", "month"),
     PAGE2("week_fragment", "week")

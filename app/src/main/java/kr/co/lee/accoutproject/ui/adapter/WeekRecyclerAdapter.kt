@@ -8,11 +8,13 @@ import kr.co.lee.accoutproject.databinding.ItemWeekBinding
 import org.joda.time.LocalDate
 import java.util.*
 
+// WeekFragment RecyclerViewAdapter
 class WeekRecyclerAdapter: RecyclerView.Adapter<WeekRecyclerAdapter.ViewHolder>() {
 
     private var weekArray: Array<TreeMap<LocalDate, ArrayList<AccountAndType>?>> = arrayOf()
 
     class ViewHolder(val binding: ItemWeekBinding): RecyclerView.ViewHolder(binding.root) {
+        // 아이템 초기화
         fun bindTo(item: TreeMap<LocalDate, ArrayList<AccountAndType>?>) {
             binding.apply {
                 accountAndType = item
@@ -22,6 +24,7 @@ class WeekRecyclerAdapter: RecyclerView.Adapter<WeekRecyclerAdapter.ViewHolder>(
         }
     }
 
+    // 아이템 추가 메소드
     fun add(array: Array<TreeMap<LocalDate, ArrayList<AccountAndType>?>>) {
         weekArray = array
         notifyDataSetChanged()

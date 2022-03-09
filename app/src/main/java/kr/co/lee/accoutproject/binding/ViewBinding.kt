@@ -10,6 +10,7 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 import de.hdodenhof.circleimageview.CircleImageView
 import kr.co.lee.accoutproject.R
 import kr.co.lee.accoutproject.model.AccountAndType
@@ -18,6 +19,7 @@ import kr.co.lee.accoutproject.utilities.decimalFormat
 import org.joda.time.LocalDate
 import java.util.*
 
+// ViewBindingAdapter
 object ViewBinding {
     // InverseBindingAdapter는 getter에 해당(View -> Data)
     // attribute - BindingAdapter처럼 특성 이름, event = onChange()를 호출하기 위한 event
@@ -56,14 +58,14 @@ object ViewBinding {
         if(old != content) view.setText(content)
     }
 
+    // activity_main bottomNavigationView
     @JvmStatic
     @BindingAdapter("onItemSelectedListener")
-    fun bindSetOnNavigationItemSelectedListener(view: BottomNavigationView, viewModel: MainViewModel) {
-        view.setOnItemSelectedListener { menuItem ->
-            viewModel.setCurrentPage(menuItem.itemId)
-        }
+    fun bindSetOnNavigationItemSelectedListener(view: BottomNavigationView, listener: NavigationBarView.OnItemSelectedListener) {
+        view.setOnItemSelectedListener(listener)
     }
 
+    // item_type circleImageView
     @JvmStatic
     @BindingAdapter("image_res", "image_color")
     fun bindSetImageUrl(view: CircleImageView, imageName: String, imageColor: String) {
@@ -76,6 +78,7 @@ object ViewBinding {
         view.circleBackgroundColor = Color.parseColor(imageColor)
     }
 
+    // fragment_month, detail_fragment 등 textView
     @JvmStatic
     @BindingAdapter("money")
     fun bindSetMoney(view: TextView, money: Double) {
@@ -83,6 +86,7 @@ object ViewBinding {
         view.text = money + "원"
     }
 
+    // activity_receipt textView
     @JvmStatic
     @BindingAdapter("only_money")
     fun bindSetOnlyMoney(view: TextView, money: Double) {
@@ -90,6 +94,7 @@ object ViewBinding {
         view.text = money
     }
 
+    // week_fragment textView
     @JvmStatic
     @BindingAdapter("date")
     fun bindSetDate(view: TextView, map: TreeMap<LocalDate, ArrayList<AccountAndType?>>) {
@@ -101,7 +106,8 @@ object ViewBinding {
             view.text = "$start"
         }
     }
-    
+
+    // week_fragment textView
     @JvmStatic
     @BindingAdapter("money_text")
     fun bindSetMoneyDate(view: TextView, map: TreeMap<LocalDate, ArrayList<AccountAndType>?>) {

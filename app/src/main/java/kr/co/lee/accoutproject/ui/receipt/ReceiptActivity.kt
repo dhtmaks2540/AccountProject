@@ -46,22 +46,24 @@ class ReceiptActivity : BaseActivity<ActivityReceiptBinding>(R.layout.activity_r
         binding.apply {
             viewModel = receiptViewModel
 
-            // ImageView Click
+            // 이전 버튼 클릭
             ivBack.setOnClickListener {
                 onBackButton()
             }
 
-            // ImageView Click
+            // 수정 버튼 클릭
             ivUpdate.setOnClickListener {
                 updateButton(etMoney.text.toString(), etContent.text.toString())
                 setResult(RESULT_OK)
                 finish()
             }
 
+            // 삭제 버튼 클릭
             ivDelete.setOnClickListener {
                 deleteClick()
             }
 
+            // TextWatcher 등록
             etMoney.addTextChangedListener(watcher)
         }
 
@@ -70,6 +72,7 @@ class ReceiptActivity : BaseActivity<ActivityReceiptBinding>(R.layout.activity_r
         setContentView(binding.root)
     }
 
+    // Account 삭제
     private fun deleteClick() {
         receiptViewModel.deleteAccount()
         setResult(RESULT_OK)

@@ -22,12 +22,14 @@ class ReceiptViewModel @Inject constructor(
         _accountAndType.value = accountAndType
     }
 
+    // Account 삭제
     fun deleteAccount() {
         ioThread {
             accountRepository.removeAccount(accountAndType.value?.account)
         }
     }
 
+    // Account 수정
     fun updateAccount(moneyString: String, content: String) {
         val money = moneyString.filter { it.isDigit() }.toLong()
         val accountEntity = accountAndType.value?.account?.let {

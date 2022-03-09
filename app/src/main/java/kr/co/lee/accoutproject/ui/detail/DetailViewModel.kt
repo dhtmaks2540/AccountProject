@@ -51,6 +51,7 @@ class DetailViewModel @Inject constructor(
         _dateItem.value = date
     }
 
+    // TypeEntity 획득
     fun setTypes(type: Int) {
         _type.value = type
         ioThread {
@@ -58,6 +59,7 @@ class DetailViewModel @Inject constructor(
         }
     }
 
+    // AccountEntity 추가
     fun setAccount(money: Long, content: String, date: String, typeId: Int) {
         ioThread {
             val dateList = date.split("/").map { it.toInt() }

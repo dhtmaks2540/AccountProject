@@ -68,7 +68,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         launcher.launch(addIntent)
     }
 
-    // Observer 등록
+    // LiveData observe 등록
     private fun subscribeUi() {
         mainViewModel.currentPageType.observe(this) {
             changeFragment(it)
@@ -99,16 +99,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     // PageType에 맞는 Fragment 반환
     private fun getFragment(pageType: PageType): Fragment? {
-        return when (pageType.tag) {
-            "month" -> {
-                return MonthFragment.newInstance(pageType.title)
-            }
-            "week" -> {
-                return WeekFragment.newInstance(pageType.title)
-            }
-            else -> {
-                null
-            }
+        return when(pageType) {
+            PageType.PAGE1 -> MonthFragment.newInstance()
+            PageType.PAGE2 -> WeekFragment.newInstance()
         }
     }
 }

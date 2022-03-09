@@ -19,12 +19,14 @@ abstract class AppDatabase: RoomDatabase() {
     companion object {
         private var instance: AppDatabase? = null
 
+        // RoobDatabase 객체 획득
         fun getInstance(context: Context): AppDatabase {
             return instance ?: synchronized(this) {
                 instance ?: buildDatabase(context).also { instance = it }
             }
         }
 
+        // RoomDatabase 생성
         private fun buildDatabase(context: Context): AppDatabase {
             return Room.databaseBuilder(context, AppDatabase::class.java, "account_database")
                 .addCallback(object : RoomDatabase.Callback() {
@@ -54,7 +56,7 @@ abstract class AppDatabase: RoomDatabase() {
 //            return instance!!
 //        }
 //
-        // 타입 테이블 추가하는 메소드
+        // TypeEntity 추가하는 메소드
         private fun fillInDb(context: Context) {
             ioThread {
                 getInstance(context).typeDAO().insertTypes(

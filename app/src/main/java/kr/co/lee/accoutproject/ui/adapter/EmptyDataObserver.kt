@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
+// MonthRecyclerAdapter용 데이터 검사
 class EmptyDataObserver(rv: RecyclerView?, tv: TextView?) : RecyclerView.AdapterDataObserver() {
     // 데이터가 없을 경우 보여줄 View
     private var emptyView: TextView? = null

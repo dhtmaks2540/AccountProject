@@ -15,6 +15,7 @@ import java.io.Serializable
         ForeignKey(entity = TypeEntity::class, parentColumns = ["type_set_id"], childColumns = ["type_id"], onDelete = CASCADE)
     ]
 )
+// 하나의 계좌 정보
 data class AccountEntity(
     @PrimaryKey(autoGenerate = true) val accountId: Int = 0,
     val year: Int,

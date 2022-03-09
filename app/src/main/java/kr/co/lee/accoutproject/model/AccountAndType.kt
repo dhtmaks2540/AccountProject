@@ -5,6 +5,7 @@ import kr.co.lee.accoutproject.model.AccountEntity
 import kr.co.lee.accoutproject.model.TypeEntity
 import java.io.Serializable
 
+// AccountEntity + TypeEntity
 data class AccountAndType(
     @Embedded
     val account: AccountEntity,

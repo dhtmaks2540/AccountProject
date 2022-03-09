@@ -9,6 +9,7 @@ import kr.co.lee.accoutproject.ui.receipt.ReceiptActivity
 import kr.co.lee.accoutproject.model.AccountAndType
 import kr.co.lee.accoutproject.databinding.ItemAccountBinding
 
+// MonthFragment RecyclerViewAdapter
 class MonthRecyclerAdapter(
     private val launcher: ActivityResultLauncher<Intent>
 ): RecyclerView.Adapter<MonthRecyclerAdapter.ViewHolder>() {
@@ -28,6 +29,7 @@ class MonthRecyclerAdapter(
             }
         }
 
+        // 아이템 초기화 메소드
         fun bindTo(item: AccountAndType?) {
             binding.apply {
                 accountAndType = item
@@ -36,6 +38,7 @@ class MonthRecyclerAdapter(
         }
     }
 
+    // 아이템 추가 메소드
     fun add(list: ArrayList<AccountAndType>?) {
         accountList = list
         notifyDataSetChanged()

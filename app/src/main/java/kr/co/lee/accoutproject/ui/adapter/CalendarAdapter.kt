@@ -17,7 +17,7 @@ import org.joda.time.LocalDate
 import java.util.*
 import kotlin.collections.ArrayList
 
-// ArrayAdapter
+// ArrayAdapter(CustomCalendarView의 GridView 어댑터
 class CalendarAdapter constructor(
     context: Context,
     val days: ArrayList<LocalDate>,
@@ -28,6 +28,7 @@ class CalendarAdapter constructor(
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var redColor = ResourcesCompat.getColor(context.resources, R.color.money_red, null)
 
+    // View 설정
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
         var convertView = view
 

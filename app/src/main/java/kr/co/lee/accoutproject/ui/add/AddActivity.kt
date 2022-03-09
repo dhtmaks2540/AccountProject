@@ -78,6 +78,7 @@ class AddActivity : BaseActivity<ActivityAddBinding>(R.layout.activity_add) {
         getIntentData()
     }
 
+    // 취소 버튼
     private fun cancelClick() {
         finish()
     }

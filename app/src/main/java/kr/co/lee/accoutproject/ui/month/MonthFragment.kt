@@ -104,10 +104,6 @@ class MonthFragment: BaseFragment<FragmentMonthBinding>(R.layout.fragment_month)
     }
     
     companion object {
-        fun newInstance(title: String) = MonthFragment().apply{
-            arguments = Bundle().apply {
-                putString("title", title)
-            }
-        }
+        fun newInstance() = MonthFragment()
     }
 }

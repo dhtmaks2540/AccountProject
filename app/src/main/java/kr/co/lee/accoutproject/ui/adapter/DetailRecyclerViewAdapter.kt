@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kr.co.lee.accoutproject.model.TypeEntity
 import kr.co.lee.accoutproject.databinding.ItemTypeBinding
 
+// DetailActivity RecyclerViewAdapter
 class DetailRecyclerViewAdapter(private val typeList: List<TypeEntity>, val context: Context)
     : RecyclerView.Adapter<DetailRecyclerViewAdapter.DetailItemViewHolder>() {
     private val entityClickListener = context as OnEntityClickListener

@@ -5,17 +5,18 @@ import androidx.room.Insert
 import androidx.room.Query
 import kr.co.lee.accoutproject.model.TypeEntity
 
+// TypeEntity DAO
 @Dao
 interface TypeDAO {
-    // 모든 타입 추가
+    // TypeEntities INSERT
     @Insert
     fun insertTypes(typeList: List<TypeEntity>)
 
-    // 타입 하나 추가
+    // TypeEntity INSERT
     @Insert
     fun insertTypes(type: TypeEntity)
 
-    // 타입 획득
+    // TypeEntity SELECT
     @Query("SELECT * FROM types WHERE type_form = (:typeForm)")
     fun getTypes(typeForm: Int): List<TypeEntity>
 }

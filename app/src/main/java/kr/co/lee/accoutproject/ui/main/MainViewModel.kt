@@ -1,5 +1,6 @@
 package kr.co.lee.accoutproject.ui.main
 
+import android.view.MenuItem
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -50,16 +51,19 @@ class MainViewModel @Inject constructor(
     val date: LiveData<LocalDate>
         get() = _date
 
+    // Date 지정
     fun setDate(dateTime: LocalDate) {
         _date.value = dateTime
     }
 
+    // Account 정보 불러오기
     fun setAccount() {
         ioThread {
             _accounts.postValue(repository.getAccounts(date.value!!.year, date.value!!.monthOfYear))
         }
     }
 
+    // 달 단위 Account 정보 불러오기
     fun setDateAccounts() {
         val dateHashMap = TreeMap<LocalDate, ArrayList<AccountAndType>?>()
 
@@ -81,6 +85,7 @@ class MainViewModel @Inject constructor(
         _depositMoney.postValue(accounts.value?.filter { it.type.typeForm == 0 }?.sumOf { it.account.money })
     }
 
+    // 주 단위 Account 정보 불러오기
     fun setWeeksAccounts() {
         val firstDay = date.value?.dayOfMonth()?.withMinimumValue()!!
         val lastDay = date.value?.dayOfMonth()?.withMaximumValue()!!
@@ -120,7 +125,9 @@ class MainViewModel @Inject constructor(
         _weekAccounts.postValue(weekAccounts)
     }
 
-    fun setCurrentPage(menuItemId: Int): Boolean {
+    // MenuItem에 따른 PageType 변경
+    fun setCurrentPage(menuItem: MenuItem): Boolean {
+        val menuItemId = menuItem.itemId
         val pageType = getPageType(menuItemId)
         changeCurrentPage(pageType)
 
@@ -136,7 +143,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    // 값 변경
+    // 현재 LiveData에 저장된 PageType과 비교하여 다르면 변경
     private fun changeCurrentPage(pageType: PageType) {
         if(currentPageType.value == pageType) return
 

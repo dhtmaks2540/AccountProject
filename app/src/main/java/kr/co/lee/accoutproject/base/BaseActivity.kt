@@ -1,11 +1,13 @@
 package kr.co.lee.accoutproject.base
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 
+// BaseActivity
 abstract class BaseActivity<T: ViewDataBinding>(@LayoutRes val layoutRes: Int): AppCompatActivity() {
     protected lateinit var binding: T
 
@@ -18,4 +20,7 @@ abstract class BaseActivity<T: ViewDataBinding>(@LayoutRes val layoutRes: Int): 
         binding.lifecycleOwner = this@BaseActivity
     }
 
+    fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
 }
